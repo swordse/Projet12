@@ -11,7 +11,7 @@ import FirebaseFirestore
 
 class AnecdoteViewModel {
     
-    let network = NetworkAnecdotes()
+    let network = AnecdoteService()
     
     var delegate: AnecdoteDetailDelegate!
     
@@ -23,6 +23,7 @@ class AnecdoteViewModel {
     
     var anecdotesToDisplay: ((Result<[Anecdote], NetworkError>) -> Void)?
     
+    var anecdotes = [Anecdote]()
     var numberOfFavorites: ((Int) -> Void)?
     
     init(delegate: AnecdoteDetailDelegate) {
@@ -30,59 +31,81 @@ class AnecdoteViewModel {
     }
     // if there are more anecdotes, lastSnapshot isn't nil
     func getNewAnecdotes() {
-        guard let lastSnapshot = lastSnapshot else {
-            return
-        }
-
-        network.getAnecdotes(lastSnapshot: lastSnapshot) { result, lastSnapshot in
+        
+        network.getNewAnecdotes(dataRequest: DataRequest.anecdotes.rawValue) { result in
             switch result {
-            case.success(let result):
-                self.resultToAnecdote(result: result)
             case.failure(let error):
                 self.anecdotesToDisplay?(.failure(error))
+                print("ERREUR getnewanecdote anecdoteviewmodel")
+            case.success(let fetchedAnecdotes):
+                self.anecdotes.append(contentsOf: fetchedAnecdotes)
+                self.anecdotesToDisplay?(.success(self.anecdotes))
+                print("nombre d'anecdote dans anecdotes\(self.anecdotes)")
             }
-            self.lastSnapshot = lastSnapshot
         }
+//        guard let lastSnapshot = lastSnapshot else {
+//            return
+//        }
+//
+//        network.getAnecdotes(lastSnapshot: lastSnapshot) { result, lastSnapshot in
+//            switch result {
+//            case.success(let result):
+//                self.resultToAnecdote(result: result)
+//            case.failure(let error):
+//                self.anecdotesToDisplay?(.failure(error))
+//            }
+//            self.lastSnapshot = lastSnapshot
+//        }
     }
     
     func getAnecdotes() {
         
-        network.getAnecdotes(lastSnapshot: nil) { result, lastSnapshot in
+        network.getAnecdotes(dataRequest: DataRequest.anecdotes.rawValue) { result in
             switch result {
-            case.success(let result):
-                self.resultToAnecdote(result: result)
             case.failure(let error):
                 self.anecdotesToDisplay?(.failure(error))
-                print("erreur lors de l'appel des anecdotes \(result)")
+            case.success(let fetchedAnecdotes):
+                self.anecdotes.append(contentsOf: fetchedAnecdotes)
+                self.anecdotesToDisplay?(.success(self.anecdotes))
             }
-            self.lastSnapshot = lastSnapshot
         }
+        
+//        network.getAnecdotes(lastSnapshot: nil) { result, lastSnapshot in
+//            switch result {
+//            case.success(let result):
+//                self.resultToAnecdote(result: result)
+//            case.failure(let error):
+//                self.anecdotesToDisplay?(.failure(error))
+//                print("erreur lors de l'appel des anecdotes \(result)")
+//            }
+//            self.lastSnapshot = lastSnapshot
+//        }
     }
     
-    func resultToAnecdote(result: [[String : Any]]) {
-        
-        let formatter = DateFormatter()
-        formatter.dateFormat = "dd/MM/yy"
-        
-        let resultAnecdotes: [Anecdote] = result.map { item in
-            
-            let categorie = getCategory(item: item)
-
-            return Anecdote(id: item["id"] as! String,
-                            categorie:  categorie,
-                            title: item["title"] as! String,
-                            text: item["text"] as! String,
-                            source: (item["source"] as? String) ?? nil,
-                            date: formatter.string(from:item["Date"] as! Date),
-                            isFavorite: false)
-        }
-        resultMapped.append(contentsOf: resultAnecdotes)
-        anecdotesToDisplay?(.success(resultMapped))
-    }
+//    func resultToAnecdote(result: [[String : Any]]) {
+//
+//        let formatter = DateFormatter()
+//        formatter.dateFormat = "dd/MM/yy"
+//
+//        let resultAnecdotes: [Anecdote] = result.map { item in
+//
+//            let categorie = getCategory(item: item)
+//
+//            return Anecdote(id: item["id"] as! String,
+//                            categorie:  categorie,
+//                            title: item["title"] as! String,
+//                            text: item["text"] as! String,
+//                            source: (item["source"] as? String) ?? nil,
+//                            date: formatter.string(from:item["Date"] as! Date),
+//                            isFavorite: false)
+//        }
+//        resultMapped.append(contentsOf: resultAnecdotes)
+//        anecdotesToDisplay?(.success(resultMapped))
+//    }
     
-    func getCategory(item: [String: Any]) -> Category {
-        return (Category(rawValue: item["category"] as! String) ?? Category(rawValue: "Picture"))!
-    }
+//    func getCategory(item: [String: Any]) -> Category {
+//        return (Category(rawValue: item["category"] as! String) ?? Category(rawValue: "Picture"))!
+//    }
     
     func getFavNumber() {
         let numberOfFavorite = UserDefaultManager.retrieveFavCount()

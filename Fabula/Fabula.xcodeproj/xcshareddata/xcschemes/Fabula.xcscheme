@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "47908D342768FE0B00B2C760"
-               BuildableName = "TableViewTest.app"
+               BuildableName = "Fabula.app"
                BlueprintName = "Fabula"
                ReferencedContainer = "container:Fabula.xcodeproj">
             </BuildableReference>
@@ -45,7 +45,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "47908D342768FE0B00B2C760"
-            BuildableName = "TableViewTest.app"
+            BuildableName = "Fabula.app"
             BlueprintName = "Fabula"
             ReferencedContainer = "container:Fabula.xcodeproj">
          </BuildableReference>
@@ -62,7 +62,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "47908D342768FE0B00B2C760"
-            BuildableName = "TableViewTest.app"
+            BuildableName = "Fabula.app"
             BlueprintName = "Fabula"
             ReferencedContainer = "container:Fabula.xcodeproj">
          </BuildableReference>

@@ -8,6 +8,8 @@
 import Foundation
 
 enum DataRequest: String {
+    case anecdotes = "anecdotes"
+    case comments = "comments"
     case words = "words"
     case citations = "citations"
 }

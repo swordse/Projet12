@@ -8,12 +8,6 @@
 import Foundation
 import FirebaseFirestore
 
-protocol FireSession {
-    
-    func getDocuments(dataRequest: String, callback: @escaping ([[String: Any]]?, NetworkError?) -> Void)
-    
-    func getNewDocuments(dataRequest: String, callback: @escaping ([[String: Any]]?, NetworkError?) -> Void)
-}
 
 class WordSession: FireSession {
     
@@ -23,14 +17,12 @@ class WordSession: FireSession {
     
     func getDocuments(dataRequest: String, callback: @escaping ([[String: Any]]?, NetworkError?) -> Void) {
         
-       
        let docRef = dataBase.collection(dataRequest).order(by: "date", descending: true).limit(to: 5)
         
         
         docRef.getDocuments { snapshot, error in
             guard let data = snapshot?.documents, error == nil else {
                 callback(nil, NetworkError.errorOccured)
-//                callback(.failure(NetworkError.errorOccured))
                 return
             }
             
@@ -57,12 +49,11 @@ class WordSession: FireSession {
             return
         }
         
-        let docRef = dataBase.collection("words").order(by: "date", descending: true).limit(to: 5).start(afterDocument: lastSnapshot)
+        let docRef = dataBase.collection(dataRequest).order(by: "date", descending: true).limit(to: 5).start(afterDocument: lastSnapshot)
         
         docRef.getDocuments { snapshot, error in
             guard let data = snapshot?.documents, error == nil else {
                 callback(nil, NetworkError.errorOccured)
-//                callback(.failure(NetworkError.errorOccured))
                 return
             }
             
