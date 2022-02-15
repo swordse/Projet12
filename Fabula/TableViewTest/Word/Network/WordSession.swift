@@ -9,7 +9,7 @@ import Foundation
 import FirebaseFirestore
 
 
-class WordSession: FireSession {
+class WordSession: FireStoreSession {
     
     var lastSnapshot: QueryDocumentSnapshot?
     

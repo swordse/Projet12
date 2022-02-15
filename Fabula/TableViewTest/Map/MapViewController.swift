@@ -10,7 +10,7 @@ import MapKit
 
 class MapViewController: UIViewController, StoryBoarded, CLLocationManagerDelegate {
     
-    let userAccount = UserAccount()
+    let userAccount = UserAccountController()
     
     var coordinator: MapCoordinator?
     

@@ -56,6 +56,8 @@ class QuoteViewController: UIViewController, StoryBoarded {
                     print("error occured")
                 case.noConnection:
                     print("no connection")
+                default:
+                    print("Unrecognized error")
                 }
             }
             }

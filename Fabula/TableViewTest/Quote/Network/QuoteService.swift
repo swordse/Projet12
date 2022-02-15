@@ -10,9 +10,9 @@ import Foundation
 
 class QuoteService {
     
-    let session: FireSession
+    let session: FireStoreSession
     
-    init(session: FireSession = QuoteSession()){
+    init(session: FireStoreSession = DataSession()){
         self.session = session
     }
     

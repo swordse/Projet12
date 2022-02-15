@@ -12,7 +12,8 @@ import Firebase
 
 class DetailAnecdoteViewModel {
     
-    let network = NetworkAnecdotes()
+    let network = AnecdoteService()
+//    NetworkAnecdotes()
     var resultMapped = [Comment]()
     var favorites = [Anecdote]()
 
@@ -31,7 +32,7 @@ class DetailAnecdoteViewModel {
     }
     
     func save(comment: String, anecdoteId: String) {
-        guard let user = UserDefaultManager.retrieveUser() else {
+        guard let user = UserDefaultsManager().retrieveUser() else {
             return
         }
 
@@ -57,26 +58,27 @@ class DetailAnecdoteViewModel {
     }
     
     func getComments(id: String) {
-        network.readComments(anecdoteId: id) { result in
+        network.getComments(anecdoteId: id) { result in
             switch result {
             case.failure:
                 print("error")
             case.success(let result):
-                self.resultToComments(result: result)
+//                self.resultToComments(result: result)
+                self.comments?(result)
             }
         }
     }
     
-    func resultToComments(result: [[String: Any]]) {
-       
-        resultMapped = result.map({ item in
-            return Comment(anecdoteId: item["anecdoteId"] as! String, commentText: item["commentText"] as! String, date: ((item["date"] as? Date)) ?? Date(), userName: item["userName"] as! String, userId: item["userId"] as! String)
-        })
-       
-        let orderedResult = resultMapped.sorted { $0.date < $1.date }
-        
-        comments?(orderedResult)
-    }
+//    func resultToComments(result: [[String: Any]]) {
+//       
+//        resultMapped = result.map({ item in
+//            return Comment(anecdoteId: item["anecdoteId"] as! String, commentText: item["commentText"] as! String, date: ((item["date"] as? Date)) ?? Date(), userName: item["userName"] as! String, userId: item["userId"] as! String)
+//        })
+//       
+//        let orderedResult = resultMapped.sorted { $0.date < $1.date }
+//        
+//        comments?(orderedResult)
+//    }
     
     func getFavorite() {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
@@ -127,9 +129,9 @@ class DetailAnecdoteViewModel {
         coreDataManager?.createFavorite(anecdote: anecdote)
        
         // update the favorite count (retrieve the actual count and add 1)
-        let favoriteCount = UserDefaultManager.retrieveFavCount()
+        let favoriteCount = UserDefaultsManager().retrieveFavCount()
         print("FV COUNT: \(favoriteCount)")
-        UserDefaultManager.saveFavorite(number: favoriteCount + 1)
+        UserDefaultsManager().saveFavorite(number: favoriteCount + 1)
         
         favCount?(favoriteCount + 1)
     }
@@ -143,10 +145,10 @@ class DetailAnecdoteViewModel {
         coreDataManager?.deleteFavorite(anecdote: anecdote)
         
         // update the favorite count (retrieve the actual count and substract 1)
-        let favoriteCount = UserDefaultManager.retrieveFavCount()
+        let favoriteCount = UserDefaultsManager().retrieveFavCount()
         print("FV COUNT: \(favoriteCount)")
         if favoriteCount > 0 {
-        UserDefaultManager.saveFavorite(number: favoriteCount - 1)
+        UserDefaultsManager().saveFavorite(number: favoriteCount - 1)
             favCount?(favoriteCount - 1)
         }
         

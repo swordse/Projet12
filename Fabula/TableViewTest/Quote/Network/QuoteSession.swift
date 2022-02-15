@@ -13,7 +13,7 @@ import FirebaseFirestore
 //    func getDocuments(callback: @escaping (QuerySnapshot?, Error?) -> Void)
 //}
 
-class QuoteSession: FireSession {
+class QuoteSession: FireStoreSession {
     
     var lastSnapshot: QueryDocumentSnapshot?
     
@@ -21,7 +21,7 @@ class QuoteSession: FireSession {
     
     func getDocuments(dataRequest: String, callback: @escaping ([[String: Any]]?, NetworkError?) -> Void) {
         
-        let docRef = dataBase.collection("citations").order(by: "date", descending: true).limit(to: 5)
+        let docRef = dataBase.collection(dataRequest).order(by: "date", descending: true).limit(to: 5)
         
 //        if lastSnapshot == nil {
 //            docRef = dataBase.collection("citations").order(by: "date", descending: true).limit(to: 5)

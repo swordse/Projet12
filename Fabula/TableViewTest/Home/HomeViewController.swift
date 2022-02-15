@@ -9,7 +9,7 @@ import UIKit
 
 class HomeViewController: UIViewController, StoryBoarded {
     
-    let userAccount = UserAccount()
+    let userAccount = UserAccountController()
     
     var coordinator: HomeCoordinator?
     
@@ -44,15 +44,26 @@ class HomeViewController: UIViewController, StoryBoarded {
         getSelectedIndex()
         
         // get the user connexion status
-        Fire.getUserInfo { user in
+        AuthService().getCurrentUser { user in
             guard let user = user else {
                 // user is not connected
-                UserDefaultManager.userIsConnected(false)
+                UserDefaultsManager().userIsConnected(false)
                 return
             }
-            UserDefaultManager.userIsConnected(true)
-            UserDefaultManager.saveUser(userName: user.userName, userId: user.userId, userEmail: user.userEmail)
+            UserDefaultsManager().userIsConnected(true)
+            UserDefaultsManager().saveUser(userName: user.userName, userId: user.userId, userEmail: user.userEmail)
         }
+
+        
+//        FireAuth.getUserInfo { user in
+//            guard let user = user else {
+//                // user is not connected
+//                UserDefaultsManager().userIsConnected(false)
+//                return
+//            }
+//            UserDefaultsManager().userIsConnected(true)
+//            UserDefaultsManager().saveUser(userName: user.userName, userId: user.userId, userEmail: user.userEmail)
+//        }
     }
     
     override func viewDidLayoutSubviews() {

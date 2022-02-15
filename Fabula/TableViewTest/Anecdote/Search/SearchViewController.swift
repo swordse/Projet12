@@ -22,6 +22,9 @@ class SearchViewController: UIViewController, StoryBoarded, UISearchBarDelegate 
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        resultTableView.register(CommonAnecdoteTableViewCell.nib(), forCellReuseIdentifier: CommonAnecdoteTableViewCell.identifier)
+        
         navigationItem.searchController = searchController
 //        searchController.searchResultsUpdater = self
         searchController.searchBar.delegate = self
@@ -32,8 +35,7 @@ class SearchViewController: UIViewController, StoryBoarded, UISearchBarDelegate 
         resultTableView.delegate = datasource
         
         bind()
-        
-        searchViewModel?.getAnecdotes()
+        searchViewModel?.getAllAnecdotes()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -65,7 +67,9 @@ class SearchViewController: UIViewController, StoryBoarded, UISearchBarDelegate 
             DispatchQueue.main.async {
                 switch result {
                 case.success(let anecdotes):
-                    self?.anecdotes = anecdotes
+                    print("all anecdotes fetched")
+//                    self?.anecdotes = anecdotes
+//                    self?.datasource.updateItems(items: anecdotes)
                 case.failure(_):
                     print("Erreur lors de la recherche")
 //                    CustomAlert().showAlert(with: "Malheureusement une erreur est survenue.", message: "Veuillez vérifier votre connexion à internet.", on: self!)
@@ -78,6 +82,7 @@ class SearchViewController: UIViewController, StoryBoarded, UISearchBarDelegate 
             self?.datasource.updateItems(items: result)
             self?.resultTableView.reloadData()
         }
+        
         datasource.selectedRow = searchViewModel?.selectedRow
     }
     

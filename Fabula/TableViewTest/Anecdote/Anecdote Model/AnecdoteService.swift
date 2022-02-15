@@ -10,9 +10,9 @@ import Foundation
 
 class AnecdoteService {
     
-    let session: FireSession
+    let session: FireStoreSession
     
-    init(session: FireSession = AnecdoteSession()){
+    init(session: FireStoreSession = DataSession()){
         self.session = session
     }
     
@@ -44,6 +44,21 @@ class AnecdoteService {
         }
     }
     
+    func getAllAnecdotes(dataRequest: String, callback: @escaping ((Result<[Anecdote], NetworkError>) -> Void)) {
+        
+//        var anecdotes = [Anecdote]()
+        
+        session.getAllDocuments(dataRequest: dataRequest) { result, error in
+            if error != nil {
+                callback(.failure(NetworkError.errorOccured))
+            }
+            if result != nil {
+                let anecdotes = self.resultToAnecdote(result: result!)
+                callback(.success(anecdotes))
+            }
+        }
+    }
+    
     func resultToAnecdote(result: [[String : Any]]) -> [Anecdote] {
         
         let formatter = DateFormatter()
@@ -51,6 +66,7 @@ class AnecdoteService {
         
         let resultAnecdotes: [Anecdote] = result.map { item in
             
+            print("****DATE*** = \(String(describing: item["Date"]))")
             let categorie = getCategory(item: item)
 
             return Anecdote(id: item["id"] as! String,

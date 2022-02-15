@@ -10,16 +10,21 @@ import FirebaseFirestore
 
 class SearchViewModel {
     
-    var network = NetworkAnecdotes()
+    var searchService = AnecdoteService()
+//    NetworkAnecdotes()
     
-    var resultMapped = [Anecdote]()
+    var anecdotes = [Anecdote]()
     var searchResult = [Anecdote]()
-    var lastSnapshot: QueryDocumentSnapshot?
+//    var lastSnapshot: QueryDocumentSnapshot?
     
     var delegate: AnecdoteDetailDelegate!
     
+    init(searchService: AnecdoteService = AnecdoteService()) {
+        self.searchService = searchService
+    }
+    
     // -MARK: Output
-    var fetchAnecdotes: ((Result<[Anecdote], Error>) -> Void)?
+    var fetchAnecdotes: ((Result<[Anecdote], NetworkError>) -> Void)?
     
     var resultAnecdotes: (([Anecdote]) -> Void)?
     
@@ -27,17 +32,27 @@ class SearchViewModel {
         self.delegate = delegate
     }
     
-    func getAnecdotes() {
+    func getAllAnecdotes() {
         
-        network.getAnecdotes(lastSnapshot: lastSnapshot) { result, lastSnapshot in
+        searchService.getAnecdotes(dataRequest: DataRequest.anecdotes.rawValue) { result in
             switch result {
-            case.success(let result):
-                self.resultToAnecdote(result: result)
-            case.failure:
-                self.fetchAnecdotes?(.failure(result as! Error))
+            case.success(let anecdotes):
+                self.anecdotes = anecdotes
+//                self.fetchAnecdotes?(.success(anecdotes))
+            case.failure(let error):
+//                self.anecdotes = [Anecdote]()
+                self.fetchAnecdotes?(.failure(error))
             }
-            self.lastSnapshot = lastSnapshot
         }
+//        network.getAnecdotes(lastSnapshot: lastSnapshot) { result, lastSnapshot in
+//            switch result {
+//            case.success(let result):
+//                self.resultToAnecdote(result: result)
+//            case.failure:
+//                self.fetchAnecdotes?(.failure(result as! Error))
+//            }
+//            self.lastSnapshot = lastSnapshot
+//        }
     }
     
     // firebase don't support text search
@@ -54,34 +69,34 @@ class SearchViewModel {
 //        }
 //    }
     
-    func resultToAnecdote(result: [[String: Any]]) {
-        resultMapped = result.map { item in
-            
-            let categorie = getCategory(item: item)
-            
-            let formatter = DateFormatter()
-            formatter.dateFormat = "dd/MM/yy"
-
-            return Anecdote(id: item["id"] as! String,
-                            categorie:  categorie,
-                            title: item["title"] as! String,
-                            text: item["text"] as! String,
-                            source: (item["source"] as? String) ?? nil,
-                            date: formatter.string(from:item["Date"] as! Date),
-                            isFavorite: false)
-        }
-        fetchAnecdotes?(.success(resultMapped))
-    }
-    
-    func getCategory(item: [String: Any]) -> Category {
-        return (Category(rawValue: item["category"] as! String) ?? Category(rawValue: "Picture"))!
-    }
+//    func resultToAnecdote(result: [[String: Any]]) {
+//        anecdotes = result.map { item in
+//
+//            let categorie = getCategory(item: item)
+//
+//            let formatter = DateFormatter()
+//            formatter.dateFormat = "dd/MM/yy"
+//
+//            return Anecdote(id: item["id"] as! String,
+//                            categorie:  categorie,
+//                            title: item["title"] as! String,
+//                            text: item["text"] as! String,
+//                            source: (item["source"] as? String) ?? nil,
+//                            date: formatter.string(from:item["Date"] as! Date),
+//                            isFavorite: false)
+//        }
+//        fetchAnecdotes?(.success(anecdotes))
+//    }
+//
+//    func getCategory(item: [String: Any]) -> Category {
+//        return (Category(rawValue: item["category"] as! String) ?? Category(rawValue: "Picture"))!
+//    }
     
     func searchInAnecdote(words: [String]) {
-        
+        print("SearchInAnecdote called")
         var result = [Anecdote]()
         
-        for anecdote in resultMapped {
+        for anecdote in anecdotes {
             for word in words {
                 if anecdote.text.lowercased().contains(word.lowercased()) {
                     if !result.contains(where: { result in
@@ -95,6 +110,7 @@ class SearchViewModel {
         }
         searchResult = result
         resultAnecdotes?(result)
+//        fetchAnecdotes?(.success(result))
     }
     
     

@@ -19,12 +19,13 @@ class WordViewController: UIViewController, StoryBoarded {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        title = "Mot du jour"
+//        title = "Mot du jour"
+//        wordTableview.register(WordTableViewCell.nib(), forCellReuseIdentifier: WordTableViewCell.identifier)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        title = "Mot du jour"
+        title = "Mot du jour"
         wordTableview.register(WordTableViewCell.nib(), forCellReuseIdentifier: WordTableViewCell.identifier)
         wordTableview.dataSource = datasource
         wordTableview.delegate = datasource

@@ -12,4 +12,5 @@ enum DataRequest: String {
     case comments = "comments"
     case words = "words"
     case citations = "citations"
+    case user = "users"
 }

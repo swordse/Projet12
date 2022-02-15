@@ -13,8 +13,8 @@ class NetworkAnecdotes {
     let database = Firestore.firestore()
     
     //MARK: - USERINFO
-    func getUserInfo(userId: String, callback: @escaping (Result<User, Error>) -> Void ) {
-        let docRef = database.collection("users").whereField("userId", isEqualTo: userId)
+    func getUserInfo(userId: String, callback: @escaping (Result<FabulaUser, Error>) -> Void ) {
+        let docRef = database.collection(DataRequest.user.rawValue).whereField("userId", isEqualTo: userId)
         
         docRef.getDocuments { snapshot, error in
             guard let data = snapshot?.documents
@@ -24,7 +24,7 @@ class NetworkAnecdotes {
                     }
             
             let dictionary = data[0].data()
-            let user = User(userName: dictionary["userName"] as! String, userId: dictionary["userId"] as! String, userEmail: dictionary["userEmail"] as! String)
+            let user = FabulaUser(userName: dictionary["userName"] as! String, userId: dictionary["userId"] as! String, userEmail: dictionary["userEmail"] as! String)
             
             callback(.success(user))
         }

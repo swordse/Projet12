@@ -7,13 +7,13 @@
 
 import Foundation
 
-struct User: Equatable {
+struct FabulaUser: Equatable {
     
     var userName: String
     var userId: String
     var userEmail: String
     
-    static func == (lhs: User, rhs: User) -> Bool {
+    static func == (lhs: FabulaUser, rhs: FabulaUser) -> Bool {
         return lhs.userName == rhs.userName &&
         lhs.userId == rhs.userId &&
         lhs.userEmail == rhs.userEmail

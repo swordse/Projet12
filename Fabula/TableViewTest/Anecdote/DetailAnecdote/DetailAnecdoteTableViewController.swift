@@ -10,7 +10,7 @@ import UIKit
 class DetailAnecdoteTableViewController: UITableViewController, StoryBoarded {
     
     // instance for the accountView
-    let userAccount = UserAccount()
+    let userAccount = UserAccountController()
     // instance for the commentView
     let commentForm = CommentForm()
     
@@ -47,7 +47,7 @@ class DetailAnecdoteTableViewController: UITableViewController, StoryBoarded {
             return
         }
         // inform datasource about the user state
-        datasource.updateIsConnected(isConnected: UserDefaultManager.retrieveUserConnexion())
+        datasource.updateIsConnected(isConnected: UserDefaultsManager().retrieveUserConnexion())
         
         detailAnecdoteViewModel?.getComments(id: anecdote.id)
         

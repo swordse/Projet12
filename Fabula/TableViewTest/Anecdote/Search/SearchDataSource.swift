@@ -28,11 +28,11 @@ extension SearchDataSource: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? AnecdoteTableViewCell else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: CommonAnecdoteTableViewCell.identifier, for: indexPath) as? CommonAnecdoteTableViewCell else {
             return UITableViewCell()
         }
         let anecdote = items[indexPath.row]
-        cell.anecdote = anecdote
+        cell.setCell(anecdote: anecdote, isFavorite: false, isDetail: false, dateIsHidden: false, heartIsHidden: true, chevronIsHidden: false)
         cell.setFade()
         
         return cell

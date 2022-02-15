@@ -9,7 +9,7 @@ import UIKit
 
 class AnecdoteViewController: UIViewController, StoryBoarded {
     
-    let userAccount = UserAccount()
+    let userAccount = UserAccountController()
     
     var coordinator: AnecdoteCoordinator?
     var anecdoteViewModel: AnecdoteViewModel?
@@ -135,6 +135,8 @@ class AnecdoteViewController: UIViewController, StoryBoarded {
                     case.noConnection:
                         print("alert noConnexion")
                         self?.alert()
+                    default:
+                        print("Unrecognized error")
                     }
                     print("ERROR WHEN FETCH ANECDOTES")
                     //                    self?.alert()

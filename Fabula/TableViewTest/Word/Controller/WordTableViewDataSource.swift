@@ -15,16 +15,18 @@ class WordTableViewDataSource: NSObject, UITableViewDataSource {
     var endReached: ((Bool) -> Void)?
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return words.count
+        return 0
+//        return words.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: WordTableViewCell.identifier, for: indexPath) as? WordTableViewCell else {
             return UITableViewCell()
         }
-        let word = words[indexPath.row]
-        cell.word = word
-        return cell
+//        let word = words[indexPath.row]
+//        cell.word = word
+//        return cell
+        return UITableViewCell()
         
     }
     

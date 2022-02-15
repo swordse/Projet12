@@ -11,13 +11,19 @@ import FirebaseFirestore
 
 class AnecdoteViewModel {
     
-    let network = AnecdoteService()
+//    let network = AnecdoteService()
+    
+    var anecdoteService = AnecdoteService()
     
     var delegate: AnecdoteDetailDelegate!
     
     var resultMapped = [Anecdote]()
     
     var lastSnapshot: QueryDocumentSnapshot?
+    
+    init(anecdoteService: AnecdoteService = AnecdoteService()) {
+        self.anecdoteService = anecdoteService
+    }
     
     // MARK: - OutPut
     
@@ -32,7 +38,7 @@ class AnecdoteViewModel {
     // if there are more anecdotes, lastSnapshot isn't nil
     func getNewAnecdotes() {
         
-        network.getNewAnecdotes(dataRequest: DataRequest.anecdotes.rawValue) { result in
+        anecdoteService.getNewAnecdotes(dataRequest: DataRequest.anecdotes.rawValue) { result in
             switch result {
             case.failure(let error):
                 self.anecdotesToDisplay?(.failure(error))
@@ -60,7 +66,7 @@ class AnecdoteViewModel {
     
     func getAnecdotes() {
         
-        network.getAnecdotes(dataRequest: DataRequest.anecdotes.rawValue) { result in
+        anecdoteService.getAnecdotes(dataRequest: DataRequest.anecdotes.rawValue) { result in
             switch result {
             case.failure(let error):
                 self.anecdotesToDisplay?(.failure(error))
@@ -108,7 +114,7 @@ class AnecdoteViewModel {
 //    }
     
     func getFavNumber() {
-        let numberOfFavorite = UserDefaultManager.retrieveFavCount()
+        let numberOfFavorite = UserDefaultsManager().retrieveFavCount()
         print("NUMBER OF FAV IN GETFAVNUMBER ANECDOTEVIEWMODEL: \(numberOfFavorite)")
         numberOfFavorites?(numberOfFavorite)
     }

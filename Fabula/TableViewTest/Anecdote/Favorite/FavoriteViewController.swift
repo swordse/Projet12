@@ -9,7 +9,7 @@ import UIKit
 
 class FavoriteViewController: UIViewController, StoryBoarded {
     
-    let userAccount = UserAccount()
+    let userAccount = UserAccountController()
     
     var coordinator: AnecdoteCoordinator?
     var favoriteViewModel: FavoriteViewModel?

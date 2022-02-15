@@ -78,6 +78,8 @@ class HomeQuizzViewController: UIViewController, StoryBoarded {
                         print("alert noConnection")
                         self?.alert()
                         self?.datasource.update(theme: nil)
+                    default:
+                        print("Unrecognized error")
                     }
                 case.success(let success):
                     self?.datasource.update(theme: success)
