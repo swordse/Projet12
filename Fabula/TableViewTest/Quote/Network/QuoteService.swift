@@ -26,6 +26,8 @@ class QuoteService {
                                     quotes.append(quote)
                                 }
                                 callback(.success(quotes))
+            } else {
+                callback(.failure(NetworkError.errorOccured))
             }
         }
     }
@@ -40,6 +42,8 @@ class QuoteService {
                                     quotes.append(quote)
                                 }
                                 callback(.success(quotes))
+            } else {
+                callback(.failure(NetworkError.errorOccured))
             }
         }
     }

@@ -20,7 +20,7 @@ class WordViewController: UIViewController, StoryBoarded {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
 //        title = "Mot du jour"
-//        wordTableview.register(WordTableViewCell.nib(), forCellReuseIdentifier: WordTableViewCell.identifier)
+        wordTableview.register(WordTableViewCell.nib(), forCellReuseIdentifier: WordTableViewCell.identifier)
     }
     
     override func viewDidLoad() {

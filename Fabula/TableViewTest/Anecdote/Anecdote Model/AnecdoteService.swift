@@ -16,6 +16,7 @@ class AnecdoteService {
         self.session = session
     }
     
+    
     func getAnecdotes(dataRequest: String, callback: @escaping ((Result<[Anecdote], NetworkError>) -> Void)) {
         
         var anecdotes = [Anecdote]()
@@ -46,13 +47,12 @@ class AnecdoteService {
     
     func getAllAnecdotes(dataRequest: String, callback: @escaping ((Result<[Anecdote], NetworkError>) -> Void)) {
         
-//        var anecdotes = [Anecdote]()
-        
         session.getAllDocuments(dataRequest: dataRequest) { result, error in
             if error != nil {
                 callback(.failure(NetworkError.errorOccured))
             }
             if result != nil {
+                print("RESULT FROM DATASESSION: \(result)")
                 let anecdotes = self.resultToAnecdote(result: result!)
                 callback(.success(anecdotes))
             }
@@ -68,7 +68,7 @@ class AnecdoteService {
             
             print("****DATE*** = \(String(describing: item["Date"]))")
             let categorie = getCategory(item: item)
-
+            
             return Anecdote(id: item["id"] as! String,
                             categorie:  categorie,
                             title: item["title"] as! String,
@@ -84,26 +84,32 @@ class AnecdoteService {
         return (Category(rawValue: item["category"] as! String) ?? Category(rawValue: "Picture"))!
     }
     
-    func getComments(anecdoteId: String, callback: @escaping (Result<[Comment], Error>) -> Void ) {
+    func getComments(anecdoteId: String, callback: @escaping (Result<[Comment], NetworkError>) -> Void ) {
         
         session.readComments(dataRequest: DataRequest.comments.rawValue, anecdoteId: anecdoteId) { result, error in
             if error != nil {
                 callback(.failure(NetworkError.errorOccured))
             }
             if result != nil {
-               guard let comments = result?.map({ element in
+                guard let comments = result?.map({ element in
                     Comment(anecdoteId: element["anecdoteId"] as! String, commentText: element["commentText"] as! String, date: ((element["date"] as? Date)) ?? Date(), userName: element["userName"] as! String, userId: element["userId"] as! String)
-               }) else {
-                   callback(.failure(NetworkError.errorOccured))
-                   return
-               }
-                let orderedResult = comments.sorted { $0.date < $1.date
+                }) else {
+                    callback(.failure(NetworkError.errorOccured))
+                    return
+                }
+                let orderedResult = comments.sorted { $0.date > $1.date
                 }
                 callback(.success(orderedResult))
             }
         }
-        
-        
+    }
+    
+    func save(commentToSave: [String: Any], anecdoteId: String, completion: @escaping (Bool) -> Void) {
+        session.save(commentToSave: commentToSave, anecdoteId: anecdoteId) { bool in
+            if bool {
+                completion(true)
+            }
+        }
     }
     
 }

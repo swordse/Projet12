@@ -38,5 +38,13 @@ final class FakeFireStoreSession: FireStoreSession {
     func readComments(dataRequest: String, anecdoteId: String, callback: @escaping ([[String: Any]]?, NetworkError?) -> Void) {
         callback(fakeResponse.result, fakeResponse.error)
     }
+    
+    func getCategoryQuizz(dataRequest: String, callback: @escaping ([[String : Any]]?, NetworkError?) -> Void) {
+        callback(fakeResponse.result, fakeResponse.error)
+    }
+    
+    func getQuizzs(title: String, dataRequest: String, callback: @escaping([[String : Any]]?, NetworkError?) -> Void) {
+        callback(fakeResponse.result, fakeResponse.error)
+    }
    
 }

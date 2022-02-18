@@ -46,14 +46,10 @@ class QuizzCoordinator: Coordinator {
     func pop() {
         navigationController.popViewController(animated: true)
     }
-    
 }
 
 extension QuizzCoordinator: QuizzGetTest {
     func getTest(quizzs: [Quizz]) {
         showQuizz(quizzs: quizzs)
     }
-    
-    
-    
 }

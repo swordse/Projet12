@@ -8,7 +8,7 @@
 import Foundation
 
 class UserDefaultsManager {
-   // MARK: - FAVORITE
+    // MARK: - FAVORITE
     
     var userDefaults: UserDefaults
     
@@ -28,7 +28,6 @@ class UserDefaultsManager {
         guard let favCount = UserDefaults.standard.object(forKey: "favCount") as? Int else { return 0 }
         return favCount
     }
-    
     
     //MARK: - CONNEXION STATE
     // save connexion state
@@ -50,7 +49,7 @@ class UserDefaultsManager {
     }
     
     // MARK: - USER
-   func saveUser(userName: String, userId: String, userEmail: String) {
+    func saveUser(userName: String, userId: String, userEmail: String) {
         let userInfo = ["userId": userId, "userEmail": userEmail, "userName": userName]
         UserDefaults.standard.set(userInfo, forKey: "userInfo" )
     }

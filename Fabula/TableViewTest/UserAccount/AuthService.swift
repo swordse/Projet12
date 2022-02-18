@@ -51,15 +51,6 @@ class AuthService {
                 completion(.failure(networkError))
             }
         }
-        
-//        session.signIn(email: email, password: passWord) { result in
-//            switch result {
-//            case.failure(let networkError):
-//                completion(.failure(networkError))
-//            case.success(_):
-//                completion(.success(true))
-//            }
-//        }
     }
         
         func logOut() {

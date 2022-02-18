@@ -14,7 +14,6 @@ class TestQuizzTableViewCell: UITableViewCell {
     let backView: UIView = {
         let view = UIView()
         view.backgroundColor = .lightBlue
-//        view.layer.cornerRadius = 15
         return view
     }()
     
@@ -23,7 +22,6 @@ class TestQuizzTableViewCell: UITableViewCell {
         label.textAlignment = .center
         label.textColor = .white
         label.numberOfLines = 0
-        
         return label
     }()
     
@@ -32,9 +30,6 @@ class TestQuizzTableViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         contentView.addSubview(propositionLabel)
-        
-//        backView.addSubview(propositionLabel)
-//        contentView.frame.size.height = 60
     }
     
     required init?(coder: NSCoder) {
@@ -43,7 +38,6 @@ class TestQuizzTableViewCell: UITableViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-//        contentView.frame.size.height = 60
         contentView.backgroundColor = .deepBlue
         contentView.addSubview(backView)
         backView.frame = CGRect(x: 5, y: 5, width: contentView.frame.size.width - 10, height: contentView.frame.size.height - 10)
@@ -52,16 +46,11 @@ class TestQuizzTableViewCell: UITableViewCell {
         propositionLabel.layer.cornerRadius = 15
         propositionLabel.frame = CGRect(x: 5, y: 5, width: backView.frame.size.width - 10, height: backView.frame.size.height - 10)
         propositionLabel.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0)
-        
-//        backView.frame = contentView.bounds
-//        propositionLabel.frame = CGRect(x: 5, y: 5, width: contentView.frame.size.width - 10, height: 60)
-//        propositionLabel.frame = contentView.bounds
     }
     
     func setCell(proposition: String) {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
             self.propositionLabel.text = proposition
-//            self.propositionLabel.backgroundColor = UIColor(named: "lightBlue")
         }
         
     }

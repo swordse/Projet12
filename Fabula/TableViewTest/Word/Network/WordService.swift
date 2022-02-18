@@ -23,7 +23,7 @@ class WordService {
             
             if result != nil {
                 for dictionnary in result! {
-                    let word = Word(word: dictionnary["word"] as! String, definition: dictionnary["definition"] as! String)
+                    let word = Word(word: dictionnary["word"] as! String, definition: dictionnary["definition"] as! String, qualifier: dictionnary["qualifier"] as! String, example: dictionnary["example"] as! String)
                     words.append(word)
                 }
                 callback(.success(words))
@@ -41,8 +41,7 @@ class WordService {
         
         session.getNewDocuments(dataRequest: dataRequest) { result, error in
             if result != nil {
-                for dictionnary in result! {
-                    let word = Word(word: dictionnary["word"] as! String, definition: dictionnary["definition"] as! String)
+                for dictionnary in result! {              let word = Word(word: dictionnary["word"] as! String, definition: dictionnary["definition"] as! String, qualifier: dictionnary["qualifier"] as! String, example: dictionnary["example"] as! String)
                     words.append(word)
                 }
                 callback(.success(words))

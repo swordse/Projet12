@@ -11,86 +11,32 @@ import FirebaseFirestore
 class SearchViewModel {
     
     var searchService = AnecdoteService()
-//    NetworkAnecdotes()
     
     var anecdotes = [Anecdote]()
     var searchResult = [Anecdote]()
-//    var lastSnapshot: QueryDocumentSnapshot?
     
     var delegate: AnecdoteDetailDelegate!
     
-    init(searchService: AnecdoteService = AnecdoteService()) {
+    init(searchService: AnecdoteService = AnecdoteService(), delegate: AnecdoteDetailDelegate) {
         self.searchService = searchService
-    }
-    
-    // -MARK: Output
-    var fetchAnecdotes: ((Result<[Anecdote], NetworkError>) -> Void)?
-    
-    var resultAnecdotes: (([Anecdote]) -> Void)?
-    
-    init(delegate: AnecdoteDetailDelegate) {
         self.delegate = delegate
     }
     
+    // -MARK: Output
+    var allAnecdotes: ((Result<[Anecdote], NetworkError>) -> Void)?
+    
+    var resultAnecdotes: (([Anecdote]) -> Void)?
+    
     func getAllAnecdotes() {
-        
-        searchService.getAnecdotes(dataRequest: DataRequest.anecdotes.rawValue) { result in
+        searchService.getAllAnecdotes(dataRequest: DataRequest.anecdotes.rawValue) { result in
             switch result {
             case.success(let anecdotes):
                 self.anecdotes = anecdotes
-//                self.fetchAnecdotes?(.success(anecdotes))
             case.failure(let error):
-//                self.anecdotes = [Anecdote]()
-                self.fetchAnecdotes?(.failure(error))
+                self.allAnecdotes?(.failure(error))
             }
         }
-//        network.getAnecdotes(lastSnapshot: lastSnapshot) { result, lastSnapshot in
-//            switch result {
-//            case.success(let result):
-//                self.resultToAnecdote(result: result)
-//            case.failure:
-//                self.fetchAnecdotes?(.failure(result as! Error))
-//            }
-//            self.lastSnapshot = lastSnapshot
-//        }
     }
-    
-    // firebase don't support text search
-//    func searchNetwork(searchItems: [String]) {
-//        print("SEARCHNETWORK STARTS")
-//        network.searchAnecdote(items: searchItems) { result in
-//            print("RESULT OF SEARCH: \(result)")
-//            switch result {
-//            case.success(let result):
-//                self.resultToAnecdote(result: result)
-//            case .failure(let error):
-//                self.fetchAnecdotes?(.failure(error))
-//            }
-//        }
-//    }
-    
-//    func resultToAnecdote(result: [[String: Any]]) {
-//        anecdotes = result.map { item in
-//
-//            let categorie = getCategory(item: item)
-//
-//            let formatter = DateFormatter()
-//            formatter.dateFormat = "dd/MM/yy"
-//
-//            return Anecdote(id: item["id"] as! String,
-//                            categorie:  categorie,
-//                            title: item["title"] as! String,
-//                            text: item["text"] as! String,
-//                            source: (item["source"] as? String) ?? nil,
-//                            date: formatter.string(from:item["Date"] as! Date),
-//                            isFavorite: false)
-//        }
-//        fetchAnecdotes?(.success(anecdotes))
-//    }
-//
-//    func getCategory(item: [String: Any]) -> Category {
-//        return (Category(rawValue: item["category"] as! String) ?? Category(rawValue: "Picture"))!
-//    }
     
     func searchInAnecdote(words: [String]) {
         print("SearchInAnecdote called")
@@ -106,19 +52,15 @@ class SearchViewModel {
                     }
                 }
             }
-        
         }
         searchResult = result
         resultAnecdotes?(result)
-//        fetchAnecdotes?(.success(result))
     }
     
     
     func selectedRow(int: Int) {
         let selectedAnecdote = searchResult[int]
         delegate.getDetail(anecdote: selectedAnecdote, commentIsTapped: false, isFavoriteNavigation: false)
-        
-//        self.anecdoteTextToShare?(selectedAnecdote.text)
     }
     
 }

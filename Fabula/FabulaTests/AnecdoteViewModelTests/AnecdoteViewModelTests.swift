@@ -11,7 +11,7 @@ import Foundation
 
 class AnecdoteViewModelTests: XCTestCase {
     
-    func testViewModelGetAnecdotes_WhenErrorOccured_ThenNoAnecdoteToDisplay() {
+    func testViewModelGetAnecdotesMethod_WhenErrorOccured_ThenAnecdoteToDisplayClosureReturnError() {
         
         let session = FakeFireStoreSession(fakeResponse: FakeResponse(result: nil, error: NetworkError.errorOccured))
         
@@ -19,19 +19,27 @@ class AnecdoteViewModelTests: XCTestCase {
         
         let anecdoteViewModel = AnecdoteViewModel(anecdoteService: anecdoteService)
         
-        let expectation = XCTestExpectation(description: "Wait for queue change.")
+        let expectedResult = NetworkError.errorOccured
+        
+        let expectation = self.expectation(description: "closure return")
+        
+        anecdoteViewModel.anecdotesToDisplay = { result in
+            switch result {
+            case.success(_):
+                print("success")
+            case.failure(let networkError):
+                XCTAssertEqual(networkError, expectedResult)
+            }
+            expectation.fulfill()
+        }
         
         anecdoteViewModel.getAnecdotes()
         
-        XCTAssert(anecdoteViewModel.anecdotes.count == 0)
-        
-        XCTAssert(anecdoteViewModel.anecdotes.count == 0)
-        expectation.fulfill()
-        wait(for: [expectation], timeout: 0.01)
+        waitForExpectations(timeout: 0.1, handler: nil)
     }
     
     
-    func testViewModelGetAnecdotes_WhenAllOk_ThenWordsToDisplayShouldReturnOneWord() {
+    func testViewModelGetAnecdotesMethod_WhenAllOk_ThenAnecdoteToDisplayClosureReturnAnecdotes() {
         
         let session = FakeFireStoreSession(fakeResponse: FakeResponse(result: FakeResponseData.resultAnecdote, error: nil))
         
@@ -39,17 +47,27 @@ class AnecdoteViewModelTests: XCTestCase {
         
         let anecdoteViewModel = AnecdoteViewModel(anecdoteService: anecdoteService)
         
-        let expectation = XCTestExpectation(description: "Wait for queue change.")
+        let expectedResult = "Hello"
+        
+        let expectation = self.expectation(description: "closure return")
+        
+        anecdoteViewModel.anecdotesToDisplay = { result in
+            switch result {
+            case.success(let success):
+                XCTAssertEqual(success[0].title, expectedResult)
+            case.failure(_):
+                print("dedede")
+                
+            }
+            expectation.fulfill()
+        }
         
         anecdoteViewModel.getAnecdotes()
-    
-        XCTAssert(anecdoteViewModel.anecdotes.count == 1)
-        XCTAssert(anecdoteViewModel.anecdotes[0].text == "le texte")
-        expectation.fulfill()
-        wait(for: [expectation], timeout: 0.01)
+        
+        waitForExpectations(timeout: 1, handler: nil)
     }
     
-    func testViewModelGetNewAnecdotes_WhenErrorOccured_ThenNoAnecdoteToDisplay() {
+    func testViewModelGetNewAnecdotesMethod_WhenErrorOccured_ThenAnecdoteToDisplayClosureReturnError() {
         
         let session = FakeFireStoreSession(fakeResponse: FakeResponse(result: nil, error: NetworkError.errorOccured))
         
@@ -57,20 +75,27 @@ class AnecdoteViewModelTests: XCTestCase {
         
         let anecdoteViewModel = AnecdoteViewModel(anecdoteService: anecdoteService)
         
-        let expectation = XCTestExpectation(description: "Wait for queue change.")
+        let expectedResult = NetworkError.errorOccured
+        
+        let expectation = XCTestExpectation(description: "Closure return")
+        
+        anecdoteViewModel.anecdotesToDisplay =  {
+            result in
+            switch result {
+            case.success(_):
+                print("PAS DE SUCCES")
+            case.failure(let networkError):
+                XCTAssertEqual(networkError, expectedResult)
+            }
+            expectation.fulfill()
+        }
         
         anecdoteViewModel.getNewAnecdotes()
         
-        XCTAssert(anecdoteViewModel.anecdotes.count == 0)
-        
-        
-        XCTAssert(anecdoteViewModel.anecdotes.count == 0)
-        expectation.fulfill()
-        wait(for: [expectation], timeout: 0.01)
+        wait(for: [expectation], timeout: 0.1)
     }
     
-    
-    func testViewModelGetNewAnecdotes_WhenAllOk_ThenWordsToDisplayShouldReturnOneWord() {
+    func testViewModelGetNewAnecdotesMethod_WhenAllOk_ThenAnecdoteToDisplayClosureReturnAnecdotes() {
         
         let session = FakeFireStoreSession(fakeResponse: FakeResponse(result: FakeResponseData.resultAnecdote, error: nil))
         
@@ -78,15 +103,27 @@ class AnecdoteViewModelTests: XCTestCase {
         
         let anecdoteViewModel = AnecdoteViewModel(anecdoteService: anecdoteService)
         
-        let expectation = XCTestExpectation(description: "Wait for queue change.")
+        let expectedResult = "Hello"
+        
+        let expectation = self.expectation(description: "closure return")
+        
+        anecdoteViewModel.anecdotesToDisplay = { result in
+            switch result {
+            case.success(let success):
+                XCTAssertEqual(success[0].title, expectedResult)
+            case.failure(_):
+                print("dedede")
+            }
+            expectation.fulfill()
+        }
         
         anecdoteViewModel.getNewAnecdotes()
-    
-        XCTAssert(anecdoteViewModel.anecdotes.count == 1)
-        XCTAssert(anecdoteViewModel.anecdotes[0].text == "le texte")
-        expectation.fulfill()
-        wait(for: [expectation], timeout: 0.01)
+        
+        waitForExpectations(timeout: 0.1, handler: nil)
     }
+    
+    
+    
     
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.

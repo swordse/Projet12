@@ -8,11 +8,8 @@
 import Foundation
 import UIKit
 
-
 class QuoteTableViewDataSource: NSObject, UITableViewDataSource, UITableViewDelegate {
-    
     var quotes = [Quote]()
-    
     var endReached: ((Bool) -> Void)?
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -34,8 +31,4 @@ class QuoteTableViewDataSource: NSObject, UITableViewDataSource, UITableViewDele
             endReached?(true)
         }
     }
-    
-  
-    
-    
 }

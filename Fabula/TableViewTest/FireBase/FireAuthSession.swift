@@ -25,7 +25,7 @@ protocol FireAuthSession {
 
 
 class AuthSession: FireAuthSession {
-
+    
     /// FirebaseAuth create account. Use to create account, save user in userdefaults, save user in firebase
     /// - Parameters:
     ///   - userEmail: email
@@ -34,7 +34,6 @@ class AuthSession: FireAuthSession {
     ///   - completion: Result, Error
     func createAccount(userEmail: String, password: String, userName: String, completion: @escaping(Bool, NetworkError?) -> Void) {
         // create user in Authentification
-        
         Auth.auth().createUser(withEmail: userEmail, password: password) { result, error in
             // error during creation
             if error != nil, let error = error as NSError? {
@@ -63,21 +62,7 @@ class AuthSession: FireAuthSession {
                         print("Error when change displayName")
                     }
                 })
-                
                 completion(true, nil)
-            
-//            // retrieveUser to get the id and save the new user in firebase "users"
-//                self.getCurrentUser { user in
-//                guard let user = user else {
-//                    return
-//                }
-//                self.saveUser(userName: userName, userId: user.userId, userEmail: userEmail)
-//                // save the state in userDefaults
-//                UserDefaultsManager().userIsConnected(true)
-//                // save the new user in userDefaults
-//                UserDefaultsManager().saveUser(userName: userName, userId: user.userId, userEmail: userEmail)
-//                completion(.success(result!))
-//            }
             }
         }
     }
@@ -86,27 +71,26 @@ class AuthSession: FireAuthSession {
     func signIn(email: String, password: String, completion: @escaping (Bool, NetworkError?) -> Void) {
         
         Auth.auth().signIn(withEmail: email, password: password) { result, error in
-                if error != nil, let error = error as NSError? {
-                    if let errorCode = AuthErrorCode(rawValue: error.code) {
-                        switch errorCode {
-                        case.invalidEmail:
-                            completion(false, NetworkError.invalidEmail)
-                        case.emailAlreadyInUse:
-                            completion(false, NetworkError.emailAlreadyUsed)
-                        case.networkError:
-                            completion(false, NetworkError.noConnection)
-                        case.wrongPassword:
-                            completion(false, NetworkError.wrongPassWord)
-                        default:
-                            completion(false, NetworkError.errorOccured)
-                        }
+            if error != nil, let error = error as NSError? {
+                if let errorCode = AuthErrorCode(rawValue: error.code) {
+                    switch errorCode {
+                    case.invalidEmail:
+                        completion(false, NetworkError.invalidEmail)
+                    case.emailAlreadyInUse:
+                        completion(false, NetworkError.emailAlreadyUsed)
+                    case.networkError:
+                        completion(false, NetworkError.noConnection)
+                    case.wrongPassword:
+                        completion(false, NetworkError.wrongPassWord)
+                    default:
+                        completion(false, NetworkError.errorOccured)
                     }
-                } else {
-                    completion(true, nil)
+                }
+            } else {
+                completion(true, nil)
             }
         }
     }
-
     
     // retrieve the currentUser from FireAuthentification
     func getCurrentUser(callBack: (FabulaUser?) -> Void) {
@@ -125,43 +109,6 @@ class AuthSession: FireAuthSession {
         
         callBack(user)
     }
-    
-//    func getUserInfo (callBack: @escaping(FabulaUser?) -> Void) {
-//
-//        var user: FabulaUser?
-//
-//        getCurrentUser { currentUser in
-//            guard let currentUser = currentUser else {
-//                callBack(nil)
-//                return
-//            }
-//            let currentUserId = currentUser.uid
-//            print("currentUserId \(currentUserId)")
-//            let database = Firestore.firestore()
-//
-//            let docRef = database.collection("users").whereField("userId", isEqualTo: currentUserId)
-//
-//            docRef.getDocuments { snapshot, error in
-//                if let error = error {
-//                    print("Error getting documents: \(error)")
-//                } else {
-//                    guard let documents = snapshot?.documents, !documents.isEmpty else {
-//                        callBack(nil)
-//                        return
-//                    }
-//
-//                    guard let dictionary = snapshot?.documents[0].data() else {
-//                        callBack(nil)
-//                        return
-//                    }
-//                    user = User(userName: dictionary["userName"] as! String, userId: dictionary["userId"] as! String, userEmail: dictionary["userEmail"] as! String)
-//
-//
-//                    callBack(user)
-//                }
-//            }
-//        }
-//    }
     
     func saveUser(user: FabulaUser) {
         

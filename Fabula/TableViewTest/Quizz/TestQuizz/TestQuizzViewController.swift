@@ -8,32 +8,20 @@
 import UIKit
 
 class TestQuizzViewController: UIViewController, StoryBoarded {
-    
-    @IBOutlet weak var questionStack: UIStackView!
-    
-    @IBOutlet weak var scoreLabel: UILabel!
-    
-    @IBOutlet weak var backQuestionView: UIView!
-    
-    @IBOutlet weak var questionLabel: UILabel!
-    
-    @IBOutlet weak var activityView: UIView!
-    
-    @IBOutlet weak var tryAgainButton: UIButton!
-    
-    @IBOutlet weak var changeQuizzButton: UIButton!
 
-    
+    @IBOutlet weak var scoreLabel: UILabel!
+    @IBOutlet weak var backQuestionView: UIView!
+    @IBOutlet weak var questionLabel: UILabel!
+    @IBOutlet weak var tryAgainButton: UIButton!
+    @IBOutlet weak var changeQuizzButton: UIButton!
     
     let shape = CAShapeLayer()
     var questionText: String?
     var progressBarProgress: Float?
     var score: Int?
     
-    
     var viewmodel: TestQuizzViewModel?
     var coordinator: QuizzCoordinator?
-    
     var dataSource = TestQuizzDataSource()
     
     let answersTableView: UITableView = {
@@ -49,38 +37,21 @@ class TestQuizzViewController: UIViewController, StoryBoarded {
         return view
     }()
     
-//    let finalScoreLabel: UILabel = {
-//       let label = UILabel()
-//        label.textAlignment = .center
-//        label.textColor = .white
-//        label.font = .systemFont(ofSize: 20, weight: .semibold)
-//        return label
-//    }()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        finalScoreLabel.sizeToFit()
-//        view.addSubview(finalScoreLabel)
-//        finalScoreLabel.center = view.center
-//        finalScoreLabel.text = "10/10"
-//        view.bringSubviewToFront(finalScoreLabel)
-        
         tabBarController?.tabBar.isHidden = true
         backQuestionView.layer.cornerRadius = 15
-        
         tryAgainButton.layer.cornerRadius = 15
         tryAgainButton.isEnabled = false
         tryAgainButton.scaleMinAnim()
         changeQuizzButton.layer.cornerRadius = 15
         changeQuizzButton.isEnabled = false
         changeQuizzButton.scaleMinAnim()
-        
         answersTableView.rowHeight = 70
         answersTableView.dataSource = dataSource
         answersTableView.delegate = dataSource
         view.addSubview(answersTableView)
-        
         view.addSubview(progressView)
         progressView.setProgress(0, animated: true)
         
@@ -108,7 +79,6 @@ class TestQuizzViewController: UIViewController, StoryBoarded {
             answersTableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
             answersTableView.topAnchor.constraint(equalTo: backQuestionView.bottomAnchor, constant: 20),
             answersTableView.bottomAnchor.constraint(equalTo: progressView.topAnchor, constant: 20)])
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -132,8 +102,6 @@ class TestQuizzViewController: UIViewController, StoryBoarded {
         
         viewmodel?.isCorrect = { [weak self] bool in
             self?.dataSource.updateIsCorrect(isCorrect: bool)
-            //            self?.answersTableView.reloadData()
-            
             self?.backQuestionView.translateRightAnim(completion: {
                 bool in
                 if bool {
@@ -144,15 +112,11 @@ class TestQuizzViewController: UIViewController, StoryBoarded {
         }
         
         self.viewmodel?.question = { [weak self] question in
-            print("QUESTION LABEL \(question)")
-            //            self?.questionLabel.text = question
             self?.questionText = question
         }
         
         self.viewmodel?.propositions = { [weak self] propositions in
-            print("PROPOSITION \(propositions)")
             self?.dataSource.updatePropositions(propositions: propositions)
-            //            self?.answersTableView.reloadData()
         }
         
         self.viewmodel?.displayedScore = { [weak self] score in
@@ -161,20 +125,15 @@ class TestQuizzViewController: UIViewController, StoryBoarded {
         }
         
         self.viewmodel?.isOngoing = { [weak self] bool in
-            
             self?.dataSource.updateIsOngoing(isOngoing: bool)
-            
             guard let progressBarProgress = self?.progressBarProgress else {
                 return
             }
-
             self?.progressView.setProgress(progressBarProgress, animated: true)
-
             if !bool {
                 self?.gameIsOver()
             }
         }
-        
         self.viewmodel?.progressBarProgress = {
             [weak self] float in
             self?.progressBarProgress = float
@@ -182,10 +141,9 @@ class TestQuizzViewController: UIViewController, StoryBoarded {
     }
     
     func gameIsOver() {
-        
         // create ActivityRing
         let circlePath = UIBezierPath(arcCenter: view.center, radius: 80, startAngle: 0, endAngle: .pi * 2, clockwise: true)
-             
+        
         shape.path = circlePath.cgPath
         shape.lineWidth = 20
         shape.strokeColor = UIColor(named: "green")?.cgColor
@@ -193,16 +151,11 @@ class TestQuizzViewController: UIViewController, StoryBoarded {
         shape.strokeEnd = 0
         view.layer.addSublayer(shape)
         
-        
         guard let score = score else {
             return
         }
-        // determine the value for the activity ring
-//        let value = CGFloat(Double(score)/10)
-        
         // hide label and progressView
         questionLabel.isHidden = true
-        
         questionLabel.text = "Correct: \(score)/10\nIncorrect: \(10-score)"
         
         // tryButton and changeButton appear
@@ -212,13 +165,9 @@ class TestQuizzViewController: UIViewController, StoryBoarded {
             self.animateActivityRing(to: 1)
             UIView.animate(withDuration: 0.8, animations: {
                 self.scoreLabel.transform = CGAffineTransform.init(translationX: (self.view.center.x - self.scoreLabel.center.x), y: 0)
-                
-                
             }) { _ in
                 self.progressView.isHidden = true
-//                self.questionLabel.isHidden = false
                 UIView.animate(withDuration: 0.2, animations: { [self] in
-                   
                     self.backQuestionView.transform = CGAffineTransform.init(translationX: 0, y: (self.view.center.y - self.backQuestionView.center.y))
                     self.questionLabel.isHidden = false
                 }, completion: nil)
@@ -233,7 +182,6 @@ class TestQuizzViewController: UIViewController, StoryBoarded {
         animation.duration = 1
         animation.isRemovedOnCompletion = false
         animation.fillMode = .forwards
-        
         shape.add(animation, forKey: "animation")
     }
     
@@ -262,8 +210,5 @@ class TestQuizzViewController: UIViewController, StoryBoarded {
         self.answersTableView.reloadData()
         self.answersTableView.alpha = 1
         progressView.setProgress(0, animated: true)
-        
     }
-    
-    
 }

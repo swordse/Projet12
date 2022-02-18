@@ -16,7 +16,6 @@ public enum BadgeSize {
 
 public class BadgedButtonItem: UIBarButtonItem {
     
-    
     static var shared: BadgedButtonItem = {
         let badgeButton = BadgedButtonItem(with: UIImage(systemName: "heart")?.withTintColor(UIColor.white))
         
@@ -28,7 +27,6 @@ public class BadgedButtonItem: UIBarButtonItem {
         badgeButton.borderColor = .black
         badgeButton.badgeSize = .medium
         badgeButton.badgeAnimation = true
-//        badgeButton.setBadge(with: 50)
         return badgeButton
     }()
     
@@ -101,10 +99,10 @@ public class BadgedButtonItem: UIBarButtonItem {
     
     public var tapAction: (() -> Void)?
     
-     var badgeValue: Int? {
+    var badgeValue: Int? {
         didSet {
             if let value = badgeValue,
-                value > 0 {
+               value > 0 {
                 
                 // reducing font size if the value has two digits
                 if "\(value)".count > 1 {
@@ -157,7 +155,7 @@ public class BadgedButtonItem: UIBarButtonItem {
     private func setup(image: UIImage? = nil) {
         
         self.filterBtn.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
-//        self.filterBtn.adjustsImageWhenHighlighted = false
+        //        self.filterBtn.adjustsImageWhenHighlighted = false
         self.filterBtn.tintColor = .white
         self.filterBtn.setImage(image?.withRenderingMode(.alwaysOriginal), for: .normal)
         self.filterBtn.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
@@ -194,10 +192,10 @@ public class BadgedButtonItem: UIBarButtonItem {
                        initialSpringVelocity: 3,
                        options: [.curveLinear],
                        animations: { [weak self] in
-                        
+            
             guard let strongSelf = self else { return }
             strongSelf.lblBadge.transform = .identity
-                        
+            
         }) { [weak self] (finished) in
             
             guard let strongSelf = self else { return }

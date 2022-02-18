@@ -29,6 +29,7 @@ class UserAccountViewModel {
                 // if failure, transmit the error
             case.failure(let error):
                 self.accountCreationResult?(.failure(error))
+        
                 // if success
             case.success(_):
                 UserDefaultsManager().userIsConnected(true)
@@ -37,8 +38,11 @@ class UserAccountViewModel {
                     guard let fabulaUser = fabulaUser else {
                         return
                     }
-                    // save the user
-                    self.authService.saveUser(user: fabulaUser)
+                    var newFabulaUser = fabulaUser
+                    newFabulaUser.userName = userName
+                    
+                    // save the new user
+                    self.authService.saveUser(user: newFabulaUser)
                     self.accountCreationResult?(.success(true))
                 }
             }
@@ -54,9 +58,8 @@ class UserAccountViewModel {
                 self.signInResult?(.success(result))
                 // get user info and save it in userdefaults
                 self.authService.getCurrentUser { user in
-                    guard let user = user else {
-                        return
-                    }
+                    print("USER APRES SIGN IN DNAS FONCTION GET CURRENT USER: \(user)")
+                    guard let user = user else { return }
                     UserDefaultsManager().saveUser(userName: user.userName, userId: user.userId, userEmail: user.userEmail)
                 }
                 // save connexion state in userdefaults

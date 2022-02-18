@@ -11,14 +11,11 @@ import UIKit
 class QuoteCoordinator: Coordinator {
     
     var childCoordinators = [Coordinator]()
-
     var navigationController: UINavigationController
-    
     weak var parentCoordinator: HomeCoordinator?
     
     init(navigationController: UINavigationController){
         self.navigationController = navigationController
-        
         self.navigationController.navigationBar.prefersLargeTitles = true
         self.navigationController.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.label]
         self.navigationController.navigationBar.largeTitleTextAttributes = [.foregroundColor: UIColor.label]
@@ -33,7 +30,4 @@ class QuoteCoordinator: Coordinator {
         vc.tabBarItem = UITabBarItem(title: "Citation", image: UIImage(named:"Quote"), tag: 4)
         navigationController.pushViewController(vc, animated: true)
     }
-    
-    
-    
 }

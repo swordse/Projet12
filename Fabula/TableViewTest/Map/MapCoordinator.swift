@@ -39,7 +39,4 @@ class MapCoordinator: Coordinator {
         navigationController.pushViewController(vc, animated: true)
     }
     
-    
-    
-    
 }

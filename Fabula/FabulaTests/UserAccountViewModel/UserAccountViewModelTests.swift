@@ -14,7 +14,8 @@ import Firebase
 
 class UserAccountViewModelTests: XCTestCase {
 
-    func testUserAccountViewModelCreateAccount_WhenNetWorkErrornoConnection_ThenUserAccountMessageLabelDisplaysError() {
+    
+    func testUserAccountViewModelCreateAccount_WhenNetWorkErrornoConnection_ThenNetWorkErrorIsPassed() {
         
         let session = FakeFireAuthSession(fakeAuthResponse: FakeAuthResponse(isSuccess: false, error: NetworkError.noConnection, fabulaUser: FakeAuthData.fakeUser))
         
@@ -22,59 +23,116 @@ class UserAccountViewModelTests: XCTestCase {
         
         let userAccountViewModel = UserAccountViewModel(authService: authService)
         
+        let expectation = XCTestExpectation(description: "Wait for closure.")
+        
+        userAccountViewModel.accountCreationResult = {
+            result in
+            switch result {
+            case.success(_):
+                print("bob")
+            case.failure(let networkError):
+                XCTAssertEqual(networkError, NetworkError.noConnection)
+            }
+            expectation.fulfill()
+        }
+        
         userAccountViewModel.accountCreation(userEmail: FakeAuthData.fakeUser.userEmail, password: "zzzzz", userName: FakeAuthData.fakeUser.userName)
         
-        userAccountViewModel.accountCreationResult ==
-        (.failure(NetworkError.noConnection))
-        
-        let expectation = XCTestExpectation(description: "Wait for queue change.")
-        
-        userAccountViewModel.accountCreation(userEmail: FakeAuthData.fakeUser.userEmail, password: "rrrrrr", userName: FakeAuthData.fakeUser.userName)
-        
-        XCTAssert( searchViewModel.anecdotes.count == 0)
-        expectation.fulfill()
-        wait(for: [expectation], timeout: 0.01)
+        wait(for: [expectation], timeout: 0.1)
     }
     
-    func testSearchViewModelGetAllAnecdotes_WhenAllOk_ThenAnecdotesNotNil() {
+    
+    func testUserAccountViewModelCreateAccount_WhenNoError_ThenSuccesIsPassed() {
         
-        let session = FakeFireStoreSession(fakeResponse: FakeResponse(result: FakeResponseData.resultAnecdote, error: nil))
+        let session = FakeFireAuthSession(fakeAuthResponse: FakeAuthResponse(isSuccess: true, error: nil, fabulaUser: FakeAuthData.fakeUser))
         
-        let searchService = AnecdoteService(session: session)
+        let authService = AuthService(session: session)
         
-        let searchViewModel = SearchViewModel(searchService: searchService)
-        searchViewModel.anecdotes = [Anecdote]()
+        let userAccountViewModel = UserAccountViewModel(authService: authService)
         
-        let expectation = XCTestExpectation(description: "Wait for queue change.")
+        let expectation = XCTestExpectation(description: "Wait for closure.")
         
-        searchViewModel.getAllAnecdotes()
-        
-        XCTAssert( searchViewModel.anecdotes[0].title == "Hello")
-        expectation.fulfill()
-        wait(for: [expectation], timeout: 0.01)
-    }
-
-    override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-    }
-
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
-
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        // Any test you write for XCTest can be annotated as throws and async.
-        // Mark your test throws to produce an unexpected failure when your test encounters an uncaught error.
-        // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
-    }
-
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
+        userAccountViewModel.accountCreationResult = {
+            result in
+            switch result {
+            case.success(let success):
+                XCTAssertEqual(success, true)
+            case.failure(_):
+                print("bob")
+            }
+            expectation.fulfill()
         }
+        
+        userAccountViewModel.accountCreation(userEmail: FakeAuthData.fakeUser.userEmail, password: "zzzzz", userName: FakeAuthData.fakeUser.userName)
+        
+        wait(for: [expectation], timeout: 0.1)
     }
+    
+    
+    func testUserAccountViewModelSignIn_WhenNoError_ThenSignInSucces() {
+        
+        let session = FakeFireAuthSession(fakeAuthResponse: FakeAuthResponse(isSuccess: true, error: nil, fabulaUser: FakeAuthData.fakeUser))
+        
+        let authService = AuthService(session: session)
+        
+        let userAccountViewModel = UserAccountViewModel(authService: authService)
+        
+        let expectation = XCTestExpectation(description: "Wait for closure.")
+        
+       userAccountViewModel.signInResult = {
+        result in
+        switch result {
+        case.success(let success):
+            XCTAssertEqual(success, true)
+        case.failure(_):
+            print("bob")
+        }
+           expectation.fulfill()
+    }
+    
+        userAccountViewModel.signIn(email: "dededed", passWord: "dedede")
+    
+    wait(for: [expectation], timeout: 0.1)
+    }
+    
+    func testSignIn_WhenNoConnexion_ThenSignFailedWithNoConnectionError() {
+        
+        let session = FakeFireAuthSession(fakeAuthResponse: FakeAuthResponse(isSuccess: false, error: NetworkError.noConnection, fabulaUser: FakeAuthData.fakeUser))
+        
+        let authService = AuthService(session: session)
+        
+        let userAccountViewModel = UserAccountViewModel(authService: authService)
+        
+        let expectation = XCTestExpectation(description: "Wait for closure return.")
+        
+        userAccountViewModel.signInResult = {
+            result in
+            switch result {
+            case.success(_):
+                print("bob")
+            case.failure(let networkError):
+                XCTAssertEqual(networkError, NetworkError.noConnection)
+            }
+            expectation.fulfill()
+        }
+        
+        userAccountViewModel.signIn(email: "dededed", passWord: "dedede")
+        
+        wait(for: [expectation], timeout: 0.1)
+    }
+    
+    func testLogOut_WhenAllOk_ThenSignFailedWithNoConnectionError() {
+        
+        let session = FakeFireAuthSession(fakeAuthResponse: FakeAuthResponse(isSuccess: false, error: NetworkError.noConnection, fabulaUser: FakeAuthData.fakeUser))
+        
+        let authService = AuthService(session: session)
+        
+        let userAccountViewModel = UserAccountViewModel(authService: authService)
+        
+        userAccountViewModel.logOut()
+        XCTAssert(UserDefaultsManager().retrieveUserConnexion() == false)
+  
+    }
+    
 
 }

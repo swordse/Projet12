@@ -14,9 +14,7 @@ class ParisAnnotation: NSObject, MKAnnotation {
     var title: String?
     var locationName: String?
     var coordinate: CLLocationCoordinate2D
-    
     var text: String?
-    
     
     var subtitle: String? {
         return locationName
@@ -45,7 +43,6 @@ class ParisAnnotation: NSObject, MKAnnotation {
         text = properties["texte_description"] as? String
         
         super.init()
-        
     }
     
     var mapItem: MKMapItem? {
@@ -58,8 +55,4 @@ class ParisAnnotation: NSObject, MKAnnotation {
         mapItem.name = title
         return mapItem
     }
-    
-    
-    
-    
 }

@@ -18,9 +18,7 @@ class WordViewModel {
     }
     
     // Output
-    
     var wordsToDisplay: ((Result<[Word], NetworkError>) -> Void)?
-    
     
     func getWords() {
         wordService.getWords(dataRequest: DataRequest.words.rawValue) { result in
@@ -45,6 +43,5 @@ class WordViewModel {
             }
         }
     }
-    
     
 }

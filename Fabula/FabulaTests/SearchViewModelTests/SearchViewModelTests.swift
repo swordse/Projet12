@@ -18,15 +18,27 @@ class SearchViewModelTests: XCTestCase {
         
         let searchService = AnecdoteService(session: session)
         
-        let searchViewModel = SearchViewModel(searchService: searchService)
-        
-        let expectation = XCTestExpectation(description: "Wait for queue change.")
+        let searchViewModel = SearchViewModel(searchService: searchService, delegate: AnecdoteCoordinator(navigationController: UINavigationController()))
         
         searchViewModel.getAllAnecdotes()
         
-        XCTAssert( searchViewModel.anecdotes.count == 0)
-        expectation.fulfill()
-        wait(for: [expectation], timeout: 0.01)
+        XCTAssert(searchViewModel.anecdotes.isEmpty)
+//        let expectation = XCTestExpectation(description: "Wait closure.")
+//
+//        searchViewModel.allAnecdotes = {
+//            result in
+//            switch result {
+//            case.success(_):
+//                print("bob")
+//            case.failure(let networkError):
+//                XCTAssertEqual(networkError, NetworkError.errorOccured)
+//            }
+//            expectation.fulfill()
+//        }
+//
+//        searchViewModel.getAllAnecdotes()
+//
+//        wait(for: [expectation], timeout: 1)
     }
     
     func testSearchViewModelGetAllAnecdotes_WhenAllOk_ThenAnecdotesNotNil() {
@@ -35,18 +47,64 @@ class SearchViewModelTests: XCTestCase {
         
         let searchService = AnecdoteService(session: session)
         
-        let searchViewModel = SearchViewModel(searchService: searchService)
+        let searchViewModel = SearchViewModel(searchService: searchService, delegate: AnecdoteCoordinator(navigationController: UINavigationController()))
         searchViewModel.anecdotes = [Anecdote]()
         
-        let expectation = XCTestExpectation(description: "Wait for queue change.")
+//        let expectation = XCTestExpectation(description: "Wait for queue change.")
         
         searchViewModel.getAllAnecdotes()
+    
         
         XCTAssert( searchViewModel.anecdotes[0].title == "Hello")
-        expectation.fulfill()
+        
+//        expectation.fulfill()
+//
+//        wait(for: [expectation], timeout: 0.01)
+    }
+    
+    func testSearchInAnecdotesMethode_WhenAllOk_ThenAnecdotesResultIsNotEmpty() {
+        
+        let session = FakeFireStoreSession(fakeResponse: FakeResponse(result: FakeResponseData.resultAnecdote, error: nil))
+        
+        let searchService = AnecdoteService(session: session)
+        
+        let searchViewModel = SearchViewModel(searchService: searchService, delegate: AnecdoteCoordinator(navigationController: UINavigationController()))
+        searchViewModel.anecdotes = [FakeResponseData.fakeAnecdote]
+        
+        let expectation = XCTestExpectation(description: "Wait for closure.")
+        
+        searchViewModel.resultAnecdotes = {
+            result in
+            XCTAssert(!result.isEmpty)
+            expectation.fulfill()
+        }
+        
+        searchViewModel.searchInAnecdote(words: ["text"])
+        
         wait(for: [expectation], timeout: 0.01)
     }
     
+    func testSearchInAnecdotesMethode_WhenNoResultForSearch_ThenResultAnecdotesClosureIsEmpty() {
+        
+        let session = FakeFireStoreSession(fakeResponse: FakeResponse(result: FakeResponseData.resultAnecdote, error: nil))
+        
+        let searchService = AnecdoteService(session: session)
+        
+        let searchViewModel = SearchViewModel(searchService: searchService, delegate: AnecdoteCoordinator(navigationController: UINavigationController()))
+        searchViewModel.anecdotes = [Anecdote]()
+        
+        let expectation = XCTestExpectation(description: "Wait for closure.")
+        
+        searchViewModel.resultAnecdotes = {
+            result in
+            XCTAssert(result.isEmpty)
+            expectation.fulfill()
+        }
+        
+        searchViewModel.searchInAnecdote(words: ["text"])
+        
+        wait(for: [expectation], timeout: 0.01)
+    }
     
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.

@@ -62,7 +62,7 @@ class SearchViewController: UIViewController, StoryBoarded, UISearchBarDelegate 
     
     
     func bind() {
-        searchViewModel?.fetchAnecdotes = {
+        searchViewModel?.allAnecdotes = {
             [weak self] result in
             DispatchQueue.main.async {
                 switch result {

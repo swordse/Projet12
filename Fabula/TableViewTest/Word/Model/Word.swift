@@ -8,8 +8,8 @@
 import Foundation
 
 struct Word {
-    
     var word: String
     var definition: String
-    
+    var qualifier: String
+    var example: String
 }

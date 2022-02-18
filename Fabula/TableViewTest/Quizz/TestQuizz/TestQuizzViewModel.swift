@@ -11,6 +11,7 @@ class TestQuizzViewModel {
     
     var quizzs: [Quizz]
     
+    // Output
     var propositions: (([String]) -> Void)?
     var question: ((String) -> Void)?
     var isCorrect: ((Bool) -> Void)?
@@ -21,8 +22,6 @@ class TestQuizzViewModel {
     var correctAnswer = ""
     var questionNumber = 0
     var score = 0
-    
-    var animation: (() -> Void)?
     
     init(quizzs: [Quizz]) {
         self.quizzs = quizzs
@@ -51,14 +50,14 @@ class TestQuizzViewModel {
     }
     
     func nextQuestion() {
-            self.questionNumber += 1
-            if self.questionNumber < self.quizzs.count {
-                    self.start()
-                    self.isOngoing?(true)
-            } else {
-                self.isOngoing?(false)
-                self.endGame()
-            }
+        self.questionNumber += 1
+        if self.questionNumber < self.quizzs.count {
+            self.start()
+            self.isOngoing?(true)
+        } else {
+            self.isOngoing?(false)
+            self.endGame()
+        }
     }
     
     func endGame() {

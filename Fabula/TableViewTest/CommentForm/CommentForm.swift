@@ -41,21 +41,16 @@ final class CommentForm {
         return titleLabel
     }()
     
-    
-    
     private var commentTextField: UITextField = {
         let commentTextField = UITextField()
         return commentTextField
     }()
     
-
-    
     private var submitButton: UIButton = {
         let button = UIButton()
         return button
     }()
-
-
+    
     private var myTargetView: UIView?
     
     func showCommentForm(on navigationController: UINavigationController) {
@@ -118,12 +113,11 @@ final class CommentForm {
         submitButton.setTitleColor(.white, for: .normal)
         submitButton.backgroundColor = UIColor(named: "lightDark")
         submitButton.addTarget(self, action: #selector(submitTapped), for: .touchUpInside)
-
+        
         stackView.addArrangedSubview(commentTextField)
         stackView.addArrangedSubview(submitButton)
-       
+        
         NSLayoutConstraint.activate([
-
             stackView.leadingAnchor.constraint(equalTo: alertView.leadingAnchor, constant: +10),
             stackView.trailingAnchor.constraint(equalTo: alertView.trailingAnchor, constant: -10),
             stackView.centerYAnchor.constraint(equalTo: alertView.centerYAnchor),
@@ -150,7 +144,6 @@ final class CommentForm {
         
         dismissView()
     }
-   
     
     @objc func dismissCommentForm() {
         dismissView()
@@ -175,5 +168,5 @@ final class CommentForm {
     }
     
 }
-    
+
 

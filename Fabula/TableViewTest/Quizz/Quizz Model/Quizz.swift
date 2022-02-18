@@ -9,7 +9,6 @@ import Foundation
 import UIKit
 
 struct Quizz {
-    
     var category: String
     var propositions: [String]
     var question: String
