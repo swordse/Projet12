@@ -20,10 +20,7 @@ class AuthService {
         session.createAccount(userEmail: userEmail, password: password, userName: userName) { isSuccess, networkError in
             if isSuccess {
                 completion(.success(true))
-            } else {
-                guard let networkError = networkError else {
-                    return
-                }
+            } else { guard let networkError = networkError else { return }
                 completion(.failure(networkError))
             }
         }

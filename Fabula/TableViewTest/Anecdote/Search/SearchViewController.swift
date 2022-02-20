@@ -72,6 +72,7 @@ class SearchViewController: UIViewController, StoryBoarded, UISearchBarDelegate 
 //                    self?.datasource.updateItems(items: anecdotes)
                 case.failure(_):
                     print("Erreur lors de la recherche")
+                    self?.alert()
 //                    CustomAlert().showAlert(with: "Malheureusement une erreur est survenue.", message: "Veuillez vérifier votre connexion à internet.", on: self!)
                 }
             }

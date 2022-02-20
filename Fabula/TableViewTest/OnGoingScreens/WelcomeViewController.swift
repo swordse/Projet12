@@ -15,8 +15,6 @@ class WelcomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // Do any additional setup after loading the view.
     }
     
     override func viewDidLayoutSubviews() {
@@ -26,7 +24,6 @@ class WelcomeViewController: UIViewController {
     
     private func configure() {
         // set up scrollView
-        
         scrollView.frame = holderView.bounds
         holderView.addSubview(scrollView)
         
@@ -41,18 +38,13 @@ class WelcomeViewController: UIViewController {
             pageView.backgroundColor = .deepBlue
             scrollView.addSubview(pageView)
             
-            
             let nextButton = UIButton(frame: CGRect(x: 10, y: pageView.frame.size.height - 100, width: pageView.frame.size.width-20, height: 50))
-            //            let nextButton = UIButton()
             
             let imageView = UIImageView(frame: CGRect(x: 50, y: 200, width: pageView.frame.size.width-100, height: 100))
-            //            let imageView = UIImageView()
             
             let titleLabel = UILabel(frame: CGRect(x: 10, y: pageView.frame.size.height - 280, width: pageView.frame.size.width-20, height: 50))
-            //            let titleLabel = UILabel()
             
             let descriptionLabel = UILabel(frame: CGRect(x: 10, y: pageView.frame.size.height - 200, width: pageView.frame.size.width-20, height: 60))
-            //            let descriptionLabel = UILabel()
             
             titleLabel.textAlignment = .center
             titleLabel.font = .systemFont(ofSize: 24, weight: .semibold)
@@ -68,7 +60,7 @@ class WelcomeViewController: UIViewController {
             pageView.addSubview(descriptionLabel)
             
             nextButton.addTarget(self, action: #selector(didTapButton(_:)), for: .touchUpInside)
-            nextButton.setTitleColor(.label, for: .normal)
+            nextButton.setTitleColor(.white, for: .normal)
             nextButton.setTitle("Continue", for: .normal)
             nextButton.tag = x+1
             nextButton.backgroundColor = UIColor(named: "purple")

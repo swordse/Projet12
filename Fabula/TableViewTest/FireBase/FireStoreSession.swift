@@ -56,11 +56,11 @@ extension FireStoreSession {
     }
 }
 
-class DataSession: FireStoreSession {
+final class DataSession: FireStoreSession {
     
-    var lastSnapshot: QueryDocumentSnapshot?
+    private var lastSnapshot: QueryDocumentSnapshot?
     
-    let dataBase = Firestore.firestore()
+    private let dataBase = Firestore.firestore()
     
     func getDocuments(dataRequest: String, callback: @escaping ([[String : Any]]?, NetworkError?) -> Void) {
         let docRef = dataBase.collection(dataRequest).order(by: "date", descending: true).limit(to: 5)
@@ -150,8 +150,10 @@ class DataSession: FireStoreSession {
                 let id = data[x].documentID as Any
                 anecdoteDict["id"] = id
                 // convert the date in Date
+                if data[x].data()["date"] != nil {
                 let fireDate = (data[x].data()["date"] as? Timestamp)?.dateValue() ?? Date()
                 anecdoteDict["Date"] = fireDate
+                }
                 dictionnary.append(anecdoteDict)
             }
             

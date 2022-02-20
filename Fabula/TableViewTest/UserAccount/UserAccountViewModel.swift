@@ -24,7 +24,11 @@ class UserAccountViewModel {
     
     func accountCreation(userEmail: String, password: String, userName: String) {
         
+        // logout if a user is connected
+        self.authService.logOut()
+        
         authService.createAccount(userEmail: userEmail, password: password, userName: userName) { result in
+                        
             switch result {
                 // if failure, transmit the error
             case.failure(let error):
@@ -32,6 +36,7 @@ class UserAccountViewModel {
         
                 // if success
             case.success(_):
+                // save the connexion state
                 UserDefaultsManager().userIsConnected(true)
                 // get the userId and create a fabulaUser
                 self.authService.getCurrentUser { fabulaUser in
@@ -41,9 +46,13 @@ class UserAccountViewModel {
                     var newFabulaUser = fabulaUser
                     newFabulaUser.userName = userName
                     
-                    // save the new user
+                    // save the new user in UserDefault
+                    UserDefaultsManager().saveUser(userName: newFabulaUser.userName, userId: newFabulaUser.userId, userEmail: newFabulaUser.userEmail)
+                    
+                    // save the new user in Firestore
                     self.authService.saveUser(user: newFabulaUser)
                     self.accountCreationResult?(.success(true))
+                    
                 }
             }
         }
@@ -64,6 +73,7 @@ class UserAccountViewModel {
                 }
                 // save connexion state in userdefaults
                 UserDefaultsManager().userIsConnected(true)
+            
             }
         }
     }

@@ -8,18 +8,14 @@
 import Foundation
 
 
-class AnecdoteService {
+final class AnecdoteService {
     
     let session: FireStoreSession
-    
     init(session: FireStoreSession = DataSession()){
         self.session = session
     }
     
-    
     func getAnecdotes(dataRequest: String, callback: @escaping ((Result<[Anecdote], NetworkError>) -> Void)) {
-        
-        var anecdotes = [Anecdote]()
         
         session.getDocuments(dataRequest: dataRequest) { result, error in
             if error != nil {
@@ -53,19 +49,17 @@ class AnecdoteService {
             }
             if result != nil {
                 print("RESULT FROM DATASESSION: \(result)")
-                let anecdotes = self.resultToAnecdote(result: result!)
-                callback(.success(anecdotes))
+                callback(.success(self.resultToAnecdote(result: result!)))
             }
         }
     }
     
     func resultToAnecdote(result: [[String : Any]]) -> [Anecdote] {
-        
+        print("RESULT IN RESULT TO ANECDOTE: \(result)")
         let formatter = DateFormatter()
         formatter.dateFormat = "dd/MM/yy"
         
         let resultAnecdotes: [Anecdote] = result.map { item in
-            
             print("****DATE*** = \(String(describing: item["Date"]))")
             let categorie = getCategory(item: item)
             

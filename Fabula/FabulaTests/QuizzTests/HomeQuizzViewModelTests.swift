@@ -10,7 +10,13 @@ import Foundation
 @testable import Fabula
 
 
-class HomeQuizzViewModelTests: XCTestCase {
+class HomeQuizzViewModelTests: XCTestCase, QuizzGetTest {
+    
+    var quizzs: [Quizz]?
+    
+    func getTest(quizzs: [Quizz]) {
+        self.quizzs = quizzs
+    }
     
     func testViewModelRetrieveCategoryMethod_WhenErrorOccured_ThenThemeClosureReturnError() {
         
@@ -44,7 +50,7 @@ class HomeQuizzViewModelTests: XCTestCase {
         
         let quizzService = QuizzService(session: session)
         
-        let homeQuizzViewModel = HomeQuizzViewModel(quizzService: quizzService, delegate: QuizzCoordinator(navigationController: UINavigationController()))
+        let homeQuizzViewModel = HomeQuizzViewModel(quizzService: quizzService, delegate: self)
         
         let expectation = self.expectation(description: "closure return")
         
@@ -91,13 +97,15 @@ class HomeQuizzViewModelTests: XCTestCase {
         
         let quizzService = QuizzService(session: session)
         
-        let homeQuizzViewModel = HomeQuizzViewModel(quizzService: quizzService, delegate: QuizzCoordinator(navigationController: UINavigationController()))
+        let homeQuizzViewModel = HomeQuizzViewModel(quizzService: quizzService, delegate: self)
         
         let expectation = self.expectation(description: "closure return")
         
         homeQuizzViewModel.retrieveQuizz(theme: "La lune")
         
         XCTAssertEqual(homeQuizzViewModel.quizzs[0].title, "La lune")
+        XCTAssertEqual(quizzs?[0].title
+                       , "La lune")
         expectation.fulfill()
         
         waitForExpectations(timeout: 0.1, handler: nil)

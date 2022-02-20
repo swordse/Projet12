@@ -8,7 +8,11 @@
 import Foundation
 import UIKit
 
+
 extension UIColor {
-    static let deepBlue = UIColor(named: "deepBlue")
-    static let lightBlue = UIColor(named: "deepLightBlue")
+    static let deepBlue = UIColor(red: 0.173, green: 0.173, blue: 0.322, alpha: 100)
+    static let lightBlue = UIColor(red: 0.259, green: 0.259, blue: 0.435, alpha: 100)
+    static let deepDeepBlue = UIColor(red: 33, green: 33, blue: 58, alpha: 100)
+//    static let green = UIColor(red: 75, green: 175, blue: 151, alpha: 100)
+    
 }

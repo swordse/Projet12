@@ -14,11 +14,23 @@ final class FakeResponseData {
     class NetworkError: Error {}
     static let networkError = NetworkError()
     
+    static func formatDateStringToDate(date: String) -> Date {
+    let formatter = DateFormatter()
+    formatter.dateFormat = "yyyy/MM/dd HH:mm:ss Z"
+        return formatter.date(from: date)!
+    }
+    
+    static func getResultAnecdote() -> [[String: Any]] {
+        let date = formatDateStringToDate(date: "2022-01-25 23:00:00 +0000")
+        return [["title": "Difforme" as Any, "source": "https://www.pourlascience.fr/sd/art-science/linterminable-dos-de-la-grande-odalisque-3853.php" as Any, "id": "BBNnkxaB3Bik8bdBYuSB" as Any, "Date": date as Date, "category": "Art" as Any, "text": "La Grande Odalisque peinte en 1814 par Jean-Auguste Ingres a fait l’objet de vives critiques lors de son exposition. Le peintre a en effet ajouté cinq vertèbres au modèle. La position de la Grande Odalisque ne serait pas possible sans ces vertèbres supplémentaires." as Any]]
+    }
+    
+    
+    
     static let resultWord = [["definition": "ce qui définit" as Any, "word": "DEFINITION" as Any, "qualifier": "adjectif" as Any, "example": "exemple" as String]]
     
     static let resultQuote = [["author": "bob", "text": "le texte", "category": "Test Categorie"]]
-    
-    static let resultAnecdote = [["title": "Difforme" as Any, "source": "https://www.pourlascience.fr/sd/art-science/linterminable-dos-de-la-grande-odalisque-3853.php" as Any, "id": "BBNnkxaB3Bik8bdBYuSB" as Any, "Date": "2022-01-25 23:00:00 +0000" as Any, "category": "Art" as Any, "text": "La Grande Odalisque peinte en 1814 par Jean-Auguste Ingres a fait l’objet de vives critiques lors de son exposition. Le peintre a en effet ajouté cinq vertèbres au modèle. La position de la Grande Odalisque ne serait pas possible sans ces vertèbres supplémentaires." as Any]]
+
     
 //    [[ "id": "12", "category": "Science", "title": "Hello", "text": "le texte", "Date": Date()]]
     

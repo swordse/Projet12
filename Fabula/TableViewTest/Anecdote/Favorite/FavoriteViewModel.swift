@@ -24,16 +24,8 @@ class FavoriteViewModel {
     var favoriteAnecdote: (([Anecdote])-> Void)?
     
     func getFavorite() {
-//        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
-//        let coreDataStack = appDelegate.coreDataStack
-//        coreDataManager = CoreDataManager(coreDataStack: coreDataStack)
         
         let favorites = coreDataSession.favorites
-//        guard let favorites =
-//                coreDataManager?.favorites else {
-//            favoriteAnecdote?([Anecdote]())
-//            return
-//        }
         
         favoriteNavButton.setBadge(with: favorites.count)
         

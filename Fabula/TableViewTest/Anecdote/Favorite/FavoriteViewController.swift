@@ -7,6 +7,7 @@
 
 import UIKit
 
+
 class FavoriteViewController: UIViewController, StoryBoarded {
     
     let userAccount = UserAccountController()
@@ -54,9 +55,7 @@ class FavoriteViewController: UIViewController, StoryBoarded {
             
             let activity = UIActivityViewController(activityItems: items, applicationActivities: nil)
             self?.present(activity, animated: true, completion: nil)
-            
         }
-        
     }
     
     @IBAction func commentButtonTapped(_ sender: UIButton) {

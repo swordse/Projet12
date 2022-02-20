@@ -11,15 +11,15 @@ import UIKit
 final class AnecdoteListDataSource: NSObject {
     
     private var items = [Anecdote]()
-
+    
     func updateItems(items: [Anecdote]) {
         self.items = items
     }
-    
+    // closure to provide the selected row
     var selectedRow: ((Anecdote, Bool, Bool) -> Void)?
-    
+    // closure to inform that end is reached
     var endReached : ((Bool) -> Void)?
- 
+    // closure to provide the text to share in UIActivityController
     var textToShare: ((String) -> Void)?
 }
 
@@ -34,7 +34,9 @@ extension AnecdoteListDataSource: UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: CommonAnecdoteTableViewCell.identifier, for: indexPath) as? CommonAnecdoteTableViewCell else {
             return UITableViewCell()
         }
+        // dataSource is delegate of the cell if share button is tapped
         cell.shareDelegate = self
+        // dataSource is delegate of the cell if share button is tapped
         cell.commentDelegate = self
         
         let anecdote = items[indexPath.row]
@@ -55,7 +57,6 @@ extension AnecdoteListDataSource: UITableViewDelegate {
         let anecdote = items[indexPath.row]
         
         selectedRow?(anecdote, false, false)
-        print("INDEXPATH SELECTED: \(indexPath)")
     }
     
     // keep track of the tableview end to reload new anecdotes
@@ -77,5 +78,5 @@ extension AnecdoteListDataSource: CommentDelegate {
     func commentWasTapped(for anecdote: Anecdote) {
         selectedRow?(anecdote, true, false)
     }
-
+    
 }

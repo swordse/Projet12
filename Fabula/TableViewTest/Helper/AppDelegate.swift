@@ -20,11 +20,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let attributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
         UINavigationBar.appearance().titleTextAttributes = attributes
         
-        let appearance = UITabBarAppearance()
-        appearance.backgroundColor = .deepBlue
-        appearance.shadowColor = nil
-//        appearance.configureWithTransparentBackground()
-        UITabBar.appearance().standardAppearance = appearance
+        //        appearance.configureWithTransparentBackground()
+      
+            let appearance = UITabBarAppearance()
+            appearance.backgroundColor = .deepBlue
+            appearance.shadowColor = nil
+            UITabBar.appearance().standardAppearance = appearance
+        
+
+//        if #available(iOS 13.0, *) {
+//            UITabBar.appearance().standardAppearance = appearance
+//        } else {
+//            // Fallback on earlier versions
+//        }
     
         return true
     }

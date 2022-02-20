@@ -7,7 +7,7 @@
 
 import UIKit
 
-class HomeViewController: UIViewController, StoryBoarded {
+final class HomeViewController: UIViewController, StoryBoarded {
     
     let userAccount = UserAccountController()
     var coordinator: HomeCoordinator?
@@ -44,6 +44,7 @@ class HomeViewController: UIViewController, StoryBoarded {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
+        // if user is new, display ongoing screens
         if Core.shared.isNewUser() {
             // show welcome view
             let vc = storyboard?.instantiateViewController(withIdentifier: "welcome") as! WelcomeViewController
@@ -92,6 +93,7 @@ class HomeViewController: UIViewController, StoryBoarded {
     }
 }
 
+// used to check if user is a new user, if so, display the ongoing views
 class Core {
     
     static let shared = Core()

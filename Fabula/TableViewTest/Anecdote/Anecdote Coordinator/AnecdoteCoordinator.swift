@@ -11,32 +11,27 @@ import UIKit
 class AnecdoteCoordinator: Coordinator {
     
     var childCoordinators = [Coordinator]()
-    
     weak var parentCoordinator: HomeCoordinator?
-    
     var navigationController: UINavigationController
-    
-//    var anecdoteViewController: UIViewController?
     
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
-//        self.navigationController.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(connexionTapped))
+        
         self.navigationController.navigationBar.prefersLargeTitles = true
+        
         self.navigationController.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.label]
+        
         self.navigationController.navigationBar.largeTitleTextAttributes = [.foregroundColor: UIColor.label]
+        
         self.navigationController.navigationBar.barTintColor = .deepBlue
         self.navigationController.navigationBar.tintColor = .white
-       
+        
     }
     
     func start() {
         let vc = AnecdoteViewController.instantiate()
         vc.coordinator = self
         vc.anecdoteViewModel = AnecdoteViewModel(delegate: self)
-//        anecdoteViewController = vc
-        vc.tabBarItem = UITabBarItem(title: "Anecdote", image: UIImage(named: "Book"), tag: 1)
-//        UITabBarItem(tabBarSystemItem: .bookmarks, tag: 1)
-//        vc.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "user"), style: .plain, target: self, action: #selector(connexionTapped))
         navigationController.pushViewController(vc, animated: true)
     }
     
@@ -74,14 +69,6 @@ class AnecdoteCoordinator: Coordinator {
     func didFinishAnecdote() {
         parentCoordinator?.childDidFinish(self)
     }
-    
-//    @objc func connexionTapped() {
-//        guard let anecdoteViewController = anecdoteViewController else {
-//            return
-//        }
-//
-//        UserConnexion().showUserConnexion(on: anecdoteViewController)
-//    }
     
 }
 

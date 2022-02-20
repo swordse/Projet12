@@ -8,7 +8,8 @@
 import Foundation
 import UIKit
 
-class HomeCoordinator: Coordinator {
+
+final class HomeCoordinator: Coordinator {
     
     var childCoordinators = [Coordinator]()
     
@@ -31,7 +32,6 @@ class HomeCoordinator: Coordinator {
         vc.tabBarItem = UITabBarItem(title: "Home", image: UIImage(named: "Home"), tag: 0)
 
         navigationController.pushViewController(vc, animated: true)
-        
     }
     
     func showAnecdotes() {
@@ -68,7 +68,6 @@ class HomeCoordinator: Coordinator {
         childCoordinators.append(child)
         child.start()
     }
-    
     
     func navigationController(_ navigationController: UINavigationController, didShow viewController: UIViewController, animated: Bool) {
         print("navigationcontroller didshow est utilisé")

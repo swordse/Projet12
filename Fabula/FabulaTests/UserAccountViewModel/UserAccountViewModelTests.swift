@@ -12,7 +12,14 @@ import Firebase
 @testable import Fabula
 
 
-class UserAccountViewModelTests: XCTestCase {
+class UserAccountViewModelTests: XCTestCase, AuthentificationProtocol {
+    
+    var bool = false
+    
+    func statusChange(isConnected: Bool) {
+        self.bool = isConnected
+    }
+    
 
     
     func testUserAccountViewModelCreateAccount_WhenNetWorkErrornoConnection_ThenNetWorkErrorIsPassed() {

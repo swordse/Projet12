@@ -8,6 +8,7 @@
 import UIKit
 import MapKit
 
+
 class MapViewController: UIViewController, StoryBoarded, CLLocationManagerDelegate {
     
     let userAccount = UserAccountController()
@@ -23,8 +24,12 @@ class MapViewController: UIViewController, StoryBoarded, CLLocationManagerDelega
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Autour de vous"
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "user"), style: .plain, target: self, action: #selector(connexionTapped))
-        loadInitialData()
+
+            navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "user"), style: .plain, target: self, action: #selector(connexionTapped))
+
+            loadInitialData()
+
+
         mapView.addAnnotations(parisAnnotations)
         
         mapView.delegate = self
@@ -59,29 +64,32 @@ class MapViewController: UIViewController, StoryBoarded, CLLocationManagerDelega
         locationManager.startUpdatingLocation()
     }
     
-    @available(iOS 14.0, *)
+
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
-        let status = manager.authorizationStatus
-        
-        switch status {
-        case.authorized:
-            mapView.showsUserLocation = true
-        case.authorizedWhenInUse:
-            mapView.showsUserLocation = true
-        case.authorizedAlways:
-            mapView.showsUserLocation = true
-        case.denied:
-            print("refus")
-            showAlert()
-        case.notDetermined:
-            print("refus")
-            showAlert()
-        case.restricted:
-            print("refus")
-            showAlert()
-        @unknown default:
-            fatalError()
+        if #available(iOS 14.0, *){
+            let status = manager.authorizationStatus
+            
+            switch status {
+            case.authorized:
+                mapView.showsUserLocation = true
+            case.authorizedWhenInUse:
+                mapView.showsUserLocation = true
+            case.authorizedAlways:
+                mapView.showsUserLocation = true
+            case.denied:
+                print("refus")
+                showAlert()
+            case.notDetermined:
+                print("refus")
+                showAlert()
+            case.restricted:
+                print("refus")
+                showAlert()
+            @unknown default:
+                fatalError()
+            }
         }
+        
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
@@ -100,6 +108,7 @@ class MapViewController: UIViewController, StoryBoarded, CLLocationManagerDelega
         mapView.setRegion(region, animated: true)
     }
     
+
     @objc func connexionTapped() {
         guard let navigationController = navigationController else {
             return

@@ -6,9 +6,9 @@ protocol SubmittedCommentDelegate {
     func commentSubmitted(comment: String)
 }
 
-final class CommentForm {
+final class CommentForm: NSObject {
     
-    var authentificationDelegate: AuthentificationProtocol?
+    //    var authentificationDelegate: AuthentificationProtocol?
     
     var submittedCommentDelegate: SubmittedCommentDelegate?
     
@@ -60,11 +60,14 @@ final class CommentForm {
         }
         
         myTargetView = targetView
+        // add tapgesture to hide keyboard when view is tapped
+//        let tap = UITapGestureRecognizer(target: targetView, action: #selector(UIView.endEditing))
+//        targetView.addGestureRecognizer(tap)
         
         backgroundView.frame = targetView.bounds
         targetView.addSubview(backgroundView)
         
-        alertView.frame = CGRect(x: 10, y: targetView.frame.size.height, width: targetView.frame.size.width - 20, height: backgroundView.frame.size.height - 160)
+        alertView.frame = CGRect(x: 10, y: targetView.frame.size.height, width: targetView.frame.size.width - 20, height: backgroundView.frame.size.height - 200)
         alertView.backgroundColor = UIColor(named: "darkBlue")
         
         targetView.addSubview(alertView)
@@ -97,7 +100,13 @@ final class CommentForm {
         alertView.addSubview(stackView)
         stackView.translatesAutoresizingMaskIntoConstraints = false
         
-        commentTextField.placeholder = "Votre commentaire"
+        commentTextField.delegate = self
+        commentTextField.textColor = .black
+        commentTextField.attributedPlaceholder = NSAttributedString(
+            string: "Votre commentaire",
+            attributes: [NSAttributedString.Key.foregroundColor: UIColor.black]
+        )
+        //        commentTextField.placeholder = "Votre commentaire"
         commentTextField.leftViewMode = .always
         commentTextField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 0))
         commentTextField.backgroundColor = .white
@@ -166,7 +175,13 @@ final class CommentForm {
             }
         })
     }
-    
 }
 
+extension CommentForm: UITextFieldDelegate {
+
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        commentTextField.resignFirstResponder()
+        return true
+    }
+}
 

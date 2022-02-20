@@ -7,8 +7,8 @@
 
 import Foundation
 
+// struct for the anecdotes
 struct Anecdote {
-    
     var id: String
     var categorie: Category
     var title: String
@@ -17,7 +17,7 @@ struct Anecdote {
     var date: String
     var isFavorite: Bool
 }
-
+// categories of the anecdotes
 enum Category: String {
     case litterature = "Littérature"
     case science = "Science"

@@ -31,7 +31,7 @@ class SearchViewModelTests: XCTestCase {
 //            case.success(_):
 //                print("bob")
 //            case.failure(let networkError):
-//                XCTAssertEqual(networkError, NetworkError.errorOccured)
+//                XCTAssert(searchViewModel.anecdotes.isEmpty)
 //            }
 //            expectation.fulfill()
 //        }
@@ -42,29 +42,41 @@ class SearchViewModelTests: XCTestCase {
     }
     
     func testSearchViewModelGetAllAnecdotes_WhenAllOk_ThenAnecdotesNotNil() {
-        
-        let session = FakeFireStoreSession(fakeResponse: FakeResponse(result: FakeResponseData.resultAnecdote, error: nil))
-        
+
+        let session = FakeFireStoreSession(fakeResponse: FakeResponse(result: FakeResponseData.getResultAnecdote(), error: nil))
+
         let searchService = AnecdoteService(session: session)
-        
+
         let searchViewModel = SearchViewModel(searchService: searchService, delegate: AnecdoteCoordinator(navigationController: UINavigationController()))
-        searchViewModel.anecdotes = [Anecdote]()
+
+        let expectation = self.expectation(description: "closure return")
+//                XCTAssertEqual(success[0].title, "Difforme")
+//            }
+//            expectation.fulfill()
+//        }
+    
+//        searchViewModel.getAllAnecdotes()
         
-//        let expectation = XCTestExpectation(description: "Wait for queue change.")
+        searchViewModel.allAnecdotes = {
+result in
+            switch result {
+            case.failure(_):
+                print("failure")
+            case.success(let success):
+                XCTAssert(!success.isEmpty)
+            }
+            expectation.fulfill()
+        }
         
         searchViewModel.getAllAnecdotes()
-    
-        
-        XCTAssert( searchViewModel.anecdotes[0].title == "Hello")
-        
-//        expectation.fulfill()
-//
-//        wait(for: [expectation], timeout: 0.01)
+//        XCTAssertEqual(searchViewModel.anecdotes.count, 1)
+
+        waitForExpectations(timeout: 2, handler: nil)
     }
     
     func testSearchInAnecdotesMethode_WhenAllOk_ThenAnecdotesResultIsNotEmpty() {
         
-        let session = FakeFireStoreSession(fakeResponse: FakeResponse(result: FakeResponseData.resultAnecdote, error: nil))
+        let session = FakeFireStoreSession(fakeResponse: FakeResponse(result: FakeResponseData.getResultAnecdote(), error: nil))
         
         let searchService = AnecdoteService(session: session)
         
@@ -86,7 +98,7 @@ class SearchViewModelTests: XCTestCase {
     
     func testSearchInAnecdotesMethode_WhenNoResultForSearch_ThenResultAnecdotesClosureIsEmpty() {
         
-        let session = FakeFireStoreSession(fakeResponse: FakeResponse(result: FakeResponseData.resultAnecdote, error: nil))
+        let session = FakeFireStoreSession(fakeResponse: FakeResponse(result: FakeResponseData.getResultAnecdote(), error: nil))
         
         let searchService = AnecdoteService(session: session)
         

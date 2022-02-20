@@ -24,7 +24,7 @@ protocol FireAuthSession {
 }
 
 
-class AuthSession: FireAuthSession {
+final class AuthSession: FireAuthSession {
     
     /// FirebaseAuth create account. Use to create account, save user in userdefaults, save user in firebase
     /// - Parameters:
@@ -55,13 +55,21 @@ class AuthSession: FireAuthSession {
             else {
                 // creation OK
                 // add a displayName to the user
-                let changeRequest = result?.user.createProfileChangeRequest()
+                let changeRequest = Auth.auth().currentUser?.createProfileChangeRequest()
                 changeRequest?.displayName = userName
-                changeRequest?.commitChanges(completion: { error in
+                changeRequest?.commitChanges { error in
                     if error != nil {
                         print("Error when change displayName")
                     }
-                })
+                }
+                
+                //                let changeRequest = result?.user.createProfileChangeRequest()
+                //                changeRequest?.displayName = userName
+                //                changeRequest?.commitChanges(completion: { error in
+                //                    if error != nil {
+                //                        print("Error when change displayName")
+                //                    }
+                //                })
                 completion(true, nil)
             }
         }

@@ -90,8 +90,6 @@ class CommonAnecdoteTableViewCell: UITableViewCell {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
     
     func setFade() {
@@ -122,7 +120,6 @@ class CommonAnecdoteTableViewCell: UITableViewCell {
     }
     
     @IBAction func heartButtonTapped(_ sender: UIButton) {
-        
         // create notification to delete favorite
         let deleteFavorite = Notification.Name("deleteFavorite")
 

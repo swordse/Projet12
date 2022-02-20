@@ -6,7 +6,7 @@
 //
 
 import Foundation
-
+// struct for the comment display about anecdotes
 struct Comment {
     var anecdoteId: String
     var commentText: String

@@ -7,6 +7,7 @@
 
 import UIKit
 
+
 class DetailAnecdoteTableViewController: UITableViewController, StoryBoarded {
     
     // instance for the accountView
@@ -22,7 +23,6 @@ class DetailAnecdoteTableViewController: UITableViewController, StoryBoarded {
     var datasource = DetailAnecdoteDataSource()
     var commentIsTapped = false
     var isFavoriteNavigation = false
-    
     
     @IBOutlet var tableview: UITableView!
     
@@ -67,7 +67,6 @@ class DetailAnecdoteTableViewController: UITableViewController, StoryBoarded {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         if commentIsTapped {
-
             // scroll to the section to add comments
                 tableview.scrollToRow(at: IndexPath(item: 0, section: 2), at: .top, animated: true)
         }
@@ -78,7 +77,6 @@ class DetailAnecdoteTableViewController: UITableViewController, StoryBoarded {
             DispatchQueue.main.async {
                 switch result {
                 case.success(let comments):
-//                    self?.comments = comments
                     self?.datasource
                         .updateComments(comments: comments)
                     self?.tableview.reloadData()
@@ -131,7 +129,6 @@ class DetailAnecdoteTableViewController: UITableViewController, StoryBoarded {
             self?.commentForm.submittedCommentDelegate = self
             }
         }
-
         datasource.textToShare = { [weak self] text in
                     let items: [Any] = ["J'ai trouvé cette anecdote sur l'application Fabula:", text]
                     
@@ -139,15 +136,12 @@ class DetailAnecdoteTableViewController: UITableViewController, StoryBoarded {
                     
                     self?.present(shareController, animated: true, completion: nil)
                 }
-        
         datasource.scrollToComment = { [weak self] bool in
             if bool {
                 self?.tableview.scrollToRow(at: IndexPath(item: 0, section: 2), at: .top, animated: true)
             }
             }
-        
         tableview.reloadData()
-        
     }
     
     @objc func deleteFavorite(notification: Notification) {
@@ -198,9 +192,6 @@ extension DetailAnecdoteTableViewController: SubmittedCommentDelegate {
         guard let anecdoteId = anecdote?.id else {
             return
         }
-//        datasource.anecdoteIDForComment = { id in
-//            anecdoteId = id
-//        }
         detailAnecdoteViewModel?.save(comment: comment, anecdoteId: anecdoteId)
     }
     

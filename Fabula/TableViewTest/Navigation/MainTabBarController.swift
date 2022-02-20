@@ -15,7 +15,7 @@ class MainTabBarController: UITabBarController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tabBar.tintColor = .label
+        tabBar.tintColor = .white
         homeCoordinator.start()
         roundedTabBar()
         viewControllers = [homeCoordinator.navigationController]

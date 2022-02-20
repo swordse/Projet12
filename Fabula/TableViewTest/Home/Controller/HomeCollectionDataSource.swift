@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class HomeCollectionDataSource: NSObject, UICollectionViewDataSource, UICollectionViewDelegate {
+final class HomeCollectionDataSource: NSObject, UICollectionViewDataSource, UICollectionViewDelegate {
     
     var selectedSection: ((IndexPath) -> Void)?
     
@@ -16,9 +16,7 @@ class HomeCollectionDataSource: NSObject, UICollectionViewDataSource, UICollecti
         return 4
     }
     
-    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        
         if section == 0 {
             return 1
         }
@@ -55,20 +53,17 @@ class HomeCollectionDataSource: NSObject, UICollectionViewDataSource, UICollecti
     }
     
     func createCompositionalLayout() -> UICollectionViewCompositionalLayout {
-
+        
         return UICollectionViewCompositionalLayout { sectionIndex, environment in
             switch sectionIndex {
-           
             case 0: return self.firstLayoutSection()
             case 1: return self.secondLayoutSection()
             case 2: return self.thirdLayoutSection()
-            
             default: return self.thirdLayoutSection()
-                
             }
         }
     }
-
+    
     
     func firstLayoutSection() -> NSCollectionLayoutSection {
         
@@ -88,16 +83,16 @@ class HomeCollectionDataSource: NSObject, UICollectionViewDataSource, UICollecti
     
     func secondLayoutSection() -> NSCollectionLayoutSection {
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
-                let itemLayout = NSCollectionLayoutItem(layoutSize: itemSize)
-                itemLayout.contentInsets = NSDirectionalEdgeInsets(top: 15, leading: 0, bottom: 10, trailing: 0)
+        let itemLayout = NSCollectionLayoutItem(layoutSize: itemSize)
+        itemLayout.contentInsets = NSDirectionalEdgeInsets(top: 15, leading: 0, bottom: 10, trailing: 0)
         
         let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(165))
-                let groupLayout = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitem: itemLayout, count: 2)
-                groupLayout.interItemSpacing = NSCollectionLayoutSpacing.fixed(10)
+        let groupLayout = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitem: itemLayout, count: 2)
+        groupLayout.interItemSpacing = NSCollectionLayoutSpacing.fixed(10)
         
-                let section = NSCollectionLayoutSection(group: groupLayout)
-                section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10)
-                return section
+        let section = NSCollectionLayoutSection(group: groupLayout)
+        section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10)
+        return section
     }
     
     func thirdLayoutSection() -> NSCollectionLayoutSection {
@@ -108,7 +103,7 @@ class HomeCollectionDataSource: NSObject, UICollectionViewDataSource, UICollecti
         let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(100))
         let groupLayout = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [itemLayout])
         groupLayout.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10)
-
+        
         let section = NSCollectionLayoutSection(group: groupLayout)
         section.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 0, bottom: 10, trailing: 0)
         section.orthogonalScrollingBehavior = .continuousGroupLeadingBoundary

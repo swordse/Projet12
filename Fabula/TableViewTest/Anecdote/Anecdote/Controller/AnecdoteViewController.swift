@@ -7,16 +7,14 @@
 
 import UIKit
 
+
 class AnecdoteViewController: UIViewController, StoryBoarded {
     
     let userAccount = UserAccountController()
-    
     var coordinator: AnecdoteCoordinator?
     var anecdoteViewModel: AnecdoteViewModel?
     var dataSource = AnecdoteListDataSource()
-    
     var anecdoteTextToShare = ""
-    
     
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
@@ -40,7 +38,9 @@ class AnecdoteViewController: UIViewController, StoryBoarded {
     
     var searchButton: UIButton = {
         let button = UIButton(type: .custom)
+        
         button.setImage(UIImage(systemName: "magnifyingglass"), for: .normal)
+        
         button.setTitle("Recherche", for: .normal)
         button.backgroundColor = UIColor.systemPink
         button.tintColor = .white
@@ -76,7 +76,6 @@ class AnecdoteViewController: UIViewController, StoryBoarded {
             searchButton.bottomAnchor.constraint(equalTo: headerView.bottomAnchor, constant: -10),
             searchButton.widthAnchor.constraint(equalTo: favoriteButton.widthAnchor)
         ])
-        
         tableView.tableHeaderView = headerView
     }
     
@@ -117,7 +116,6 @@ class AnecdoteViewController: UIViewController, StoryBoarded {
     
     func bind() {
         // anecdotes to display
-        
         anecdoteViewModel?.anecdotesToDisplay = {
             [weak self] anecdotes in
             self?.activityIndicator.stopAnimating()
@@ -139,7 +137,6 @@ class AnecdoteViewController: UIViewController, StoryBoarded {
                         print("Unrecognized error")
                     }
                     print("ERROR WHEN FETCH ANECDOTES")
-                    //                    self?.alert()
                 case.success(let anecdotes):
                     self?.dataSource.updateItems(items: anecdotes)
                     print("ANECDOTES TO DISPLAY COUNT: \(anecdotes.count)")
@@ -164,7 +161,6 @@ class AnecdoteViewController: UIViewController, StoryBoarded {
             [weak self] text in
             
             let items: [Any] = ["J'ai trouvé cette anecdote sur l'application Fabula:", text ]
-            
             let activity = UIActivityViewController(activityItems: items, applicationActivities: nil)
             self?.present(activity, animated: true, completion: nil)
         }
@@ -193,7 +189,6 @@ class AnecdoteViewController: UIViewController, StoryBoarded {
         }
         userAccount.showUserConnexion(on: navigationController)
     }
-    
     
 }
 

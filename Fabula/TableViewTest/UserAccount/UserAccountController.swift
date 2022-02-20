@@ -6,7 +6,7 @@ protocol AuthentificationProtocol {
     func statusChange(isConnected: Bool)
 }
 
-class UserAccountController {
+final class UserAccountController: NSObject {
     
     var authentificationDelegate: AuthentificationProtocol?
     
@@ -105,6 +105,11 @@ class UserAccountController {
         
         myTargetView = targetView
         
+        userNameTextField.delegate = self
+        emailTextField.delegate = self
+        passwordTextField.delegate = self
+        confirmationPWTextField.delegate = self
+        
         backgroundView.frame = targetView.bounds
         print("UIScreen BOUNDS: \(UIScreen.main.bounds)")
         print("TARGET VIEW CENTER: \(targetView.center)")
@@ -112,7 +117,7 @@ class UserAccountController {
         print("TARGET VIEW FRAME: \(targetView.frame)")
         targetView.addSubview(backgroundView)
         
-        alertView.frame = CGRect(x: 10, y: targetView.frame.size.height, width: targetView.frame.size.width - 20, height: backgroundView.frame.size.height - 180)
+        alertView.frame = CGRect(x: 10, y: targetView.frame.size.height, width: targetView.frame.size.width - 20, height: backgroundView.frame.size.height - 200)
         alertView.backgroundColor = UIColor(named: "darkBlue")
         print("ALERTVIEW FRAME AFTER SETUP: \(alertView.frame)")
         
@@ -223,6 +228,7 @@ class UserAccountController {
         createButton.titleLabel?.font = .boldSystemFont(ofSize: 17)
         createButton.setTitleColor(.white, for: .normal)
         createButton.backgroundColor = UIColor(named: "lightDark")
+        
         createButton.addTarget(self, action: #selector(createTapped), for: .touchUpInside)
         
         label.textColor = .white
@@ -352,6 +358,8 @@ class UserAccountController {
                     self?.messageLabel.text = "Une erreur s'est produite. Veuillez réessayer."
                 }
             case.success(_):
+                self?.authentificationDelegate?.statusChange(isConnected: true)
+                
                 self?.titleLabel.text = "Deconnexion"
                 self?.hideConnexion()
                 self?.logOutButton.isHidden = false
@@ -662,3 +670,14 @@ class UserAccountController {
     }
 }
 
+extension UserAccountController: UITextFieldDelegate {
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        userNameTextField.resignFirstResponder()
+        emailTextField.resignFirstResponder()
+        passwordTextField.resignFirstResponder()
+        confirmationPWTextField.resignFirstResponder()
+        return true
+        
+    }
+}

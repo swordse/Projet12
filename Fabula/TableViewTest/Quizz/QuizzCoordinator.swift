@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 
+
 class QuizzCoordinator: Coordinator {
     
     var childCoordinators = [Coordinator]()
@@ -19,11 +20,14 @@ class QuizzCoordinator: Coordinator {
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
         
-        self.navigationController.navigationBar.prefersLargeTitles = true
-        self.navigationController.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.label]
-        self.navigationController.navigationBar.largeTitleTextAttributes = [.foregroundColor: UIColor.label]
+            self.navigationController.navigationBar.prefersLargeTitles = true
+    
+        self.navigationController.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.gray]
+        
+            self.navigationController.navigationBar.largeTitleTextAttributes = [.foregroundColor: UIColor.white]
+       
         self.navigationController.navigationBar.barTintColor = UIColor.deepBlue
-        self.navigationController.navigationBar.tintColor = .label
+        self.navigationController.navigationBar.tintColor = .white
     }
     
     func start() {

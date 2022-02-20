@@ -16,8 +16,8 @@ extension UIView {
         let circlePath = UIBezierPath(arcCenter: view.center, radius: 80, startAngle: 0, endAngle: .pi * 2, clockwise: true)
         shape.path = circlePath.cgPath
         shape.lineWidth = 20
-        shape.strokeColor = UIColor(named: "green")?.cgColor
-        shape.fillColor = UIColor.deepBlue?.cgColor
+        shape.strokeColor = UIColor.green.cgColor
+        shape.fillColor = UIColor.deepBlue.cgColor
         shape.strokeEnd = 0.5
         view.layer.addSublayer(shape)
         return shape

@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		47040CD227BFAEF8009AEB05 /* CommentFormTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47040CD127BFAEF8009AEB05 /* CommentFormTests.swift */; };
+		47040CD427BFB899009AEB05 /* FavoriteAnecoteDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47040CD327BFB899009AEB05 /* FavoriteAnecoteDelegate.swift */; };
+		47040CD627BFD326009AEB05 /* AnecdoteDelegateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47040CD527BFD326009AEB05 /* AnecdoteDelegateTests.swift */; };
+		47040CD827BFD5A6009AEB05 /* SearchViewModelAnecdoteDelegateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47040CD727BFD5A6009AEB05 /* SearchViewModelAnecdoteDelegateTests.swift */; };
 		47274B3B27B1656700948A60 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47274B3A27B1656700948A60 /* NetworkError.swift */; };
 		47274B3D27B18AE400948A60 /* UIViewController+Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47274B3C27B18AE400948A60 /* UIViewController+Alert.swift */; };
 		47274B3F27B19B7500948A60 /* CustomColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47274B3E27B19B7500948A60 /* CustomColor.swift */; };
@@ -39,6 +43,7 @@
 		4780FA202792010F002B2277 /* BadgItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4780FA1F2792010F002B2277 /* BadgItem.swift */; };
 		4780FA252794BC56002B2277 /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4780FA242794BC56002B2277 /* UserDefaultsManager.swift */; };
 		4780FA272795A589002B2277 /* BadgeHub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4780FA262795A589002B2277 /* BadgeHub.swift */; };
+		478123C527C0ED7500FD09EB /* AuthentificationProtocolTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 478123C427C0ED7500FD09EB /* AuthentificationProtocolTests.swift */; };
 		4784E85B2784428800F502FE /* TestQuizzViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4784E85A2784428800F502FE /* TestQuizzViewController.swift */; };
 		4784E85D278478FB00F502FE /* Quizz.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4784E85C278478FB00F502FE /* Quizz.swift */; };
 		4784E85F27848CF500F502FE /* TestQuizzViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4784E85E27848CF500F502FE /* TestQuizzViewModel.swift */; };
@@ -56,7 +61,6 @@
 		47908D402768FE0B00B2C760 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47908D3E2768FE0B00B2C760 /* Main.storyboard */; };
 		47908D422768FE0D00B2C760 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 47908D412768FE0D00B2C760 /* Assets.xcassets */; };
 		47908D452768FE0D00B2C760 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47908D432768FE0D00B2C760 /* LaunchScreen.storyboard */; };
-		47908D4F276A22EE00B2C760 /* NetworkAnecdotes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47908D4E276A22EE00B2C760 /* NetworkAnecdotes.swift */; };
 		47908D51276A285300B2C760 /* AnecdoteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47908D50276A285300B2C760 /* AnecdoteViewModel.swift */; };
 		47908D53276A290D00B2C760 /* Anecdote.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47908D52276A290D00B2C760 /* Anecdote.swift */; };
 		47908D55276A483500B2C760 /* AnecdotesListDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47908D54276A483500B2C760 /* AnecdotesListDataSource.swift */; };
@@ -124,7 +128,6 @@
 		47E89BCD27B83C4D009C1372 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 47E89BCC27B83C4D009C1372 /* FirebaseAuth */; };
 		47E89BCF27B83C4D009C1372 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 47E89BCE27B83C4D009C1372 /* FirebaseFirestore */; };
 		47E89BD127B84789009C1372 /* FireStoreSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E89BD027B84789009C1372 /* FireStoreSession.swift */; };
-		47E89BD327B84866009C1372 /* AnecdoteSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E89BD227B84866009C1372 /* AnecdoteSession.swift */; };
 		47E89BD527B85BB1009C1372 /* AnecdoteService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E89BD427B85BB1009C1372 /* AnecdoteService.swift */; };
 		47E96EAB278A10D6003EEA57 /* DetailAnecdoteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E96EAA278A10D6003EEA57 /* DetailAnecdoteViewModel.swift */; };
 		47E96EAD278A114F003EEA57 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E96EAC278A114F003EEA57 /* Comment.swift */; };
@@ -147,6 +150,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		47040CD127BFAEF8009AEB05 /* CommentFormTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentFormTests.swift; sourceTree = "<group>"; };
+		47040CD327BFB899009AEB05 /* FavoriteAnecoteDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteAnecoteDelegate.swift; sourceTree = "<group>"; };
+		47040CD527BFD326009AEB05 /* AnecdoteDelegateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnecdoteDelegateTests.swift; sourceTree = "<group>"; };
+		47040CD727BFD5A6009AEB05 /* SearchViewModelAnecdoteDelegateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModelAnecdoteDelegateTests.swift; sourceTree = "<group>"; };
 		47274B3A27B1656700948A60 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 		47274B3C27B18AE400948A60 /* UIViewController+Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Alert.swift"; sourceTree = "<group>"; };
 		47274B3E27B19B7500948A60 /* CustomColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomColor.swift; sourceTree = "<group>"; };
@@ -179,6 +186,7 @@
 		4780FA1F2792010F002B2277 /* BadgItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BadgItem.swift; sourceTree = "<group>"; };
 		4780FA242794BC56002B2277 /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
 		4780FA262795A589002B2277 /* BadgeHub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BadgeHub.swift; sourceTree = "<group>"; };
+		478123C427C0ED7500FD09EB /* AuthentificationProtocolTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthentificationProtocolTests.swift; sourceTree = "<group>"; };
 		4784E85A2784428800F502FE /* TestQuizzViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestQuizzViewController.swift; sourceTree = "<group>"; };
 		4784E85C278478FB00F502FE /* Quizz.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Quizz.swift; sourceTree = "<group>"; };
 		4784E85E27848CF500F502FE /* TestQuizzViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestQuizzViewModel.swift; sourceTree = "<group>"; };
@@ -198,7 +206,6 @@
 		47908D412768FE0D00B2C760 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		47908D442768FE0D00B2C760 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		47908D462768FE0D00B2C760 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		47908D4E276A22EE00B2C760 /* NetworkAnecdotes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkAnecdotes.swift; sourceTree = "<group>"; };
 		47908D50276A285300B2C760 /* AnecdoteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnecdoteViewModel.swift; sourceTree = "<group>"; };
 		47908D52276A290D00B2C760 /* Anecdote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Anecdote.swift; sourceTree = "<group>"; };
 		47908D54276A483500B2C760 /* AnecdotesListDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnecdotesListDataSource.swift; sourceTree = "<group>"; };
@@ -265,7 +272,6 @@
 		47E661A4276CC03500508FCF /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		47E661A9276CC6A000508FCF /* DetailAnecdoteTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailAnecdoteTableViewController.swift; sourceTree = "<group>"; };
 		47E89BD027B84789009C1372 /* FireStoreSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireStoreSession.swift; sourceTree = "<group>"; };
-		47E89BD227B84866009C1372 /* AnecdoteSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnecdoteSession.swift; sourceTree = "<group>"; };
 		47E89BD427B85BB1009C1372 /* AnecdoteService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnecdoteService.swift; sourceTree = "<group>"; };
 		47E96EAA278A10D6003EEA57 /* DetailAnecdoteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailAnecdoteViewModel.swift; sourceTree = "<group>"; };
 		47E96EAC278A114F003EEA57 /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
@@ -297,6 +303,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		47040CD027BFAB3B009AEB05 /* SubmittedComment */ = {
+			isa = PBXGroup;
+			children = (
+				47040CD127BFAEF8009AEB05 /* CommentFormTests.swift */,
+			);
+			path = SubmittedComment;
+			sourceTree = "<group>";
+		};
 		47274B6027B2899700948A60 /* Quote */ = {
 			isa = PBXGroup;
 			children = (
@@ -415,6 +429,14 @@
 				47908D412768FE0D00B2C760 /* Assets.xcassets */,
 			);
 			path = Helper;
+			sourceTree = "<group>";
+		};
+		478123C327C0ED4500FD09EB /* AuthentificationProtocoleTests */ = {
+			isa = PBXGroup;
+			children = (
+				478123C427C0ED7500FD09EB /* AuthentificationProtocolTests.swift */,
+			);
+			path = AuthentificationProtocoleTests;
 			sourceTree = "<group>";
 		};
 		4784E858278441EF00F502FE /* Anecdote */ = {
@@ -641,6 +663,7 @@
 			isa = PBXGroup;
 			children = (
 				47AAE3F227BE99E900C895E1 /* FavoriteViewModelTests.swift */,
+				47040CD327BFB899009AEB05 /* FavoriteAnecoteDelegate.swift */,
 			);
 			path = FavoriteViewModelTests;
 			sourceTree = "<group>";
@@ -699,6 +722,8 @@
 		47B37D4127B951C6002C05B7 /* FabulaTests */ = {
 			isa = PBXGroup;
 			children = (
+				478123C327C0ED4500FD09EB /* AuthentificationProtocoleTests */,
+				47040CD027BFAB3B009AEB05 /* SubmittedComment */,
 				47B37D4927B9521D002C05B7 /* FakeFireStoreSession.swift */,
 				47B37D4B27B952A1002C05B7 /* FakeResponseData.swift */,
 				47AAE3F127BE99B600C895E1 /* FavoriteViewModelTests */,
@@ -746,6 +771,7 @@
 			isa = PBXGroup;
 			children = (
 				47B37D5727B95B13002C05B7 /* AnecdoteViewModelTests.swift */,
+				47040CD527BFD326009AEB05 /* AnecdoteDelegateTests.swift */,
 			);
 			path = AnecdoteViewModelTests;
 			sourceTree = "<group>";
@@ -762,6 +788,7 @@
 			isa = PBXGroup;
 			children = (
 				47B37D5D27B9A974002C05B7 /* SearchViewModelTests.swift */,
+				47040CD727BFD5A6009AEB05 /* SearchViewModelAnecdoteDelegateTests.swift */,
 			);
 			path = SearchViewModelTests;
 			sourceTree = "<group>";
@@ -900,10 +927,8 @@
 		47E6619B276CB2FB00508FCF /* Anecdote Model */ = {
 			isa = PBXGroup;
 			children = (
-				47908D4E276A22EE00B2C760 /* NetworkAnecdotes.swift */,
 				47908D52276A290D00B2C760 /* Anecdote.swift */,
 				47E96EAC278A114F003EEA57 /* Comment.swift */,
-				47E89BD227B84866009C1372 /* AnecdoteSession.swift */,
 				47E89BD427B85BB1009C1372 /* AnecdoteService.swift */,
 			);
 			path = "Anecdote Model";
@@ -1144,7 +1169,6 @@
 				47A5C981278F73AA00F07594 /* FavoriteViewModel.swift in Sources */,
 				47BA8E5F277A2D6D006788FD /* HomeQuizzViewController.swift in Sources */,
 				4784E85D278478FB00F502FE /* Quizz.swift in Sources */,
-				47908D4F276A22EE00B2C760 /* NetworkAnecdotes.swift in Sources */,
 				47E661AA276CC6A000508FCF /* DetailAnecdoteTableViewController.swift in Sources */,
 				4780FA202792010F002B2277 /* BadgItem.swift in Sources */,
 				47B37D6427BA92CF002C05B7 /* AuthService.swift in Sources */,
@@ -1173,7 +1197,6 @@
 				47A5C977278C9CC600F07594 /* SourceTableViewCell.swift in Sources */,
 				47AF5BD027B71E29004C5441 /* DataRequest.swift in Sources */,
 				47DB79042774F21C002D1703 /* SectionCollectionViewCell.swift in Sources */,
-				47E89BD327B84866009C1372 /* AnecdoteSession.swift in Sources */,
 				474915C627A2A93600E35E52 /* CommentForm.swift in Sources */,
 				47E6619F276CB36100508FCF /* Coordinator.swift in Sources */,
 				474915D927A45EAF00E35E52 /* ParisAnnotation.swift in Sources */,
@@ -1188,6 +1211,7 @@
 				47AAE3F027BE6FF100C895E1 /* CoreDataSessionTests.swift in Sources */,
 				47C36B1A27BBAB05008E671C /* FakeAuthData.swift in Sources */,
 				47B37D5B27B97CAC002C05B7 /* UserDefaultManagerTests.swift in Sources */,
+				47040CD627BFD326009AEB05 /* AnecdoteDelegateTests.swift in Sources */,
 				47C36B2A27BBEACA008E671C /* CoreDataManagerTests.swift in Sources */,
 				47C36B2827BBEA08008E671C /* MockCoreDataStack.swift in Sources */,
 				47C36B2527BBDF39008E671C /* DetailAnecdoteViewModelTests.swift in Sources */,
@@ -1196,10 +1220,14 @@
 				47AAE3DA27BD0B7900C895E1 /* HomeQuizzViewModelTests.swift in Sources */,
 				47B37D4F27B952EF002C05B7 /* QuoteViewModelTests.swift in Sources */,
 				47B37D5E27B9A974002C05B7 /* SearchViewModelTests.swift in Sources */,
+				47040CD227BFAEF8009AEB05 /* CommentFormTests.swift in Sources */,
+				47040CD827BFD5A6009AEB05 /* SearchViewModelAnecdoteDelegateTests.swift in Sources */,
 				47B37D5827B95B13002C05B7 /* AnecdoteViewModelTests.swift in Sources */,
 				47B37D4A27B9521D002C05B7 /* FakeFireStoreSession.swift in Sources */,
 				47C36B1827BB01C7008E671C /* FakeFireAuthSession.swift in Sources */,
 				47C36B1C27BBAC19008E671C /* UserAccountViewModelTests.swift in Sources */,
+				478123C527C0ED7500FD09EB /* AuthentificationProtocolTests.swift in Sources */,
+				47040CD427BFB899009AEB05 /* FavoriteAnecoteDelegate.swift in Sources */,
 				47B37D5527B95A52002C05B7 /* WordViewModelTests.swift in Sources */,
 				47B37D5227B9575E002C05B7 /* WordViewControllerTests.swift in Sources */,
 				47B37D4C27B952A1002C05B7 /* FakeResponseData.swift in Sources */,

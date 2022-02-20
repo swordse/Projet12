@@ -32,6 +32,8 @@ class SearchViewModel {
             switch result {
             case.success(let anecdotes):
                 self.anecdotes = anecdotes
+                self.allAnecdotes?(.success(anecdotes))
+                print("****ANECDOTE IN SEARCHVIEWMODEL***: \(anecdotes)")
             case.failure(let error):
                 self.allAnecdotes?(.failure(error))
             }

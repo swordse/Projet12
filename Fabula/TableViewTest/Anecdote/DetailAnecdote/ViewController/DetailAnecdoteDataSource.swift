@@ -10,9 +10,7 @@ final class DetailAnecdoteDataSource: NSObject {
     private var isConnected = false
     
     var commentToSave: ((String, String) -> Void)?
-    
-//    var anecdoteIDForComment: ((String) -> Void)?
-    
+
     var commentConnexionButtonTapped: ((Bool) -> Void)?
     
     var textToShare: ((String) -> Void)?
@@ -32,7 +30,7 @@ final class DetailAnecdoteDataSource: NSObject {
     func updateIsFavorite(isFavorite: Bool) {
         self.isFavorite = isFavorite
     }
-    
+    // if user is connected, commentButton must show 'ajoutez une commentaire'
     func updateIsConnected(isConnected: Bool) {
         self.isConnected = isConnected
     }
