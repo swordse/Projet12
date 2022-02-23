@@ -14,14 +14,14 @@ class CoreDataSessionTests: XCTestCase {
     // MARK: - Properties
 
     var coreDataStack: MockCoreDataStack!
-    var coreDataSession: CoreDataSession!
+    var coreDataSession: CoreDataService!
 
     //MARK: - Tests Life Cycle
 
     override func setUp() {
         super.setUp()
         coreDataStack = MockCoreDataStack()
-        coreDataSession = CoreDataSession(coreDataStack: coreDataStack)
+        coreDataSession = CoreDataService(coreDataStack: coreDataStack)
     }
 
     override func tearDown() {

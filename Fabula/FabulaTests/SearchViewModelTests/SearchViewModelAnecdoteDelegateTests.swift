@@ -23,8 +23,8 @@ class SearchViewModelAnecdoteDelegateTests: XCTestCase, AnecdoteDetailDelegate {
         XCTAssert((selectedAnecdote?.title == "titre"))
     }
     
-func getDetail(anecdote: Anecdote, commentIsTapped: Bool, isFavoriteNavigation: Bool) {
-    self.selectedAnecdote = anecdote
-}
-
+    func getDetail(anecdote: Anecdote, commentIsTapped: Bool, isFavoriteNavigation: Bool) {
+        self.selectedAnecdote = anecdote
+    }
+    
 }

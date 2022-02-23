@@ -9,7 +9,6 @@ import Foundation
 import UIKit
 
 struct Quote {
-    
     var authorName: String
     var text: String
     var category: String

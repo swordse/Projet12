@@ -26,7 +26,7 @@ class AnecdoteViewModelTests: XCTestCase {
         anecdoteViewModel.anecdotesToDisplay = { result in
             switch result {
             case.success(_):
-                print("success")
+                XCTFail("\(#function) failed")
             case.failure(let networkError):
                 XCTAssertEqual(networkError, expectedResult)
             }
@@ -56,7 +56,7 @@ class AnecdoteViewModelTests: XCTestCase {
             case.success(let success):
                 XCTAssertEqual(success[0].title, expectedResult)
             case.failure(_):
-                print("dedede")
+                XCTFail("\(#function) failed")
                 
             }
             expectation.fulfill()
@@ -64,7 +64,7 @@ class AnecdoteViewModelTests: XCTestCase {
         
         anecdoteViewModel.getAnecdotes()
         
-        waitForExpectations(timeout: 1, handler: nil)
+        waitForExpectations(timeout: 0.1, handler: nil)
     }
     
     func testViewModelGetNewAnecdotesMethod_WhenErrorOccured_ThenAnecdoteToDisplayClosureReturnError() {
@@ -83,7 +83,7 @@ class AnecdoteViewModelTests: XCTestCase {
             result in
             switch result {
             case.success(_):
-                print("PAS DE SUCCES")
+                XCTFail("\(#function) failed")
             case.failure(let networkError):
                 XCTAssertEqual(networkError, expectedResult)
             }
@@ -112,7 +112,7 @@ class AnecdoteViewModelTests: XCTestCase {
             case.success(let success):
                 XCTAssertEqual(success[0].title, expectedResult)
             case.failure(_):
-                print("dedede")
+                XCTFail("\(#function) failed")
             }
             expectation.fulfill()
         }

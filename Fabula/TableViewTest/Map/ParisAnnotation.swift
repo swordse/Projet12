@@ -9,7 +9,7 @@ import Foundation
 import MapKit
 import Contacts
 
-class ParisAnnotation: NSObject, MKAnnotation {
+final class ParisAnnotation: NSObject, MKAnnotation {
     
     var title: String?
     var locationName: String?
@@ -21,7 +21,6 @@ class ParisAnnotation: NSObject, MKAnnotation {
     }
     
     init(title: String?, locationName: String?, coordinate: CLLocationCoordinate2D, text: String?) {
-        
         self.title = title
         self.locationName = locationName
         self.coordinate = coordinate
@@ -29,7 +28,6 @@ class ParisAnnotation: NSObject, MKAnnotation {
     }
     
     init?(feature: MKGeoJSONFeature) {
-        
         guard let point = feature.geometry.first as? MKPointAnnotation,
               let propertiesData = feature.properties,
               let json = try? JSONSerialization.jsonObject(with: propertiesData),

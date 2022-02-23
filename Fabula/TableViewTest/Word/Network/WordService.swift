@@ -7,7 +7,7 @@
 
 import Foundation
 
-class WordService {
+final class WordService {
     
     let session: FireStoreSession
     
@@ -52,6 +52,5 @@ class WordService {
             }
         }
     }
-    
     
 }

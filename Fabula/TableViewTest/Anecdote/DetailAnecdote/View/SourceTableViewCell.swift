@@ -9,9 +9,7 @@ import UIKit
 
 class SourceTableViewCell: UITableViewCell {
 
-    
     @IBOutlet weak var backView: UIView!
-    
     @IBOutlet weak var sourceButton: UIButton!
     
     var source: String? {
@@ -19,7 +17,6 @@ class SourceTableViewCell: UITableViewCell {
             guard let source = source else {
                 return
             }
-//            sourceButton.titleLabel?.text = source
             sourceButton.setTitle(source, for: .normal)
         }
     }
@@ -27,13 +24,6 @@ class SourceTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         backView.layer.cornerRadius = 15
-        
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
 
     @IBAction func sourceButtonTapped(_ sender: Any) {

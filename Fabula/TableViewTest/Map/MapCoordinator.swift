@@ -9,12 +9,10 @@ import Foundation
 import UIKit
 
 
-class MapCoordinator: Coordinator {
+final class MapCoordinator: Coordinator {
     
     var childCoordinators = [Coordinator]()
-    
     var navigationController: UINavigationController
-    
     weak var parentCoordinator: HomeCoordinator?
     
     init(navigationController: UINavigationController) {

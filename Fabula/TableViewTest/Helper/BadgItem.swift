@@ -14,11 +14,11 @@ public enum BadgeSize {
     case large
 }
 
+/// button to display favorite count under the favorite button in anecdoteViewController
 public class BadgedButtonItem: UIBarButtonItem {
     
     static var shared: BadgedButtonItem = {
         let badgeButton = BadgedButtonItem(with: UIImage(systemName: "heart")?.withTintColor(UIColor.white))
-        
         badgeButton.badgeTintColor = .white
         badgeButton.badgeTextColor = .black
         badgeButton.position = .right
@@ -30,23 +30,23 @@ public class BadgedButtonItem: UIBarButtonItem {
         return badgeButton
     }()
     
-    public func setBadge(with value: Int?) {
+    func setBadge(with value: Int?) {
         self.badgeValue = value
     }
     
-    public var badgeTintColor: UIColor? {
+    var badgeTintColor: UIColor? {
         didSet {
             lblBadge.backgroundColor = badgeTintColor
         }
     }
     
-    public var badgeTextColor: UIColor? {
+    var badgeTextColor: UIColor? {
         didSet {
             lblBadge.textColor = badgeTextColor
         }
     }
     
-    public var position: BadgePosition? = .right {
+    var position: BadgePosition? = .right {
         didSet {
             if position == .left {
                 self.lblBadge.frame = CGRect(x: 0,
@@ -62,7 +62,7 @@ public class BadgedButtonItem: UIBarButtonItem {
         }
     }
     
-    public var hasBorder: Bool? {
+    var hasBorder: Bool? {
         didSet {
             if hasBorder == true {
                 lblBadge.layer.borderWidth = 1.0
@@ -70,13 +70,13 @@ public class BadgedButtonItem: UIBarButtonItem {
         }
     }
     
-    public var borderColor: UIColor? = .black {
+    var borderColor: UIColor? = .black {
         didSet {
             lblBadge.layer.borderColor = borderColor?.cgColor
         }
     }
     
-    public var badgeSize: BadgeSize = .medium {
+    var badgeSize: BadgeSize = .medium {
         didSet {
             switch badgeSize {
             case .extraSmall:
@@ -91,13 +91,13 @@ public class BadgedButtonItem: UIBarButtonItem {
         }
     }
     
-    public var badgeAnimation: Bool? = false {
+    var badgeAnimation: Bool? = false {
         didSet {
             self.isAnimated = badgeAnimation
         }
     }
     
-    public var tapAction: (() -> Void)?
+    var tapAction: (() -> Void)?
     
     var badgeValue: Int? {
         didSet {

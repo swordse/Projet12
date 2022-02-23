@@ -30,14 +30,14 @@ final class WordViewModelTests: XCTestCase {
             case.failure(let networkError):
                 XCTAssertEqual(networkError, NetworkError.errorOccured)
             case.success(_):
-                print("dededede")
+                XCTFail("\(#function) failed")
             }
             expectation.fulfill()
         }
         
         wordViewModel.getWords()
         
-        wait(for: [expectation], timeout: 1)
+        wait(for: [expectation], timeout: 0.1)
     }
     
     func testViewModelGetWords_WhenAllOk_ThenWordToDisplayClosureReturnWords() {
@@ -53,7 +53,7 @@ final class WordViewModelTests: XCTestCase {
         wordViewModel.wordsToDisplay = { result in
             switch result {
             case.failure(_):
-                print("bob")
+                XCTFail("\(#function) failed")
             case.success(let success):
                 XCTAssert(!success.isEmpty)
             }
@@ -62,7 +62,7 @@ final class WordViewModelTests: XCTestCase {
         
         wordViewModel.getWords()
         
-        wait(for: [expectation], timeout: 1)
+        wait(for: [expectation], timeout: 0.1)
     }
     
     func testViewModelGetWords_WhenAllOk_ThenWordsToDisplayShouldReturnOneWord() {
@@ -73,13 +73,9 @@ final class WordViewModelTests: XCTestCase {
         
         let wordViewModel = WordViewModel(wordService: wordService, words: [Word]())
         
-//        let expectation = XCTestExpectation(description: "Wait for queue change.")
-        
         wordViewModel.getWords()
         
         XCTAssert(wordViewModel.words.count == 1)
-//        expectation.fulfill()
-//        wait(for: [expectation], timeout: 1)
     }
     
     func testGetNewWords_WhenErrorOccured_ThenShouldNotReturnNeWord() {
@@ -95,7 +91,7 @@ final class WordViewModelTests: XCTestCase {
             result in
             switch result {
             case.success(_):
-                print("success")
+                XCTFail("\(#function) failed")
             case.failure(let networkError):
                 XCTAssertEqual(networkError, NetworkError.errorOccured)
             }
@@ -104,7 +100,7 @@ final class WordViewModelTests: XCTestCase {
     
         wordViewModel.getNewWords()
         
-        wait(for: [expectation], timeout: 0.01)
+        wait(for: [expectation], timeout: 0.1)
     }
 
     
@@ -124,7 +120,7 @@ final class WordViewModelTests: XCTestCase {
             case.success(let words):
                 XCTAssertEqual(words[0].word, "DEFINITION")
             case.failure(_):
-                print("failure")
+                XCTFail("\(#function) failed")
             }
             expectation.fulfill()
         }

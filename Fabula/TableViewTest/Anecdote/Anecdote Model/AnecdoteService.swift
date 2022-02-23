@@ -32,7 +32,6 @@ final class AnecdoteService {
         session.getNewDocuments(dataRequest: dataRequest) { result, error in
             if error != nil {
                 callback(.failure(NetworkError.errorOccured))
-                print("ERROR getNewAnecdote AnecdoteService")
             }
             if result != nil {
                 let anecdotes = self.resultToAnecdote(result: result!)
@@ -48,19 +47,16 @@ final class AnecdoteService {
                 callback(.failure(NetworkError.errorOccured))
             }
             if result != nil {
-                print("RESULT FROM DATASESSION: \(result)")
                 callback(.success(self.resultToAnecdote(result: result!)))
             }
         }
     }
     
     func resultToAnecdote(result: [[String : Any]]) -> [Anecdote] {
-        print("RESULT IN RESULT TO ANECDOTE: \(result)")
         let formatter = DateFormatter()
         formatter.dateFormat = "dd/MM/yy"
         
         let resultAnecdotes: [Anecdote] = result.map { item in
-            print("****DATE*** = \(String(describing: item["Date"]))")
             let categorie = getCategory(item: item)
             
             return Anecdote(id: item["id"] as! String,

@@ -18,14 +18,6 @@ extension UIView {
                 self.transform = .identity
             }, completion: nil)
         }
-
-//        UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 0.3, initialSpringVelocity: 0.8, options: []) {
-//            self.transform = CGAffineTransform(rotationAngle: 0.4)
-//        } completion: { bool in
-//            if bool {
-//                self.transform = .identity
-//            }
-//        }
     }
     
     func scaleMinAnim() {
@@ -57,22 +49,5 @@ extension UIView {
             self.transform = .identity
         }, completion: completion)
     }
-    
-//    func redBackgroundAnim(completion: ((Bool) -> Void)?) {
-//        UIView.animate(withDuration: 0.1, delay: 0, options:.curveLinear , animations: {
-//            self.backgroundColor = .red
-//        }, completion: completion)
-//    }
-//    
-//    func greenBackgroundAnim(completion: ((Bool) -> Void)?) {
-//        UIView.animate(withDuration: 0.5, delay: 0, options: .curveLinear, animations: {
-//            self.backgroundColor = .green
-//        }, completion: completion)
-//    }
-//    
-//    func blueBackgroundAnim() {
-//        UIView.animate(withDuration: 0.2, delay: 0, options: .curveLinear, animations: {
-//            self.backgroundColor = UIColor(named: "lightBlue")
-//        }, completion: nil)
-//    }
+
 }

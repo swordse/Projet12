@@ -7,26 +7,17 @@
 
 import UIKit
 
-class SearchTableViewCell: UITableViewCell {
+final class SearchTableViewCell: UITableViewCell {
 
     @IBOutlet weak var categoryImage: UIImageView!
-    
     @IBOutlet weak var categoryLabel: UILabel!
-    
     @IBOutlet weak var titleLabel: UILabel!
-    
     @IBOutlet weak var dateLabel: UILabel!
-    
     @IBOutlet weak var textTextfield: UITextView!
-    
     @IBOutlet weak var favoriteButton: UIButton!
-    
     @IBOutlet weak var commentButton: UIButton!
-    
     @IBOutlet weak var shareButton: UIButton!
-    
     @IBOutlet weak var backView: UIView!
-    
     
     var anecdote: Anecdote? {
         didSet {
@@ -47,7 +38,7 @@ class SearchTableViewCell: UITableViewCell {
         textTextfield.textContainerInset = UIEdgeInsets(top: 5, left: 0, bottom: 0, right: 0)
     }
     
-    func setFade() {
+    private func setFade() {
         let gradientMaskLayer = CAGradientLayer()
         gradientMaskLayer.frame = CGRect(x: 0, y: 0, width: textTextfield.frame.width, height: 130)
         
@@ -56,6 +47,5 @@ class SearchTableViewCell: UITableViewCell {
         
         textTextfield.layer.mask = gradientMaskLayer
     }
-    
 
 }

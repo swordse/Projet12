@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class WordCoordinator: Coordinator {
+final class WordCoordinator: Coordinator {
     
     var childCoordinators = [Coordinator]()
     
@@ -24,11 +24,9 @@ class WordCoordinator: Coordinator {
         self.navigationController.navigationBar.largeTitleTextAttributes = [.foregroundColor: UIColor.label]
         self.navigationController.navigationBar.barTintColor = .deepBlue
         self.navigationController.navigationBar.tintColor = .white
-        
     }
     
     func start() {
-        
         let vc = WordViewController.instantiate()
         vc.coordinator = self
         vc.wordViewModel = WordViewModel()

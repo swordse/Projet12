@@ -36,7 +36,7 @@ class UserAccountViewModelTests: XCTestCase, AuthentificationProtocol {
             result in
             switch result {
             case.success(_):
-                print("bob")
+                XCTFail("\(#function) failed")
             case.failure(let networkError):
                 XCTAssertEqual(networkError, NetworkError.noConnection)
             }
@@ -65,7 +65,7 @@ class UserAccountViewModelTests: XCTestCase, AuthentificationProtocol {
             case.success(let success):
                 XCTAssertEqual(success, true)
             case.failure(_):
-                print("bob")
+                XCTFail("\(#function) failed")
             }
             expectation.fulfill()
         }
@@ -92,7 +92,7 @@ class UserAccountViewModelTests: XCTestCase, AuthentificationProtocol {
         case.success(let success):
             XCTAssertEqual(success, true)
         case.failure(_):
-            print("bob")
+            XCTFail("\(#function) failed")
         }
            expectation.fulfill()
     }
@@ -116,7 +116,7 @@ class UserAccountViewModelTests: XCTestCase, AuthentificationProtocol {
             result in
             switch result {
             case.success(_):
-                print("bob")
+                XCTFail("\(#function) failed")
             case.failure(let networkError):
                 XCTAssertEqual(networkError, NetworkError.noConnection)
             }

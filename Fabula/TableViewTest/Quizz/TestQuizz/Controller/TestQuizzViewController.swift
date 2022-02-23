@@ -7,8 +7,8 @@
 
 import UIKit
 
-class TestQuizzViewController: UIViewController, StoryBoarded {
-
+final class TestQuizzViewController: UIViewController, StoryBoarded {
+    
     @IBOutlet weak var scoreLabel: UILabel!
     @IBOutlet weak var backQuestionView: UIView!
     @IBOutlet weak var questionLabel: UILabel!

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class CategoryQuizzCollectionViewCell: UICollectionViewCell {
+final class CategoryQuizzCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var backView: UIView!
     @IBOutlet weak var categoryImage: UIImageView!
@@ -17,10 +17,6 @@ class CategoryQuizzCollectionViewCell: UICollectionViewCell {
     
     static func nib() -> UINib {
         return UINib(nibName: "CategoryQuizzCollectionViewCell", bundle: nil)
-    }
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
     }
     
     func setCell(category: QuizzCategoryInfo) {

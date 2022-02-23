@@ -15,23 +15,18 @@ class TestQuizzTests: XCTestCase {
     override func setUpWithError() throws {
         
         sut = TestQuizzViewModel(quizzs: FakeResponseData.fakeQuizz)
-        // Put setup code here. This method is called before the invocation of each test method in the class.
     }
 
     override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
         sut = nil
     }
     
     
     func testStart_WhenAllOK_ThenPropositionsClosureReturnPropositions() {
         
-//        let expectation = self.expectation(description: "closure return")
-        
         sut.propositions =  {
             propositions in
             XCTAssert(propositions.count == 2)
-//            expectation.fulfill()
         }
         
         sut.question = {
@@ -44,10 +39,8 @@ class TestQuizzTests: XCTestCase {
             XCTAssertEqual(number, 0)
         }
         
-    
         sut.start()
         
-//        waitForExpectations(timeout: 0.1, handler: nil)
     }
     
     func testIsCorrect_WhenAllOK_ThenPropositionsClosureReturnIsCorrectDisplayedScorePlus1() {
@@ -121,21 +114,6 @@ class TestQuizzTests: XCTestCase {
         
         sut.endGame()
     
-    }
-
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        // Any test you write for XCTest can be annotated as throws and async.
-        // Mark your test throws to produce an unexpected failure when your test encounters an uncaught error.
-        // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
-    }
-
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
     }
 
 }

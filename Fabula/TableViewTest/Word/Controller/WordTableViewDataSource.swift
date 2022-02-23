@@ -8,14 +8,13 @@
 import Foundation
 import UIKit
 
-class WordTableViewDataSource: NSObject, UITableViewDataSource {
+final class WordTableViewDataSource: NSObject, UITableViewDataSource {
     
     var words = [Word]()
     
     var endReached: ((Bool) -> Void)?
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        return 0
         return words.count
     }
     
@@ -26,8 +25,6 @@ class WordTableViewDataSource: NSObject, UITableViewDataSource {
         let word = words[indexPath.row]
         cell.word = word
         return cell
-//        return UITableViewCell()
-        
     }
     
 }
@@ -37,7 +34,6 @@ extension WordTableViewDataSource:  UITableViewDelegate {
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if indexPath.row + 1 == words.count {
             endReached?(true)
-            print("end reached in datasource")
         }
     }
 }

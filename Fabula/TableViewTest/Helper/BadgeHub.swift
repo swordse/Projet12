@@ -38,15 +38,13 @@ public class BadgeHub: NSObject {
         }
     }
     
-    public init(view: UIView) {
+    init(view: UIView) {
         super.init()
         setView(view, andCount: 0)
     }
     
-    public func setView(_ view: UIView, andCount startCount: Int) {
+    func setView(_ view: UIView, andCount startCount: Int) {
         curOrderMagnitude = 0
-        let frame: CGRect = view.frame
-        print("FRAME OF THE FAVORITE BUTTON: \(frame)")
         redCircle = BadgeView()
         redCircle.isUserInteractionEnabled = false
         redCircle.backgroundColor = UIColor.white
@@ -71,7 +69,7 @@ public class BadgeHub: NSObject {
     }
     
     /// Set the frame of the notification circle relative to the view.
-    public func setCircleAtFrame(_ frame: CGRect) {
+    func setCircleAtFrame(_ frame: CGRect) {
         redCircle.frame = frame
         baseFrame = frame
         initialFrame = frame
@@ -83,20 +81,20 @@ public class BadgeHub: NSObject {
         countLabel?.font = UIFont.systemFont(ofSize: frame.size.width / 2)
     }
     
-    public func moveCircleBy(x: CGFloat, y: CGFloat) {
+    func moveCircleBy(x: CGFloat, y: CGFloat) {
         var frame: CGRect = redCircle.frame
         frame.origin.x += x
         frame.origin.y += y
         self.setCircleAtFrame(frame)
     }
     
-    public func setCount(_ newCount: Int) {
+    func setCount(_ newCount: Int) {
         self.count = newCount
         countLabel?.text = "\(count)"
         checkZero()
     }
     
-    public func checkZero() {
+    func checkZero() {
         if count <= 0 {
             redCircle.isHidden = true
             countLabel?.isHidden = true

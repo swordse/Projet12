@@ -18,20 +18,14 @@ class CommentFormTests: XCTestCase, SubmittedCommentDelegate {
         let manager = CommentForm()
         manager.submittedCommentDelegate = self
         
-//        expectation = expectation(description: "SubmittedComment delegate")
         manager.submitTapped()
         manager.submittedCommentDelegate?.commentSubmitted(comment: "paul")
         
-//        waitForExpectations(timeout: 1, handler: nil)
-        
-//        let result = try XCTUnwrap(comment)
         XCTAssertEqual(comment, "paul")
     }
     
     func commentSubmitted(comment: String) {
         self.comment = comment
-//        expectation?.fulfill()
-//        expectation = nil
     }
 
 

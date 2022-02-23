@@ -7,9 +7,8 @@
 
 import Foundation
 import FirebaseFirestore
-
-
-class QuizzService {
+// class to retrieve category, theme and quizzs
+final class QuizzService {
     
     let session: FireStoreSession
     

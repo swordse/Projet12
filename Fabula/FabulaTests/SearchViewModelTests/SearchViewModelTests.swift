@@ -23,22 +23,6 @@ class SearchViewModelTests: XCTestCase {
         searchViewModel.getAllAnecdotes()
         
         XCTAssert(searchViewModel.anecdotes.isEmpty)
-//        let expectation = XCTestExpectation(description: "Wait closure.")
-//
-//        searchViewModel.allAnecdotes = {
-//            result in
-//            switch result {
-//            case.success(_):
-//                print("bob")
-//            case.failure(let networkError):
-//                XCTAssert(searchViewModel.anecdotes.isEmpty)
-//            }
-//            expectation.fulfill()
-//        }
-//
-//        searchViewModel.getAllAnecdotes()
-//
-//        wait(for: [expectation], timeout: 1)
     }
     
     func testSearchViewModelGetAllAnecdotes_WhenAllOk_ThenAnecdotesNotNil() {
@@ -50,28 +34,23 @@ class SearchViewModelTests: XCTestCase {
         let searchViewModel = SearchViewModel(searchService: searchService, delegate: AnecdoteCoordinator(navigationController: UINavigationController()))
 
         let expectation = self.expectation(description: "closure return")
-//                XCTAssertEqual(success[0].title, "Difforme")
-//            }
-//            expectation.fulfill()
-//        }
-    
-//        searchViewModel.getAllAnecdotes()
+
+        let expectedResult = "Difforme"
         
         searchViewModel.allAnecdotes = {
 result in
             switch result {
             case.failure(_):
-                print("failure")
+                XCTFail("\(#function) failed")
             case.success(let success):
-                XCTAssert(!success.isEmpty)
+                XCTAssertEqual(success[0].title, expectedResult)
             }
             expectation.fulfill()
         }
         
         searchViewModel.getAllAnecdotes()
-//        XCTAssertEqual(searchViewModel.anecdotes.count, 1)
 
-        waitForExpectations(timeout: 2, handler: nil)
+        waitForExpectations(timeout: 0.1, handler: nil)
     }
     
     func testSearchInAnecdotesMethode_WhenAllOk_ThenAnecdotesResultIsNotEmpty() {
@@ -118,27 +97,5 @@ result in
         wait(for: [expectation], timeout: 0.01)
     }
     
-    override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-    }
-
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
-
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        // Any test you write for XCTest can be annotated as throws and async.
-        // Mark your test throws to produce an unexpected failure when your test encounters an uncaught error.
-        // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
-    }
-
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
-    }
 
 }

@@ -4,9 +4,8 @@
 //
 //  Created by Raphaël Goupille on 07/02/2022.
 //
-
 import Foundation
-
+/// enum to keep track of the networkError
 enum NetworkError: String, Error {
     case noData = "Aucune donnée."
     case noConnection = "Vérifiez votre connexion internet."

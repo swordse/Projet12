@@ -5,9 +5,8 @@
 //  Created by Raphaël Goupille on 27/12/2021.
 //
 import UIKit
-//import FirebaseFirestore
 
-class HomeQuizzViewController: UIViewController, StoryBoarded {
+final class HomeQuizzViewController: UIViewController, StoryBoarded {
     
     var coordinator: QuizzCoordinator?
     var viewModel: HomeQuizzViewModel?
@@ -61,17 +60,14 @@ class HomeQuizzViewController: UIViewController, StoryBoarded {
                 case.failure(let error):
                     switch error {
                     case.noData:
-                        print("alert no data")
-                        self?.alert()
+                        self?.alert(networkError: error)
                     case.errorOccured:
-                        print("alert errorOccured")
-                        self?.alert()
+                        self?.alert(networkError: error)
                     case.noConnection:
-                        print("alert noConnection")
-                        self?.alert()
+                        self?.alert(networkError: error)
                         self?.datasource.update(theme: nil)
                     default:
-                        print("Unrecognized error")
+                        self?.alert(networkError: .errorOccured)
                     }
                 case.success(let success):
                     self?.datasource.update(theme: success)
@@ -80,14 +76,12 @@ class HomeQuizzViewController: UIViewController, StoryBoarded {
                     self?.activityIndicator.stopAnimating()
                 }
             }
-            print("THEME   \(result)")
         }
         viewModel.categories = { [weak self] categories in
             DispatchQueue.main.async {
                 self?.datasource.update(categories: categories)
                 self?.collectionview.reloadData()
             }
-            print("CATEGORIE   \(categories)")
         }
         datasource.selectedTheme = viewModel.selectedTheme
     }

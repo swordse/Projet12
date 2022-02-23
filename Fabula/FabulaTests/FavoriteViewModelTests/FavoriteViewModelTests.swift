@@ -14,14 +14,14 @@ class FavoriteViewModelTests: XCTestCase {
     // MARK: - Properties
 
     var coreDataStack: MockCoreDataStack!
-    var coreDataSession: CoreDataSession!
+    var coreDataSession: CoreDataService!
 
     //MARK: - Tests Life Cycle
 
     override func setUp() {
         super.setUp()
         coreDataStack = MockCoreDataStack()
-        coreDataSession = CoreDataSession(coreDataStack: coreDataStack)
+        coreDataSession = CoreDataService(coreDataStack: coreDataStack)
     }
 
     func testGetFavorite_WhenOK_ThenFavoriteAnecdoteClosureReturnAnecdote() {

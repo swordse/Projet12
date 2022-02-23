@@ -40,9 +40,7 @@ class UserAccountViewModel {
                 UserDefaultsManager().userIsConnected(true)
                 // get the userId and create a fabulaUser
                 self.authService.getCurrentUser { fabulaUser in
-                    guard let fabulaUser = fabulaUser else {
-                        return
-                    }
+                    guard let fabulaUser = fabulaUser else { return }
                     var newFabulaUser = fabulaUser
                     newFabulaUser.userName = userName
                     
@@ -67,13 +65,11 @@ class UserAccountViewModel {
                 self.signInResult?(.success(result))
                 // get user info and save it in userdefaults
                 self.authService.getCurrentUser { user in
-                    print("USER APRES SIGN IN DNAS FONCTION GET CURRENT USER: \(user)")
                     guard let user = user else { return }
                     UserDefaultsManager().saveUser(userName: user.userName, userId: user.userId, userEmail: user.userEmail)
                 }
                 // save connexion state in userdefaults
                 UserDefaultsManager().userIsConnected(true)
-            
             }
         }
     }

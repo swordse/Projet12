@@ -17,16 +17,14 @@ final class HomeCollectionDataSource: NSObject, UICollectionViewDataSource, UICo
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if section == 0 {
-            return 1
-        }
-        if section == 1 {
-            return 4
-        }
-        if section == 2 {
-            return 3
-        }
-        else {
+        switch section {
+            // section for label
+        case 0: return 1
+            // section for categories
+        case 1: return 4
+            // section for mapCategory
+        case 2: return 1
+        default:
             return 0
         }
     }
@@ -66,7 +64,6 @@ final class HomeCollectionDataSource: NSObject, UICollectionViewDataSource, UICo
     
     
     func firstLayoutSection() -> NSCollectionLayoutSection {
-        
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
         let itemLayout = NSCollectionLayoutItem(layoutSize: itemSize)
         itemLayout.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)

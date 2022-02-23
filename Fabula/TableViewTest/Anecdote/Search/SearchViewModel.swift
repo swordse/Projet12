@@ -8,10 +8,9 @@
 import Foundation
 import FirebaseFirestore
 
-class SearchViewModel {
+final class SearchViewModel {
     
     var searchService = AnecdoteService()
-    
     var anecdotes = [Anecdote]()
     var searchResult = [Anecdote]()
     
@@ -33,7 +32,6 @@ class SearchViewModel {
             case.success(let anecdotes):
                 self.anecdotes = anecdotes
                 self.allAnecdotes?(.success(anecdotes))
-                print("****ANECDOTE IN SEARCHVIEWMODEL***: \(anecdotes)")
             case.failure(let error):
                 self.allAnecdotes?(.failure(error))
             }
@@ -41,7 +39,6 @@ class SearchViewModel {
     }
     
     func searchInAnecdote(words: [String]) {
-        print("SearchInAnecdote called")
         var result = [Anecdote]()
         
         for anecdote in anecdotes {
@@ -50,7 +47,7 @@ class SearchViewModel {
                     if !result.contains(where: { result in
                         result.id == anecdote.id
                     }) {
-                    result.append(anecdote)
+                        result.append(anecdote)
                     }
                 }
             }
@@ -58,7 +55,6 @@ class SearchViewModel {
         searchResult = result
         resultAnecdotes?(result)
     }
-    
     
     func selectedRow(int: Int) {
         let selectedAnecdote = searchResult[int]

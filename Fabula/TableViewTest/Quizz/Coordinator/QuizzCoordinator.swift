@@ -8,8 +8,7 @@
 import Foundation
 import UIKit
 
-
-class QuizzCoordinator: Coordinator {
+final class QuizzCoordinator: Coordinator {
     
     var childCoordinators = [Coordinator]()
     
@@ -19,13 +18,12 @@ class QuizzCoordinator: Coordinator {
     
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
+        self.navigationController.navigationBar.prefersLargeTitles = true
         
-            self.navigationController.navigationBar.prefersLargeTitles = true
-    
         self.navigationController.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.gray]
         
-            self.navigationController.navigationBar.largeTitleTextAttributes = [.foregroundColor: UIColor.white]
-       
+        self.navigationController.navigationBar.largeTitleTextAttributes = [.foregroundColor: UIColor.white]
+        
         self.navigationController.navigationBar.barTintColor = UIColor.deepBlue
         self.navigationController.navigationBar.tintColor = .white
     }
@@ -35,7 +33,7 @@ class QuizzCoordinator: Coordinator {
         vc.coordinator = self
         vc.viewModel = HomeQuizzViewModel(delegate: self)
         vc.tabBarItem = UITabBarItem(title: "Quizz", image: UIImage(named: "Game"), tag: 2)
-
+        
         navigationController.pushViewController(vc, animated: true)
     }
     
@@ -43,7 +41,7 @@ class QuizzCoordinator: Coordinator {
         let vc = TestQuizzViewController.instantiate()
         vc.coordinator = self
         vc.viewmodel = TestQuizzViewModel(quizzs: quizzs)
-
+        
         navigationController.pushViewController(vc, animated: true)
     }
     

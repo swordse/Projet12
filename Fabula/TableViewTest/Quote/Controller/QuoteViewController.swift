@@ -7,7 +7,7 @@
 
 import UIKit
 
-class QuoteViewController: UIViewController, StoryBoarded {
+final class QuoteViewController: UIViewController, StoryBoarded {
     
     var quoteViewModel: QuoteViewModel?
     var coordinator: QuoteCoordinator?
@@ -36,18 +36,17 @@ class QuoteViewController: UIViewController, StoryBoarded {
                 case.success(let quotes):
                     self?.quotes = quotes
                     self?.datasource.quotes = quotes
-                    print("dans QuoteVC quotes: \(self?.quotes)")
                     self?.quoteTableView.reloadData()
                 case.failure(let error):
                     switch error {
                     case.noData:
-                        print("no data")
+                        self?.alert(networkError: .noData)
                     case.errorOccured:
-                        print("error occured")
+                        self?.alert(networkError: .errorOccured)
                     case.noConnection:
-                        print("no connection")
+                        self?.alert(networkError: .noConnection)
                     default:
-                        print("Unrecognized error")
+                        self?.alert(networkError: .errorOccured)
                     }
                 }
             }
@@ -62,7 +61,7 @@ class QuoteViewController: UIViewController, StoryBoarded {
     @objc func shareQuote(notification: Notification) {
         let userInfo = notification.userInfo
         let textToShare = userInfo?["quote"]
-        let items: [Any] = ["J'ai trouvé cette citation sur l'application Fabula", textToShare]
+        let items: [Any] = ["J'ai trouvé cette citation sur l'application Fabula", textToShare as Any]
         let activityController = UIActivityViewController(activityItems: items, applicationActivities: [])
         present(activityController, animated: true, completion: nil)
     }

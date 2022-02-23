@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import UIKit
 import FirebaseFirestore
 
 class AnecdoteViewModel {
@@ -30,35 +29,32 @@ class AnecdoteViewModel {
     }
 
     func getNewAnecdotes() {
-        anecdoteService.getNewAnecdotes(dataRequest: DataRequest.anecdotes.rawValue) { result in
+        anecdoteService.getNewAnecdotes(dataRequest: DataRequest.anecdotes.rawValue) { [weak self] result in
             switch result {
             case.failure(let error):
-                self.anecdotesToDisplay?(.failure(error))
-                print("ERREUR getnewanecdote anecdoteviewmodel")
+                self?.anecdotesToDisplay?(.failure(error))
             case.success(let fetchedAnecdotes):
-                self.anecdotes.append(contentsOf: fetchedAnecdotes)
-                self.anecdotesToDisplay?(.success(self.anecdotes))
-                print("nombre d'anecdote dans anecdotes\(self.anecdotes)")
+                self?.anecdotes.append(contentsOf: fetchedAnecdotes)
+                self?.anecdotesToDisplay?(.success(self?.anecdotes ?? [Anecdote]()))
             }
         }
     }
     
     func getAnecdotes() {
         
-        anecdoteService.getAnecdotes(dataRequest: DataRequest.anecdotes.rawValue) { result in
+        anecdoteService.getAnecdotes(dataRequest: DataRequest.anecdotes.rawValue) { [weak self] result in
             switch result {
             case.failure(let error):
-                self.anecdotesToDisplay?(.failure(error))
+                self?.anecdotesToDisplay?(.failure(error))
             case.success(let fetchedAnecdotes):
-                self.anecdotes.append(contentsOf: fetchedAnecdotes)
-                self.anecdotesToDisplay?(.success(self.anecdotes))
+                self?.anecdotes.append(contentsOf: fetchedAnecdotes)
+                self?.anecdotesToDisplay?(.success(self?.anecdotes ?? [Anecdote]()))
             }
         }
     }
     
     func getFavNumber() {
         let numberOfFavorite = UserDefaultsManager().retrieveFavCount()
-        print("NUMBER OF FAV IN GETFAVNUMBER ANECDOTEVIEWMODEL: \(numberOfFavorite)")
         numberOfFavorites?(numberOfFavorite)
     }
     

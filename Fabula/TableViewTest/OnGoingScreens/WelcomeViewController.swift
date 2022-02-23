@@ -6,7 +6,7 @@
 //
 
 import UIKit
-
+// ongoing screens when user is new
 class WelcomeViewController: UIViewController {
     
     @IBOutlet weak var holderView: UIView!
@@ -28,37 +28,27 @@ class WelcomeViewController: UIViewController {
         holderView.addSubview(scrollView)
         
         let titles = ["Apprenez tous les jours", "Testez vos connaissances", "Apprenez en vous promenant"]
-        
         let imageNames = ["BookOB", "GameOB", "MapOB"]
-        
         let descriptionText = ["Tous les jours de nouvelles anecdotes, des citations et un nouveau mot", "Avec des quizz originaux", "En activant la géolocalisation"]
-        
         for x in 0..<3 {
             let pageView = UIView(frame: CGRect(x: CGFloat(x) * holderView.frame.size.width, y: 0, width: holderView.frame.size.width, height: holderView.frame.size.height))
             pageView.backgroundColor = .deepBlue
             scrollView.addSubview(pageView)
-            
             let nextButton = UIButton(frame: CGRect(x: 10, y: pageView.frame.size.height - 100, width: pageView.frame.size.width-20, height: 50))
-            
             let imageView = UIImageView(frame: CGRect(x: 50, y: 200, width: pageView.frame.size.width-100, height: 100))
-            
             let titleLabel = UILabel(frame: CGRect(x: 10, y: pageView.frame.size.height - 280, width: pageView.frame.size.width-20, height: 50))
-            
             let descriptionLabel = UILabel(frame: CGRect(x: 10, y: pageView.frame.size.height - 200, width: pageView.frame.size.width-20, height: 60))
-            
             titleLabel.textAlignment = .center
             titleLabel.font = .systemFont(ofSize: 24, weight: .semibold)
             titleLabel.textColor = .label
             titleLabel.text = titles[x]
             pageView.addSubview(titleLabel)
-            
             descriptionLabel.textAlignment = .center
             descriptionLabel.font = .systemFont(ofSize: 18, weight: .regular)
             descriptionLabel.numberOfLines = 0
             descriptionLabel.textColor = .label
             descriptionLabel.text = descriptionText[x]
             pageView.addSubview(descriptionLabel)
-            
             nextButton.addTarget(self, action: #selector(didTapButton(_:)), for: .touchUpInside)
             nextButton.setTitleColor(.white, for: .normal)
             nextButton.setTitle("Continue", for: .normal)
@@ -69,11 +59,9 @@ class WelcomeViewController: UIViewController {
                 nextButton.setTitle("Terminé", for: .normal)
             }
             pageView.addSubview(nextButton)
-            
             imageView.contentMode = .scaleAspectFit
             imageView.image = UIImage(named: imageNames[x])
             pageView.addSubview(imageView)
-            
         }
         scrollView.contentSize = CGSize(width: holderView.frame.size.width * 3, height: 0)
         scrollView.isPagingEnabled = true

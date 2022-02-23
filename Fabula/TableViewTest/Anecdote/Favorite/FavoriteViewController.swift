@@ -7,23 +7,25 @@
 
 import UIKit
 
-
-class FavoriteViewController: UIViewController, StoryBoarded {
+// controller to display the favorites saved by user
+final class FavoriteViewController: UIViewController, StoryBoarded {
     
     let userAccount = UserAccountController()
-    
     var coordinator: AnecdoteCoordinator?
     var favoriteViewModel: FavoriteViewModel?
     var dataSource = FavoriteDataSource()
+    var anecdotes = [Anecdote]()
     
-    var favoriteAnecdote = [Anecdote]()
-    var textToShare = ""
+    private var favoriteAnecdote = [Anecdote]()
+    private var textToShare = ""
+    
     
     @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Favoris"
+//        navigationItem.largeTitleDisplayMode = .always
         tableView.register(CommonAnecdoteTableViewCell.nib(), forCellReuseIdentifier: CommonAnecdoteTableViewCell.identifier)
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "user"), style: .plain, target: self, action: #selector(connexionTapped))
@@ -31,21 +33,34 @@ class FavoriteViewController: UIViewController, StoryBoarded {
         tableView.delegate = dataSource
         tableView.dataSource = dataSource
         bind()
-        favoriteViewModel?.getFavorite()
+        
+//        favoriteViewModel?.getFavorite()
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        print("view will appear")
+        super.viewWillAppear(animated)
         favoriteViewModel?.getFavorite()
-        tableView.reloadData()
+//        tableView.reloadData()
     }
     
-    func bind() {
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if anecdotes.isEmpty {
+            self.emptyFavoriteAlert()
+        }
+    }
+    
+    private func bind() {
         // favorites retrieve from coredata
         favoriteViewModel?.favoriteAnecdote = { [weak self ] anecdotes in
-            self?.dataSource.updateAnecdotes(anecdotes: anecdotes)
-            print("FAVORITE ANECDOTES RECUPEREES DE COREDATA \(anecdotes)")
-            self?.dataSource.selectedRow = self?.favoriteViewModel?.selectedRow
+            DispatchQueue.main.async {
+            
+                self?.dataSource.updateAnecdotes(anecdotes: anecdotes)
+                self?.anecdotes = anecdotes
+                self?.dataSource.selectedRow = self?.favoriteViewModel?.selectedRow
+            self?.tableView.reloadData()
+            }
+            
         }
         
         // UIActivityController when dataSource indicate a text to share
@@ -57,23 +72,7 @@ class FavoriteViewController: UIViewController, StoryBoarded {
             self?.present(activity, animated: true, completion: nil)
         }
     }
-    
-    @IBAction func commentButtonTapped(_ sender: UIButton) {
-//        let buttonPosition = sender.convert(CGPoint.zero, to: tableView)
-//        guard let indexPath = tableView.indexPathForRow(at: buttonPosition)  else { return }
-//
-//        favoriteViewModel?.selectedRow(int: indexPath.row, commentIsTapped: true, isFavoriteNavigation: true)
-       
-    }
-    
-    @IBAction func sharedButtonTapped(_ sender: Any) {
-//        let items: [Any] = ["J'ai trouvé cette anecdote sur l'application Fabula:", textToShare ]
-//
-//        let sharedController = UIActivityViewController(activityItems: items, applicationActivities: nil)
-//
-//        present(sharedController, animated: true, completion: nil)
-    }
-    
+
     @objc func connexionTapped() {
         guard let navigationController = navigationController else {
             return

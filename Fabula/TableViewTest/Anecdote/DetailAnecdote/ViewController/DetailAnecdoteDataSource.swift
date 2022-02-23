@@ -10,7 +10,7 @@ final class DetailAnecdoteDataSource: NSObject {
     private var isConnected = false
     
     var commentToSave: ((String, String) -> Void)?
-
+    
     var commentConnexionButtonTapped: ((Bool) -> Void)?
     
     var textToShare: ((String) -> Void)?
@@ -30,7 +30,7 @@ final class DetailAnecdoteDataSource: NSObject {
     func updateIsFavorite(isFavorite: Bool) {
         self.isFavorite = isFavorite
     }
-    // if user is connected, commentButton must show 'ajoutez une commentaire'
+    // if user is connected, commentButton must show 'ajoutez un commentaire'
     func updateIsConnected(isConnected: Bool) {
         self.isConnected = isConnected
     }
@@ -43,33 +43,22 @@ extension DetailAnecdoteDataSource: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // section for the detailed anecdote
-        if section == 0 {
-            return 1
-        }
-        // section for the source if available
-        else if section == 1 {
-            if anecdote?.source != nil {
-                return 1
-            } else {
-                return 0
-            }
-        }
-        // section to tap new comment if authentification succeed
-        else if section == 2 {
-            return 1
-        }
-        // section for the comments if available
-        else if section == 3 {
-            return comments?.count ?? 0
-        }
-        else {
-          return 0
+        switch section {
+            // section for the detailed anecdote
+        case 0: return 1
+            // section for the source if available
+        case 1:
+            return anecdote?.source != nil ? 1 : 0
+            // section to tap new comment if authentification succeed
+        case 2: return 1
+            // section for the comments if available
+        case 3: return comments?.count ?? 0
+        default: return 0
         }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
+        // index 0 is anecdotedetailtext, index 1 is Source, index 2 makeCommentcell, index3 show comments
         if indexPath.section == 0 {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: CommonAnecdoteTableViewCell.identifier, for: indexPath) as? CommonAnecdoteTableViewCell else {
             return UITableViewCell()
@@ -120,62 +109,7 @@ extension DetailAnecdoteDataSource: UITableViewDataSource {
             return UITableViewCell()
         }
     }
-    
-    
-//    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-//        if section == 1 {
-//            return "Source"
-//        }
-//        if section == 2 {
-//            return "Ajouter un commentaire"
-//        }
-//        if section == 3 {
-//            return "Commentaires"
-//        }
-//        else {
-//            return nil
-//        }
-//    }
 }
-
-extension DetailAnecdoteDataSource: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print(indexPath)
-    }
-    
-//    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-//        let view = UIView()
-//        view.backgroundColor = UIColor.deepBlue
-//        let label = UILabel()
-//        view.addSubview(label)
-//        label.frame = CGRect(x: 20, y: 0, width: 300, height: 20)
-//        label.textColor = .label
-//
-//        if section == 0 {
-//            label.text = "Anecdote"
-//            return view
-//        }
-//            if section == 1 {
-//                if anecdote?.source != nil {
-//                label.text = "Source"
-//                    return view
-//                } else {
-//                    return nil
-//                }
-//            }
-//            if section == 2 {
-//                label.text = "Ajouter un commentaire"
-//                return view
-//            }
-//            if section == 3 {
-//                label.text = "Commentaires"
-//                return view
-//            } else {
-//                return nil
-//            }
-//    }
-}
-
 
 extension DetailAnecdoteDataSource: WhichButtonTappedProtocol {
     // keep track of the button tapped comment or connexion
@@ -185,10 +119,6 @@ extension DetailAnecdoteDataSource: WhichButtonTappedProtocol {
         }
         if isSubmit {
             commentSubmitButtonTapped?(true)
-//            guard let anecdote = anecdote else {
-//                return
-//            }
-//            anecdoteIDForComment?(anecdote.id)
         }
     }
 }
@@ -204,8 +134,6 @@ extension DetailAnecdoteDataSource: CommentDelegate {
     func commentWasTapped(for anecdote: Anecdote) {
         scrollToComment?(true)
     }
-    
-    
 }
 
 

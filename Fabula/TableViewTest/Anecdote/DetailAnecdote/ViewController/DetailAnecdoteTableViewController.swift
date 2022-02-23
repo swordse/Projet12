@@ -40,7 +40,7 @@ class DetailAnecdoteTableViewController: UITableViewController, StoryBoarded {
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "user"), style: .plain, target: self, action: #selector(connexionTapped))
         
         tableview.dataSource = datasource
-        tableview.delegate = datasource
+//        tableview.delegate = datasource
         bind()
         
         guard let anecdote = anecdote else {
@@ -83,18 +83,14 @@ class DetailAnecdoteTableViewController: UITableViewController, StoryBoarded {
                 case.failure(let error):
                     switch error {
                     case.noData:
-                        print("no data")
-                        self?.alert()
+                        self?.alert(networkError: error)
                     case.errorOccured:
-                        print("alert errorOccured")
-                        self?.alert()
+                        self?.alert(networkError: error)
                     case.noConnection:
-                        print("alert noConnexion")
-                        self?.alert()
+                        self?.alert(networkError: error)
                     default:
                         print("Unrecognized error")
                     }
-                    print("ERROR WHEN FETCH ANECDOTES")
                 }
             }
         }
@@ -105,7 +101,6 @@ class DetailAnecdoteTableViewController: UITableViewController, StoryBoarded {
             } else {
                 self?.datasource.updateIsFavorite(isFavorite: false)
             }
-           
         }
             
         datasource.commentToSave = detailAnecdoteViewModel?.save(comment:anecdoteId:)
@@ -144,7 +139,8 @@ class DetailAnecdoteTableViewController: UITableViewController, StoryBoarded {
         tableview.reloadData()
     }
     
-    @objc func deleteFavorite(notification: Notification) {
+    @objc
+    func deleteFavorite(notification: Notification) {
         let userInfo = notification.userInfo
         guard let anecdote = userInfo?["anecdote"] as? Anecdote else {
             return
@@ -156,7 +152,8 @@ class DetailAnecdoteTableViewController: UITableViewController, StoryBoarded {
         }
     }
     
-    @objc func saveFavorite(notification: Notification) {
+    @objc
+    func saveFavorite(notification: Notification) {
         let userInfo = notification.userInfo
         guard let anecdote = userInfo?["anecdote"] as? Anecdote else {
             return
@@ -164,7 +161,8 @@ class DetailAnecdoteTableViewController: UITableViewController, StoryBoarded {
         detailAnecdoteViewModel?.saveFavorite(anecdote: anecdote)
     }
     
-    @objc func connexionTapped() {
+    @objc
+    func connexionTapped() {
         
         guard let navigationController = navigationController else {
             return

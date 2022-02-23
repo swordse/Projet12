@@ -7,7 +7,7 @@
 
 import UIKit
 
-class WordViewController: UIViewController, StoryBoarded {
+final class WordViewController: UIViewController, StoryBoarded {
     
     var coordinator: WordCoordinator?
     var wordViewModel: WordViewModel?
@@ -19,7 +19,6 @@ class WordViewController: UIViewController, StoryBoarded {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-//        title = "Mot du jour"
         wordTableview.register(WordTableViewCell.nib(), forCellReuseIdentifier: WordTableViewCell.identifier)
     }
     
@@ -31,7 +30,6 @@ class WordViewController: UIViewController, StoryBoarded {
         wordTableview.delegate = datasource
         wordViewModel?.getWords()
         bind()
-        
     }
     
     func bind() {
@@ -40,7 +38,7 @@ class WordViewController: UIViewController, StoryBoarded {
                 switch result {
                 case.failure(let error):
                     print(error)
-                    self?.alert()
+                    self?.alert(networkError: error)
                 case.success(let success):
                     self?.words = success
                     self?.datasource.words = success
@@ -51,7 +49,6 @@ class WordViewController: UIViewController, StoryBoarded {
         
         datasource.endReached = {
             [weak self] _ in
-            print("datasource.endReached est appelé par VC")
             self?.wordViewModel?.getNewWords()
         }
     }

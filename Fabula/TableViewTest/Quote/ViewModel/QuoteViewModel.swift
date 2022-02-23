@@ -7,7 +7,7 @@
 
 import Foundation
 
-class QuoteViewModel {
+final class QuoteViewModel {
     
     var quoteService = QuoteService()
     var quotes = [Quote]()
@@ -18,7 +18,6 @@ class QuoteViewModel {
     }
     
     // Output
-    
     var quotesToDisplay: ((Result<[Quote], NetworkError>) -> Void)?
     
     func getQuotes() {

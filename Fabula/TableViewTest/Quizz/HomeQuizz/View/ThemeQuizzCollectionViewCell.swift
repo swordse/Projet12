@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ThemeQuizzCollectionViewCell: UICollectionViewCell {
+final class ThemeQuizzCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var backView: UIView!
     @IBOutlet weak var themeLabel: UILabel!
@@ -21,7 +21,6 @@ class ThemeQuizzCollectionViewCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         backView.layer.cornerRadius = 15
-        // Initialization code
     }
     
     func setCell(theme: String) {

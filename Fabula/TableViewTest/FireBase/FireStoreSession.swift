@@ -9,22 +9,22 @@ import Foundation
 import FirebaseFirestore
 
 protocol FireStoreSession {
-    
+    /// get data from firebase
     func getDocuments(dataRequest: String, callback: @escaping ([[String: Any]]?, NetworkError?) -> Void)
-    
+    /// get new data when end is reached in tableview
     func getNewDocuments(dataRequest: String, callback: @escaping ([[String: Any]]?, NetworkError?) -> Void)
-    
+    /// use by searchViewModel to get all anecdotes
     func getAllDocuments(dataRequest: String, callback: @escaping ([[String: Any]]?, NetworkError?) -> Void)
-    
+    /// retrieve user information to be able to save the comments
     func getUserInfo(dataRequest: String, userId: String, callback: @escaping ([String: Any]?, NetworkError?) -> Void)
-    
+    /// used by detailAnecdoteViewModel to get the comments for the specific anecdote
     func readComments(dataRequest: String, anecdoteId: String, callback: @escaping ([[String: Any]]?, NetworkError?) -> Void)
-    
+    /// retrieve quizz category and theme for HomeQuizzViewModel
     func getCategoryQuizz(dataRequest: String, callback: @escaping ([[String : Any]]?, NetworkError?) -> Void)
-    
+    /// retrieve quizzs questions and answer for TestQuizzViewModel
     func getQuizzs(title: String, dataRequest: String, callback: @escaping([[String : Any]]?, NetworkError?) -> Void)
     
-    // Use by detailanecdote to save comment
+    /// Use by detailanecdote to save comment
     func save(commentToSave: [String: Any], anecdoteId: String, completion: @escaping (Bool) -> ())
     
 }
@@ -55,11 +55,10 @@ extension FireStoreSession {
     func save(commentToSave: [String: Any], anecdoteId: String, completion: @escaping (Bool) -> ()) {
     }
 }
-
+/// generic session used to retrieve info from FireStore
 final class DataSession: FireStoreSession {
-    
+    // keep track of lastSnapshot to retrieve new data starting from this snapshot
     private var lastSnapshot: QueryDocumentSnapshot?
-    
     private let dataBase = Firestore.firestore()
     
     func getDocuments(dataRequest: String, callback: @escaping ([[String : Any]]?, NetworkError?) -> Void) {
@@ -70,11 +69,8 @@ final class DataSession: FireStoreSession {
                 callback(nil, NetworkError.errorOccured)
                 return
             }
-            
             if snapshot?.metadata.isFromCache == true {
-                callback(nil, NetworkError.noConnection)
-            }
-            
+                callback(nil, NetworkError.noConnection) }
             var dictionnary = [[String: Any]]()
             for x in 0 ..< data.count {
                 var dataDict = data[x].data()
@@ -88,29 +84,22 @@ final class DataSession: FireStoreSession {
                 }
                 dictionnary.append(dataDict)
             }
-            
             callback(dictionnary, nil)
-            
             self.lastSnapshot = snapshot?.documents.last
         }
     }
     
     func getNewDocuments(dataRequest: String, callback: @escaping ([[String : Any]]?, NetworkError?) -> Void) {
-        
         guard let lastSnapshot = lastSnapshot else { return }
-        
         let docRef = dataBase.collection(dataRequest).order(by: "date", descending: true).limit(to: 5).start(afterDocument: lastSnapshot)
-        
         docRef.getDocuments { snapshot, error in
             guard let data = snapshot?.documents, error == nil else {
                 callback(nil, NetworkError.errorOccured)
                 return
             }
-            
             if snapshot?.metadata.isFromCache == true {
                 callback(nil, NetworkError.noConnection)
             }
-            
             var dictionnary = [[String: Any]]()
             for x in 0 ..< data.count {
                 var dataDict = data[x].data()
@@ -125,24 +114,20 @@ final class DataSession: FireStoreSession {
                 dictionnary.append(dataDict)
             }
             callback(dictionnary, nil)
-            
             self.lastSnapshot = snapshot?.documents.last
         }
     }
     
     func getAllDocuments(dataRequest: String, callback: @escaping ([[String : Any]]?, NetworkError?) -> Void) {
         let docRef = dataBase.collection(dataRequest).order(by: "date", descending: true)
-        
         docRef.getDocuments { snapshot, error in
             guard let data = snapshot?.documents, error == nil else {
                 callback(nil, NetworkError.errorOccured)
                 return
             }
-            
             if snapshot?.metadata.isFromCache == true {
                 callback(nil, NetworkError.noConnection)
             }
-            
             var dictionnary = [[String: Any]]()
             for x in 0 ..< data.count {
                 var anecdoteDict = data[x].data()
@@ -151,45 +136,37 @@ final class DataSession: FireStoreSession {
                 anecdoteDict["id"] = id
                 // convert the date in Date
                 if data[x].data()["date"] != nil {
-                let fireDate = (data[x].data()["date"] as? Timestamp)?.dateValue() ?? Date()
-                anecdoteDict["Date"] = fireDate
+                    let fireDate = (data[x].data()["date"] as? Timestamp)?.dateValue() ?? Date()
+                    anecdoteDict["Date"] = fireDate
                 }
                 dictionnary.append(anecdoteDict)
             }
-            
-            print("Dictionnary : \(dictionnary)")
             callback(dictionnary, nil)
         }
     }
     
     func getUserInfo(dataRequest: String, userId: String, callback: @escaping ([String: Any]?, NetworkError?) -> Void) {
         let docRef = dataBase.collection(dataRequest).whereField("userId", isEqualTo: userId)
-        
         docRef.getDocuments { snapshot, error in
             guard let data = snapshot?.documents
                     , error == nil else {
                         callback(nil, NetworkError.errorOccured)
                         return
                     }
-            
             let dictionary = data[0].data()
             callback(dictionary, nil)
         }
     }
     
     func readComments(dataRequest: String, anecdoteId: String, callback: @escaping ([[String : Any]]?, NetworkError?) -> Void) {
-        
         var firestoreResult = [[String: Any]]()
-        
         let docRef = dataBase.collection(dataRequest).whereField("anecdoteId", isEqualTo: anecdoteId)
-        
         docRef.getDocuments { snapshot, error in
             guard let data = snapshot?.documents
                     , error == nil else {
                         callback(nil, NetworkError.errorOccured)
                         return
                     }
-            print(data)
             for i in 0 ..< data.count {
                 var dictionary = data[i].data()
                 let fireDate = (data[i].data()["date"] as? Timestamp)?.dateValue() ?? Date()
@@ -198,23 +175,15 @@ final class DataSession: FireStoreSession {
             }
             callback(firestoreResult, nil)
         }
-        
     }
     
     func getCategoryQuizz(dataRequest: String, callback: @escaping ([[String : Any]]?, NetworkError?) -> Void) {
-        
         var firestoreResult = [[String: Any]]()
-        
         let docRef = dataBase.collection(dataRequest)
-        
         docRef.getDocuments { snapshot, error in
             guard let data = snapshot?.documents, error == nil else {
                 callback(nil, NetworkError.errorOccured)
-                print("Error in session")
                 return }
-            //            if data.isEmpty {
-            //                callback(nil, NetworkError.noData)
-            //            }
             for i in 0 ..< data.count {
                 let dictionary = data[i].data()
                 firestoreResult.append(dictionary)
@@ -224,16 +193,13 @@ final class DataSession: FireStoreSession {
     }
     
     func getQuizzs(title: String, dataRequest: String, callback: @escaping([[String : Any]]?, NetworkError?) -> Void) {
-        
         var firestoreResult = [[String: Any]]()
-        
         let docRef = dataBase.collection(dataRequest).whereField("title", isEqualTo: title)
         docRef.getDocuments { snapshot, error in
             guard let data = snapshot?.documents, error == nil else {
                 callback(nil, NetworkError.errorOccured)
                 return
             }
-            
             for i in 0 ..< data.count {
                 let dictionary = data[i].data()
                 firestoreResult.append(dictionary)
@@ -243,7 +209,6 @@ final class DataSession: FireStoreSession {
     }
     
     func save(commentToSave: [String: Any], anecdoteId: String, completion: @escaping (Bool) -> ()) {
-        
         dataBase.collection(DataRequest.comments.rawValue).document().setData(commentToSave) { err in
             if let err = err {
                 print("Error writing document: \(err)")
@@ -252,7 +217,7 @@ final class DataSession: FireStoreSession {
             }
             // when comment is save, retrieve comments to update tableview
             completion(true)
-    }
+        }
     }
     
 }

@@ -8,23 +8,22 @@
 import Foundation
 import UIKit
 
-class FavoriteViewModel {
+final class FavoriteViewModel {
     
     var coreDataSession: BackupSession
     var anecdoteDetailDelegate: AnecdoteDetailDelegate!
     var favorites = [Anecdote]()
     let favoriteNavButton = BadgedButtonItem.shared
     
-    init(coreDataSession: BackupSession = CoreDataSession(coreDataStack: CoreDataStack()), anecdoteDetailDelegate: AnecdoteDetailDelegate) {
+    init(coreDataSession: BackupSession = CoreDataService(coreDataStack: CoreDataStack()), anecdoteDetailDelegate: AnecdoteDetailDelegate) {
         self.coreDataSession = coreDataSession
         self.anecdoteDetailDelegate = anecdoteDetailDelegate
     }
     
     //    MARK: - Output
     var favoriteAnecdote: (([Anecdote])-> Void)?
-    
+    // retrieve favorit from CoreData
     func getFavorite() {
-        
         let favorites = coreDataSession.favorites
         
         favoriteNavButton.setBadge(with: favorites.count)

@@ -36,11 +36,12 @@ final class FakeFireAuthSession: FireAuthSession {
         callBack(fakeAuthResponse.fabulaUser)
     }
     
-    func saveUser(user: FabulaUser){
-        
+    func saveUser(user: FabulaUser) {
+        UserDefaultsManager().userIsConnected(true)
     }
     
     func logOut(){
+        UserDefaultsManager().userIsConnected(false)
     }
 
 

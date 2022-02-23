@@ -30,7 +30,6 @@ extension AnecdoteListDataSource: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
         guard let cell = tableView.dequeueReusableCell(withIdentifier: CommonAnecdoteTableViewCell.identifier, for: indexPath) as? CommonAnecdoteTableViewCell else {
             return UITableViewCell()
         }
@@ -63,7 +62,6 @@ extension AnecdoteListDataSource: UITableViewDelegate {
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if indexPath.row + 1 == items.count {
             endReached?(true)
-            print("end reached in datasource")
         }
     }
 }

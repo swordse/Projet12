@@ -7,7 +7,7 @@
 
 import Foundation
 
-class TestQuizzViewModel {
+final class TestQuizzViewModel {
     
     var quizzs: [Quizz]
     

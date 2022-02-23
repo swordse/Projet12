@@ -8,10 +8,9 @@
 import Foundation
 import UIKit
 
-class HomeQuizzViewModel {
+final class HomeQuizzViewModel {
     
     var quizzService = QuizzService()
-//    var network = NetworkQuizz()
     var delegate: QuizzGetTest!
     
     init(quizzService: QuizzService = QuizzService(), delegate: QuizzGetTest) {
@@ -32,22 +31,19 @@ class HomeQuizzViewModel {
         var categoriesName = [String]()
         var themeName = [[String]]()
         quizzService.getCategoryQuizz { [weak self] result in
-                switch result {
-                case.failure(let error):
-                    print(error)
-                    self?.theme?(.failure(error))
-                case.success(let success):
-                    print("SUCCESS IN RETRIEVE CATEGORY: \(success)")
-                    for i in 0 ..< success.count {
-                        for (key, value) in success[i] {
-                            categoriesName.append(key)
-                            themeName.append(value as! [String])
-                            print("VALUE \(value)")
-                        }
+            switch result {
+            case.failure(let error):
+                self?.theme?(.failure(error))
+            case.success(let success):
+                for i in 0 ..< success.count {
+                    for (key, value) in success[i] {
+                        categoriesName.append(key)
+                        themeName.append(value as! [String])
                     }
-                    self?.getCategoryInfo(category: categoriesName)
-                    self?.theme?(.success(themeName))
                 }
+                self?.getCategoryInfo(category: categoriesName)
+                self?.theme?(.success(themeName))
+            }
         }
     }
     
@@ -64,16 +60,13 @@ class HomeQuizzViewModel {
                 quizzCategoryInfo = QuizzCategoryInfo(name: item, image: UIImage(named: "Science")!, color: UIColor(named: "blue")!)
             case.litterature:
                 quizzCategoryInfo = QuizzCategoryInfo(name: item, image: UIImage(named: "Littérature")!, color: UIColor(named: "purple")!)
-                
             case.art:
                 quizzCategoryInfo = QuizzCategoryInfo(name: item, image: UIImage(named: "Art")!, color: UIColor(named: "pink")!)
                 
             case .none:
                 print("no category")
             }
-            guard let quizzCategoryInfo = quizzCategoryInfo else {
-                return
-            }
+            guard let quizzCategoryInfo = quizzCategoryInfo else { return }
             quizzCategoryInfos.append(quizzCategoryInfo)
         }
         categories?(quizzCategoryInfos)
@@ -83,23 +76,17 @@ class HomeQuizzViewModel {
     func retrieveQuizz(theme: String) {
         
         quizzService.getQuizzs(title: theme) { [weak self] result in
-            print("RESULT: \(result)")
-           
-                switch result {
-                case.failure(let error):
-                    print("ERROR \(error)")
-                case.success(let success):
-                    var quizzs = [Quizz]()
-                    print("SUCCES IN GETQUIZZS VIEWMODEL \(success)")
-                    for element in success {
-                        print("loop")
-                        let quizz = Quizz(category: element["category"] as! String, propositions: element["propositions"] as! [String], question: element["question"] as! String, response: element["response"] as! String, title: element["title"] as! String)
-                        quizzs.append(quizz)
-                    }
-                    self?.quizzs = quizzs
-                    self?.delegate.getTest(quizzs: quizzs)
-                    
-                    print("RETRIEVE QUIZZS \(quizzs)")
+            switch result {
+            case.failure(let error):
+                print("ERROR \(error)")
+            case.success(let success):
+                var quizzs = [Quizz]()
+                for element in success {
+                    let quizz = Quizz(category: element["category"] as! String, propositions: element["propositions"] as! [String], question: element["question"] as! String, response: element["response"] as! String, title: element["title"] as! String)
+                    quizzs.append(quizz)
+                }
+                self?.quizzs = quizzs
+                self?.delegate.getTest(quizzs: quizzs)
             }
         }
     }

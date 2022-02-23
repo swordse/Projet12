@@ -7,7 +7,7 @@
 
 import UIKit
 
-class HeaderCollectionReusableView: UICollectionReusableView {
+final class HeaderCollectionReusableView: UICollectionReusableView {
     
     static let identifier = "HeaderCollection"
     private let label: UILabel = {

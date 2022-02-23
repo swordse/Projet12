@@ -42,9 +42,7 @@ class AuthService {
             if isSucces {
                 completion(.success(true))
             } else {
-                guard let networkError = networkError else {
-                    return
-                }
+                guard let networkError = networkError else { return }
                 completion(.failure(networkError))
             }
         }

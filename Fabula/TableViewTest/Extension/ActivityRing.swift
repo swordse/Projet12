@@ -8,7 +8,7 @@
 import Foundation
 import QuartzCore
 import UIKit
-
+// ring animation call at the end of the test quizz
 extension UIView {
     
     func createActivityRing(view: UIView) -> CAShapeLayer {

@@ -31,9 +31,14 @@ final class FakeFireStoreSession: FireStoreSession {
         callback(fakeResponse.result, fakeResponse.error)
     }
     
-//    func getUserInfo(dataRequest: String, userId: String, callback: @escaping ([String: Any]?, NetworkError?) -> Void) {
-//        callback(fakeResponse.result, fakeResponse.error)
-//    }
+    func getAllDocuments(dataRequest: String, callback: @escaping ([[String : Any]]?, NetworkError?) -> Void) {
+        callback(fakeResponse.result, fakeResponse.error)
+    }
+    
+    
+    func save(commentToSave: [String: Any], anecdoteId: String, completion: @escaping (Bool) -> ()) {
+        completion(true)
+    }
     
     func readComments(dataRequest: String, anecdoteId: String, callback: @escaping ([[String: Any]]?, NetworkError?) -> Void) {
         callback(fakeResponse.result, fakeResponse.error)

@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class TestQuizzDataSource: NSObject, UITableViewDataSource, UITableViewDelegate {
+final class TestQuizzDataSource: NSObject, UITableViewDataSource, UITableViewDelegate {
     
     private var propositions = [String]()
     
@@ -72,7 +72,7 @@ class TestQuizzDataSource: NSObject, UITableViewDataSource, UITableViewDelegate 
                 cell?.backView.backgroundColor = UIColor(named: "red")
             }
         }
-
+        
         guard let isOngoing = isOngoing else {
             return
         }

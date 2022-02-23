@@ -17,7 +17,6 @@ class AnecdoteViewController: UIViewController, StoryBoarded {
     var anecdoteTextToShare = ""
     
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
-    
     @IBOutlet weak var tableView: UITableView!
     // variable to add a badge to the favoriteButton
     private var hub: BadgeHub?
@@ -125,22 +124,16 @@ class AnecdoteViewController: UIViewController, StoryBoarded {
                 case.failure(let error):
                     switch error {
                     case.noData:
-                        print("no data")
-                        self?.alert()
+                        self?.alert(networkError: error)
                     case.errorOccured:
-                        print("alert errorOccured")
-                        self?.alert()
+                        self?.alert(networkError: error)
                     case.noConnection:
-                        print("alert noConnexion")
-                        self?.alert()
+                        self?.alert(networkError: error)
                     default:
-                        print("Unrecognized error")
+                        self?.alert(networkError: error)
                     }
-                    print("ERROR WHEN FETCH ANECDOTES")
                 case.success(let anecdotes):
                     self?.dataSource.updateItems(items: anecdotes)
-                    print("ANECDOTES TO DISPLAY COUNT: \(anecdotes.count)")
-                    print("ANECDOTETODISPLAY RESULT: \(anecdotes)")
                     self?.tableView.reloadData()
                 }
             }
@@ -150,7 +143,6 @@ class AnecdoteViewController: UIViewController, StoryBoarded {
         anecdoteViewModel?.numberOfFavorites = {
             number in
             BadgedButtonItem.shared.setBadge(with: number)
-            print("Closure dans AnecdoteVC s'exècute avec number: \(number)")
             self.hub?.setCount(number)
         }
         // dataSource inform that a row is selected, we can pass to coordinator (anecdote, is favorite, iscomment)
@@ -159,7 +151,6 @@ class AnecdoteViewController: UIViewController, StoryBoarded {
         // UIActivityController when dataSource indicate a text to share
         dataSource.textToShare = {
             [weak self] text in
-            
             let items: [Any] = ["J'ai trouvé cette anecdote sur l'application Fabula:", text ]
             let activity = UIActivityViewController(activityItems: items, applicationActivities: nil)
             self?.present(activity, animated: true, completion: nil)
@@ -168,7 +159,6 @@ class AnecdoteViewController: UIViewController, StoryBoarded {
         // if the tableview end is reached, fetch new anecdotes
         dataSource.endReached = { [weak self]
             bool in
-            print("end reached in viewcontroller")
             if bool {
                 self?.anecdoteViewModel?.getNewAnecdotes()
             }

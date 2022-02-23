@@ -13,12 +13,12 @@ final class UserAccountController: NSObject {
     var userViewModel = UserAccountViewModel()
     
     struct Constants {
-        static let backgroundAlphaTo: CGFloat = 0.6
+        static let backgroundAlphaTo: CGFloat = 1
     }
     
     private let backgroundView: UIView = {
         let backgroundView = UIView()
-        backgroundView.backgroundColor = .black
+        backgroundView.backgroundColor = .deepBlue
         backgroundView.alpha = 0
         return backgroundView
     }()
@@ -111,15 +111,11 @@ final class UserAccountController: NSObject {
         confirmationPWTextField.delegate = self
         
         backgroundView.frame = targetView.bounds
-        print("UIScreen BOUNDS: \(UIScreen.main.bounds)")
-        print("TARGET VIEW CENTER: \(targetView.center)")
-        print("TARGET VIEW BOUNS: \(targetView.bounds)")
-        print("TARGET VIEW FRAME: \(targetView.frame)")
         targetView.addSubview(backgroundView)
+        
         
         alertView.frame = CGRect(x: 10, y: targetView.frame.size.height, width: targetView.frame.size.width - 20, height: backgroundView.frame.size.height - 200)
         alertView.backgroundColor = UIColor(named: "darkBlue")
-        print("ALERTVIEW FRAME AFTER SETUP: \(alertView.frame)")
         
         targetView.addSubview(alertView)
         
@@ -334,7 +330,6 @@ final class UserAccountController: NSObject {
                 self?.emailTextField.attributedPlaceholder = NSAttributedString(string: "Email", attributes: [NSAttributedString.Key.foregroundColor : UIColor.placeholderText])
                 self?.passwordTextField.attributedPlaceholder = NSAttributedString(string: "Mot de passe", attributes: [NSAttributedString.Key.foregroundColor : UIColor.placeholderText])
                 self?.dismissView()
-                print("Vous êtes connecté.")
             }
         }
         
@@ -374,111 +369,17 @@ final class UserAccountController: NSObject {
     }
     }
 
-
-    
-    @objc func connexionTapped() {
+    @objc
+    func connexionTapped() {
         
         guard let email = emailTextField.text, !email.isEmpty, let password = passwordTextField.text, !password.isEmpty else { return }
         
         userViewModel.signIn(email: email, passWord: password)
     }
-//        FireAuth.signIn(email: email, password: password) {
-//            [weak self] result in
-//            guard let strongSelf = self else {
-//                return
-//            }
-//            switch result {
-//            case.failure(let error):
-//                switch error {
-//                case .invalidEmail:
-//                    strongSelf.messageLabel.text = "L'email n'est pas valide."
-//                case .noConnection:
-//                    strongSelf.messageLabel.text = "Vérifiez votre connexion internet."
-//                default:
-//                    strongSelf.messageLabel.text = "Une erreur est survenue. Veuillez réessayer."
-//                }
-//                strongSelf.emailTextField.text?.removeAll()
-//                strongSelf.passwordTextField.text?.removeAll()
-//                strongSelf.emailTextField.attributedPlaceholder = NSAttributedString(string: "Email", attributes: [NSAttributedString.Key.foregroundColor : UIColor.red])
-//                strongSelf.passwordTextField.attributedPlaceholder = NSAttributedString(string: "Mot de passe", attributes: [NSAttributedString.Key.foregroundColor : UIColor.red])
-//                strongSelf.emailTextField.becomeFirstResponder()
-//                return
-//            case.success(_):
-//                // connexion success
-//                // save userdefaults connexion state
-//                UserDefaultsManager().userIsConnected(true)
-//
-//                // delegate to inform detailAnecdote of the connexion state
-//                strongSelf.authentificationDelegate?.statusChange(isConnected: true)
-//
-//                strongSelf.messageLabel.text = "Vous êtes connecté."
-//                strongSelf.emailTextField.attributedPlaceholder = NSAttributedString(string: "Email", attributes: [NSAttributedString.Key.foregroundColor : UIColor.placeholderText])
-//                strongSelf.passwordTextField.attributedPlaceholder = NSAttributedString(string: "Mot de passe", attributes: [NSAttributedString.Key.foregroundColor : UIColor.placeholderText])
-//                strongSelf.dismissView()
-//                print("Vous êtes connecté.")
-//
-//                // retrieve userInfo in Firestore to store it in userdefault
-//
-//                FireAuth.getUserInfo { user in
-//                    guard let user = user else {
-//                        return
-//                    }
-//                    UserDefaultsManager().saveUser(userName: user.userName, userId: user.userId, userEmail: user.userEmail)
-//                }
-//
-//            }
-//        }
-        
-        
-//        FirebaseAuth.Auth.auth().signIn(withEmail: email, password: password) { [weak self] result, error in
-//            guard let strongSelf = self else {
-//                return
-//            }
-//            // connexion failed
-//            guard error == nil else {
-//                print("error connexion")
-//                strongSelf.messageLabel.text = "Compte non reconnu. Veuillez réessayer."
-//                strongSelf.emailTextField.text?.removeAll()
-//                strongSelf.passwordTextField.text?.removeAll()
-//                strongSelf.emailTextField.attributedPlaceholder = NSAttributedString(string: "Email", attributes: [NSAttributedString.Key.foregroundColor : UIColor.red])
-//                strongSelf.passwordTextField.attributedPlaceholder = NSAttributedString(string: "Mot de passe", attributes: [NSAttributedString.Key.foregroundColor : UIColor.red])
-//                strongSelf.emailTextField.becomeFirstResponder()
-//                return
-//            }
-//            // connexion success
-//            // save userdefaults connexion state
-//            UserDefaultManager.userIsConnected(true)
-//
-//            // delegate to inform detailAnecdote of the connexion state
-//            strongSelf.authentificationDelegate?.statusChange(isConnected: true)
-//
-//            strongSelf.messageLabel.text = ""
-//            strongSelf.emailTextField.attributedPlaceholder = NSAttributedString(string: "Email", attributes: [NSAttributedString.Key.foregroundColor : UIColor.placeholderText])
-//            strongSelf.passwordTextField.attributedPlaceholder = NSAttributedString(string: "Mot de passe", attributes: [NSAttributedString.Key.foregroundColor : UIColor.placeholderText])
-//            strongSelf.dismissView()
-//            print("Vous êtes connecté.")
-//
-//        }
-//
-//        // retrieve userInfo in Firestore to store it in userdefault
-//
-//        Fire.getUserInfo { user in
-//            guard let user = user else {
-//                return
-//            }
-//            UserDefaultManager.saveUser(userName: user.userName, userId: user.userId, userEmail: user.userEmail)
-//        }
-//        guard let userInfo = Fire.getUserInfo() else {
-//            print("pas de userinfo dans UserAccount lors de la connexion ")
-//            return
-//        }
-//        print("userinfo dans userccount lors de la connexion \(userInfo)")
-//
-//        UserDefaultManager.saveUser(userName: userInfo.userName, userId: userInfo.userId, userEmail: userInfo.userEmail)
-        
-//    }
+
     // animation when creationButton is tapped (hide the connexion elements, show creation elements)
-    @objc func toCreateTapped() {
+    @objc
+    func toCreateTapped() {
         messageLabel.text = ""
         emailTextField.text = ""
         passwordTextField.text = ""
@@ -507,7 +408,8 @@ final class UserAccountController: NSObject {
         
     }
     
-    @objc func createTapped() {
+    @objc
+    func createTapped() {
         messageLabel.text = ""
         
         guard let userName = userNameTextField.text, !userName.isEmpty, let email = emailTextField.text, !email.isEmpty, let password = passwordTextField.text, !password.isEmpty, let confirmationPassword = confirmationPWTextField.text, !confirmationPassword.isEmpty else { return }
@@ -530,50 +432,12 @@ final class UserAccountController: NSObject {
             return
         }
         // create account, save state, save user in userDefault, save user in firebase
-        
         userViewModel.accountCreation(userEmail: email, password: password, userName: userName)
-        
-        
-        
-//        FireAuth.createAccount(userEmail: email, password: password, userName: userName) { [weak self] result in
-//
-//            switch result {
-//            case.failure(let error):
-//                switch error {
-//                case .invalidEmail:
-//                    self?.messageLabel.text = "L'email n'est pas valide."
-//                case .noConnection:
-//                    self?.messageLabel.text = "Vérifiez votre connexion internet."
-//                case .errorOccured:
-//                    self?.messageLabel.text = "Une erreur est survenue. Veuillez réessayer."
-//                case .emailAlreadyUsed:
-//                    self?.messageLabel.text = "Cet email est déjà utilisé."
-//                case .wrongPassWord:
-//                    self?.messageLabel.text = "Le mot de passe ne correspond pas à l'email."
-//                default:
-//                    self?.messageLabel.text = "Une erreur s'est produite. Veuillez réessayer."
-//                }
-//                print("an error occured")
-//                print("Error signing out: %@", error)
-//            case.success(_):
-//                guard let strongSelf = self else {
-//                    return
-//                }
-//                strongSelf.titleLabel.text = "Deconnexion"
-//                strongSelf.hideConnexion()
-//                strongSelf.logOutButton.isHidden = false
-//                strongSelf.emailTextField.text?.removeAll()
-//                strongSelf.passwordTextField.text?.removeAll()
-//                strongSelf.confirmationPWTextField.text?.removeAll()
-//                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-//                    strongSelf.dismissView()
-//                }
-//            }
-//        }
     }
         
     // animation when toCreateButton is tapped
-    @objc func toLoginTapped() {
+    @objc
+    func toLoginTapped() {
         messageLabel.text = ""
         emailTextField.text = ""
         passwordTextField.text = ""
@@ -604,14 +468,6 @@ final class UserAccountController: NSObject {
         confirmationPWTextField.text = ""
         userNameTextField.text = ""
         userViewModel.logOut()
-//        do {
-//            try Auth.auth().signOut()
-//        } catch let signOutError as NSError {
-//            print("Error signing out: %@", signOutError)
-//        }
-//        // userdefault save logout
-//        UserDefaultManager.userIsConnected(false)
-        
         // delegate to transmit connexion state to detail anecdote
         self.authentificationDelegate?.statusChange(isConnected: false)
         
@@ -622,7 +478,8 @@ final class UserAccountController: NSObject {
         
     }
     
-    @objc func dismissViewConnexion() {
+    @objc
+    func dismissViewConnexion() {
         dismissView()
     }
     

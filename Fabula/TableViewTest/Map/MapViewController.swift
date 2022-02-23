@@ -9,7 +9,7 @@ import UIKit
 import MapKit
 
 
-class MapViewController: UIViewController, StoryBoarded, CLLocationManagerDelegate {
+final class MapViewController: UIViewController, StoryBoarded, CLLocationManagerDelegate {
     
     let userAccount = UserAccountController()
     
@@ -24,14 +24,11 @@ class MapViewController: UIViewController, StoryBoarded, CLLocationManagerDelega
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Autour de vous"
-
-            navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "user"), style: .plain, target: self, action: #selector(connexionTapped))
-
-            loadInitialData()
-
-
-        mapView.addAnnotations(parisAnnotations)
         
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "user"), style: .plain, target: self, action: #selector(connexionTapped))
+        
+        loadInitialData()
+        mapView.addAnnotations(parisAnnotations)
         mapView.delegate = self
     }
     
@@ -51,7 +48,6 @@ class MapViewController: UIViewController, StoryBoarded, CLLocationManagerDelega
         } catch {
             print("error when creating parisannotation \(error)")
         }
-        print("parisannotation count = \(parisAnnotations.count)")
     }
     
     func initializeLocation() {
@@ -64,11 +60,9 @@ class MapViewController: UIViewController, StoryBoarded, CLLocationManagerDelega
         locationManager.startUpdatingLocation()
     }
     
-
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
-        if #available(iOS 14.0, *){
+        
             let status = manager.authorizationStatus
-            
             switch status {
             case.authorized:
                 mapView.showsUserLocation = true
@@ -77,19 +71,14 @@ class MapViewController: UIViewController, StoryBoarded, CLLocationManagerDelega
             case.authorizedAlways:
                 mapView.showsUserLocation = true
             case.denied:
-                print("refus")
                 showAlert()
             case.notDetermined:
-                print("refus")
                 showAlert()
             case.restricted:
-                print("refus")
                 showAlert()
             @unknown default:
                 fatalError()
-            }
         }
-        
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
@@ -108,7 +97,7 @@ class MapViewController: UIViewController, StoryBoarded, CLLocationManagerDelega
         mapView.setRegion(region, animated: true)
     }
     
-
+    
     @objc func connexionTapped() {
         guard let navigationController = navigationController else {
             return
@@ -145,7 +134,6 @@ extension MapViewController: MKMapViewDelegate {
             dequeuedView.annotation = annotation
             view = dequeuedView
         } else {
-            print("else annotation is created")
             view = MKMarkerAnnotationView(
                 annotation: annotation,
                 reuseIdentifier: identifier)

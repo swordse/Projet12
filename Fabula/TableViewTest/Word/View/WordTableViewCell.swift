@@ -7,18 +7,13 @@
 
 import UIKit
 
-class WordTableViewCell: UITableViewCell {
+final class WordTableViewCell: UITableViewCell {
 
     static let identifier = "WordTableViewCell"
-    
     @IBOutlet weak var wordLabel: UILabel!
-    
     @IBOutlet weak var qualifierLabel: UILabel!
-    
     @IBOutlet weak var definitionLabel: UILabel!
-    
     @IBOutlet weak var exampleLabel: UILabel!
-    
     
     var word: Word? {
         didSet {
@@ -28,20 +23,8 @@ class WordTableViewCell: UITableViewCell {
             wordLabel.text = word.word.uppercased()
             qualifierLabel.text = word.qualifier
             definitionLabel.text = word.definition
-            exampleLabel.text = word.example
+            exampleLabel.text = "\"\(word.example)\""
         }
-    }
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        
-        // Initialization code
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
     
     static func nib() -> UINib? {

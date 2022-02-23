@@ -8,7 +8,7 @@
 import UIKit
 import MapKit
 
-class DetailMapViewController: UIViewController, StoryBoarded {
+final class DetailMapViewController: UIViewController, StoryBoarded {
 
     var coordinator: MapCoordinator?
     

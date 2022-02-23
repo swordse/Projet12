@@ -7,7 +7,7 @@
 
 import UIKit
 
-class TestQuizzTableViewCell: UITableViewCell {
+final class TestQuizzTableViewCell: UITableViewCell {
     
     static let identifier = "TestQuizzTableViewCell"
     
@@ -52,8 +52,5 @@ class TestQuizzTableViewCell: UITableViewCell {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
             self.propositionLabel.text = proposition
         }
-        
     }
-    
-    
 }

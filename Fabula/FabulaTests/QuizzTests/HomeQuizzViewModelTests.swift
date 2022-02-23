@@ -32,7 +32,7 @@ class HomeQuizzViewModelTests: XCTestCase, QuizzGetTest {
             result in
             switch result {
             case.success(_):
-                print("success")
+                XCTFail("\(#function) failed")
             case.failure(let error):
                 XCTAssertEqual(error, NetworkError.errorOccured)
             }
@@ -46,7 +46,7 @@ class HomeQuizzViewModelTests: XCTestCase, QuizzGetTest {
     
     func testViewModelRetrieveCategoryMethod_WhenAllOK_ThenThemeClosureReturnTheme() {
         
-        let session = FakeFireStoreSession(fakeResponse: FakeResponse(result: FakeResponseData.fakeCategory, error: nil))
+        let session = FakeFireStoreSession(fakeResponse: FakeResponse(result: FakeResponseData.fakeArtCategory, error: nil))
         
         let quizzService = QuizzService(session: session)
         
@@ -60,7 +60,7 @@ class HomeQuizzViewModelTests: XCTestCase, QuizzGetTest {
             case.success(let success):
                 XCTAssertEqual(success[0][0], "BILBO")
             case.failure(_):
-                print("failure")
+                XCTFail("\(#function) failed")
             }
             expectation.fulfill()
         }
@@ -72,7 +72,9 @@ class HomeQuizzViewModelTests: XCTestCase, QuizzGetTest {
     
     func testViewModelRetrieveCategoryMethod_WhenAllOK_ThenCategoriesClosureReturnCategory() {
         
-        let session = FakeFireStoreSession(fakeResponse: FakeResponse(result: FakeResponseData.fakeCategory, error: nil))
+        for x in 0..<FakeResponseData.fakeCategories.count {
+            
+            let session = FakeFireStoreSession(fakeResponse: FakeResponse(result: FakeResponseData.fakeCategories[x], error: nil))
         
         let quizzService = QuizzService(session: session)
         
@@ -89,6 +91,7 @@ class HomeQuizzViewModelTests: XCTestCase, QuizzGetTest {
         homeQuizzViewModel.retrieveCategory()
         
         waitForExpectations(timeout: 0.1, handler: nil)
+        }
     }
     
     func testViewModelRetrieveQuizzMethod_WhenAllOK_ThenQuizzsIsFilled() {
@@ -111,6 +114,24 @@ class HomeQuizzViewModelTests: XCTestCase, QuizzGetTest {
         waitForExpectations(timeout: 0.1, handler: nil)
     }
 
+    func testViewModelRetrieveQuizzMethod_WhenError_ThenQuizzsIsEmpty() {
+        
+        let session = FakeFireStoreSession(fakeResponse: FakeResponse(result: nil, error: NetworkError.errorOccured))
+        
+        let quizzService = QuizzService(session: session)
+        
+        let homeQuizzViewModel = HomeQuizzViewModel(quizzService: quizzService, delegate: self)
+        
+        homeQuizzViewModel.quizzs = [Quizz]()
+        let expectation = self.expectation(description: "closure return")
+        
+        homeQuizzViewModel.retrieveQuizz(theme: "La lune")
+        
+        XCTAssert(homeQuizzViewModel.quizzs.isEmpty)
+        expectation.fulfill()
+        
+        waitForExpectations(timeout: 0.1, handler: nil)
+    }
     
     func testViewModelSelectedThemeMethod_WhenAllOK_ThenQuizzsIsFilled() {
         
@@ -129,29 +150,6 @@ class HomeQuizzViewModelTests: XCTestCase, QuizzGetTest {
         
         waitForExpectations(timeout: 0.1, handler: nil)
     }
-    
-    
-    override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-    }
 
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
-
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        // Any test you write for XCTest can be annotated as throws and async.
-        // Mark your test throws to produce an unexpected failure when your test encounters an uncaught error.
-        // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
-    }
-
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
-    }
 
 }

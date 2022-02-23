@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import UIKit
 import Firebase
 
 
@@ -20,7 +19,7 @@ class DetailAnecdoteViewModel {
     
     var showFavoriteDelegate: ShowFavoriteDelegate
     
-    init(coreDataSession: BackupSession = CoreDataSession(coreDataStack: CoreDataStack()), anecdoteService: AnecdoteService = AnecdoteService(), showFavoriteDelegate: ShowFavoriteDelegate) {
+    init(coreDataSession: BackupSession = CoreDataService(coreDataStack: CoreDataStack()), anecdoteService: AnecdoteService = AnecdoteService(), showFavoriteDelegate: ShowFavoriteDelegate) {
            self.coreDataSession = coreDataSession
            self.anecdoteService = anecdoteService
            self.showFavoriteDelegate = showFavoriteDelegate
@@ -31,7 +30,8 @@ class DetailAnecdoteViewModel {
     var comments: ((Result<[Comment], NetworkError>) -> Void)?
     var isFavorite: ((Bool) -> Void)?
     var favCount: ((Int) -> Void)?
-// save comment add by user
+    
+// save comment add by user in firestore
     func save(comment: String, anecdoteId: String) {
         guard let user = UserDefaultsManager().retrieveUser() else { return }
 
@@ -50,12 +50,12 @@ class DetailAnecdoteViewModel {
     }
    // retrieve comments save in firestore
     func getComments(id: String) {
-        anecdoteService.getComments(anecdoteId: id) { result in
+        anecdoteService.getComments(anecdoteId: id) { [weak self] result in
             switch result {
             case.failure(let error):
-                self.comments?(.failure(error))
+                self?.comments?(.failure(error))
             case.success(let result):
-                self.comments?(.success(result))
+                self?.comments?(.success(result))
             }
         }
     }
@@ -86,7 +86,7 @@ class DetailAnecdoteViewModel {
             self.anecdoteIsFavorite = false
         }
     }
-    
+    // save favorite in coreData
     func saveFavorite( anecdote: Anecdote) {
         if coreDataSession.favorites.contains(where: { favorite in
             favorite.id == anecdote.id
@@ -96,7 +96,6 @@ class DetailAnecdoteViewModel {
        
         // update the favorite count (retrieve the actual count and add 1)
         let favoriteCount = UserDefaultsManager().retrieveFavCount()
-        print("FV COUNT: \(favoriteCount)")
         UserDefaultsManager().saveFavorite(number: favoriteCount + 1)
         favCount?(favoriteCount + 1)
     }
@@ -107,7 +106,6 @@ class DetailAnecdoteViewModel {
         coreDataSession.deleteFavorite(anecdote: anecdote)
         // update the favorite count (retrieve the actual count and substract 1)
         let favoriteCount = UserDefaultsManager().retrieveFavCount()
-        print("FV COUNT: \(favoriteCount)")
         if favoriteCount > 0 {
         UserDefaultsManager().saveFavorite(number: favoriteCount - 1)
             favCount?(favoriteCount - 1)
@@ -117,8 +115,6 @@ class DetailAnecdoteViewModel {
     func showFavorite() {
         showFavoriteDelegate.showFavoriteDelegate()
     }
-    
-   
     
 }
 

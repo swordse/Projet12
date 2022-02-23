@@ -6,9 +6,8 @@ protocol SubmittedCommentDelegate {
     func commentSubmitted(comment: String)
 }
 
+/// View show when identified user tap the add comment button in DetailAnecdote. This view is shown over the DetailAnecdoteViewController
 final class CommentForm: NSObject {
-    
-    //    var authentificationDelegate: AuthentificationProtocol?
     
     var submittedCommentDelegate: SubmittedCommentDelegate?
     
@@ -60,16 +59,10 @@ final class CommentForm: NSObject {
         }
         
         myTargetView = targetView
-        // add tapgesture to hide keyboard when view is tapped
-//        let tap = UITapGestureRecognizer(target: targetView, action: #selector(UIView.endEditing))
-//        targetView.addGestureRecognizer(tap)
-        
         backgroundView.frame = targetView.bounds
         targetView.addSubview(backgroundView)
-        
         alertView.frame = CGRect(x: 10, y: targetView.frame.size.height, width: targetView.frame.size.width - 20, height: backgroundView.frame.size.height - 200)
         alertView.backgroundColor = UIColor(named: "darkBlue")
-        
         targetView.addSubview(alertView)
         
         titleLabel = UILabel(frame: CGRect(x: 0, y: 0, width: alertView.frame.width, height: 40))
@@ -106,7 +99,7 @@ final class CommentForm: NSObject {
             string: "Votre commentaire",
             attributes: [NSAttributedString.Key.foregroundColor: UIColor.black]
         )
-        //        commentTextField.placeholder = "Votre commentaire"
+
         commentTextField.leftViewMode = .always
         commentTextField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 0))
         commentTextField.backgroundColor = .white
@@ -144,13 +137,10 @@ final class CommentForm: NSObject {
             }
         })
     }
-    
+    // when submit button is tapped then comment text is transmitted to the delegate and the view is dismissed
     @objc func submitTapped() {
-        guard let commentText = commentTextField.text, !commentText.isEmpty else {
-            return
-        }
+        guard let commentText = commentTextField.text, !commentText.isEmpty else { return }
         submittedCommentDelegate?.commentSubmitted(comment: commentText)
-        
         dismissView()
     }
     
@@ -178,7 +168,6 @@ final class CommentForm: NSObject {
 }
 
 extension CommentForm: UITextFieldDelegate {
-
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         commentTextField.resignFirstResponder()
         return true

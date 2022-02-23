@@ -6,16 +6,17 @@
 //
 
 import UIKit
-
-class SearchViewController: UIViewController, StoryBoarded, UISearchBarDelegate {
+// SearchController to search anecdote among anecdotes
+final class SearchViewController: UIViewController, StoryBoarded, UISearchBarDelegate {
     
     var coordinator: AnecdoteCoordinator?
     var searchViewModel: SearchViewModel?
     var datasource = SearchDataSource()
     
     let searchController = UISearchController()
-    
+    // array of all anecdotes
     var anecdotes = [Anecdote]()
+    // array of the search result anecdotes
     var resultAnecdotes = [Anecdote]()
     
     @IBOutlet weak var resultTableView: UITableView!
@@ -26,7 +27,6 @@ class SearchViewController: UIViewController, StoryBoarded, UISearchBarDelegate 
         resultTableView.register(CommonAnecdoteTableViewCell.nib(), forCellReuseIdentifier: CommonAnecdoteTableViewCell.identifier)
         
         navigationItem.searchController = searchController
-//        searchController.searchResultsUpdater = self
         searchController.searchBar.delegate = self
         title = "Recherche"
         view.backgroundColor = .deepBlue
@@ -49,10 +49,6 @@ class SearchViewController: UIViewController, StoryBoarded, UISearchBarDelegate 
         }
         let words = text.components(separatedBy: " ")
         searchViewModel?.searchInAnecdote(words: words)
-//        searchInAnecdote(words: words)
-//        print("RESULT ANECDOTES: \(resultAnecdotes)")
-//        datasource.updateItems(items: resultAnecdotes)
-//        resultTableView.reloadData()
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
@@ -60,20 +56,16 @@ class SearchViewController: UIViewController, StoryBoarded, UISearchBarDelegate 
         resultTableView.reloadData()
     }
     
-    
     func bind() {
         searchViewModel?.allAnecdotes = {
             [weak self] result in
             DispatchQueue.main.async {
                 switch result {
-                case.success(let anecdotes):
+                case.success(_):
                     print("all anecdotes fetched")
-//                    self?.anecdotes = anecdotes
-//                    self?.datasource.updateItems(items: anecdotes)
-                case.failure(_):
+                case.failure(let error):
                     print("Erreur lors de la recherche")
-                    self?.alert()
-//                    CustomAlert().showAlert(with: "Malheureusement une erreur est survenue.", message: "Veuillez vérifier votre connexion à internet.", on: self!)
+                    self?.alert(networkError: error)
                 }
             }
         }
@@ -83,29 +75,12 @@ class SearchViewController: UIViewController, StoryBoarded, UISearchBarDelegate 
             self?.datasource.updateItems(items: result)
             self?.resultTableView.reloadData()
         }
-        
+
         datasource.selectedRow = searchViewModel?.selectedRow
     }
     
     func searchInAnecdote(words: [String]) {
-        
         searchViewModel?.searchInAnecdote(words: words)
-//        var result = [Anecdote]()
-//
-//        for anecdote in anecdotes {
-//            for word in words {
-//                if anecdote.text.lowercased().contains(word.lowercased()) {
-//                    if !result.contains(where: { result in
-//                        result.id == anecdote.id
-//                    }) {
-//                    result.append(anecdote)
-//                    }
-//                }
-//            }
-//
-//        }
-//        resultAnecdotes = result
     }
-    
     
 }

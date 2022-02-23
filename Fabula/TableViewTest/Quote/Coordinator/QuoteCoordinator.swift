@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class QuoteCoordinator: Coordinator {
+final class QuoteCoordinator: Coordinator {
     
     var childCoordinators = [Coordinator]()
     var navigationController: UINavigationController

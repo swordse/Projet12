@@ -14,14 +14,14 @@ class DetailAnecdoteViewModelTests: XCTestCase {
     // MARK: - Properties
 
     var coreDataStack: MockCoreDataStack!
-    var coreDataSession: CoreDataSession!
+    var coreDataSession: CoreDataService!
 
     //MARK: - Tests Life Cycle
 
     override func setUp() {
         super.setUp()
         coreDataStack = MockCoreDataStack()
-        coreDataSession = CoreDataSession(coreDataStack: coreDataStack)
+        coreDataSession = CoreDataService(coreDataStack: coreDataStack)
     }
 
     override func tearDown() {
@@ -36,7 +36,7 @@ class DetailAnecdoteViewModelTests: XCTestCase {
         
         let anecdoteService = AnecdoteService(session: session)
         
-        let detailAnecdoteViewModel = DetailAnecdoteViewModel(coreDataSession: CoreDataSession(coreDataStack: CoreDataStack()), anecdoteService: anecdoteService, showFavoriteDelegate: AnecdoteCoordinator(navigationController: UINavigationController()))
+        let detailAnecdoteViewModel = DetailAnecdoteViewModel(coreDataSession: CoreDataService(coreDataStack: CoreDataStack()), anecdoteService: anecdoteService, showFavoriteDelegate: AnecdoteCoordinator(navigationController: UINavigationController()))
 
         
         let expectation = XCTestExpectation(description: "Wait for queue change.")
@@ -45,7 +45,7 @@ class DetailAnecdoteViewModelTests: XCTestCase {
             result in
             switch result {
             case.failure(_):
-                print("failure")
+                XCTFail("\(#function) failed")
             case.success(let comments):
                 XCTAssertEqual(comments[0].commentText, "commentaire")
             }
@@ -65,11 +65,9 @@ class DetailAnecdoteViewModelTests: XCTestCase {
         
         let anecdoteService = AnecdoteService(session: session)
         
-        let detailAnecdoteViewModel = DetailAnecdoteViewModel(coreDataSession: CoreDataSession(coreDataStack: CoreDataStack()), anecdoteService: anecdoteService, showFavoriteDelegate: AnecdoteCoordinator(navigationController: UINavigationController()))
+        let detailAnecdoteViewModel = DetailAnecdoteViewModel(coreDataSession: CoreDataService(coreDataStack: CoreDataStack()), anecdoteService: anecdoteService, showFavoriteDelegate: AnecdoteCoordinator(navigationController: UINavigationController()))
 
         UserDefaultsManager().saveUser(userName: "bob", userId: "dede", userEmail: "@gmail")
-        
-        detailAnecdoteViewModel.save(comment: "commentaire", anecdoteId: "13")
         
         let expectation = XCTestExpectation(description: "Wait for queue change.")
         
@@ -77,20 +75,17 @@ class DetailAnecdoteViewModelTests: XCTestCase {
             result in
             switch result {
             case.failure(_):
-                print("failure")
+                XCTFail("\(#function) failed")
             case.success(let comments):
                 XCTAssertEqual(comments[0].commentText, "commentaire")
             }
             expectation.fulfill()
         }
-        
-        detailAnecdoteViewModel.getComments(id: "13")
-        
+       
+        detailAnecdoteViewModel.save(comment: "commentaire", anecdoteId: "13")
+    
         wait(for: [expectation], timeout: 0.1)
-        
     }
-    
-    
     
     
     func testDetailAnecdoteGetComments_WhenError_ThenCommentsClosureReturnError() {
@@ -99,7 +94,7 @@ class DetailAnecdoteViewModelTests: XCTestCase {
         
         let anecdoteService = AnecdoteService(session: session)
         
-        let detailAnecdoteViewModel = DetailAnecdoteViewModel(coreDataSession: CoreDataSession(coreDataStack: CoreDataStack()), anecdoteService: anecdoteService, showFavoriteDelegate: AnecdoteCoordinator(navigationController: UINavigationController()))
+        let detailAnecdoteViewModel = DetailAnecdoteViewModel(coreDataSession: CoreDataService(coreDataStack: CoreDataStack()), anecdoteService: anecdoteService, showFavoriteDelegate: AnecdoteCoordinator(navigationController: UINavigationController()))
         
 //        let detailAnecdoteViewModel = DetailAnecdoteViewModel(anecdoteService: anecdoteService, showFavoriteDelegate: AnecdoteCoordinator(navigationController: UINavigationController()))
         
@@ -109,7 +104,7 @@ class DetailAnecdoteViewModelTests: XCTestCase {
             result in
             switch result {
             case.success(_):
-                print("success")
+                XCTFail("\(#function) failed")
             case.failure(let error):
                 XCTAssertEqual(error, NetworkError.errorOccured)
             }
@@ -128,7 +123,7 @@ class DetailAnecdoteViewModelTests: XCTestCase {
         
         let anecdoteService = AnecdoteService(session: session)
         
-        let detailAnecdoteViewModel = DetailAnecdoteViewModel(coreDataSession: CoreDataSession(coreDataStack: CoreDataStack()), anecdoteService: anecdoteService, showFavoriteDelegate: AnecdoteCoordinator(navigationController: UINavigationController()))
+        let detailAnecdoteViewModel = DetailAnecdoteViewModel(coreDataSession: CoreDataService(coreDataStack: CoreDataStack()), anecdoteService: anecdoteService, showFavoriteDelegate: AnecdoteCoordinator(navigationController: UINavigationController()))
 
         
         detailAnecdoteViewModel.favorites = [FakeResponseData.fakeAnecdote]
@@ -151,7 +146,7 @@ class DetailAnecdoteViewModelTests: XCTestCase {
         
         let anecdoteService = AnecdoteService(session: session)
         
-        let detailAnecdoteViewModel = DetailAnecdoteViewModel(coreDataSession: CoreDataSession(coreDataStack: CoreDataStack()), anecdoteService: anecdoteService, showFavoriteDelegate: AnecdoteCoordinator(navigationController: UINavigationController()))
+        let detailAnecdoteViewModel = DetailAnecdoteViewModel(coreDataSession: CoreDataService(coreDataStack: CoreDataStack()), anecdoteService: anecdoteService, showFavoriteDelegate: AnecdoteCoordinator(navigationController: UINavigationController()))
 
         detailAnecdoteViewModel.favorites = [Anecdote]()
         

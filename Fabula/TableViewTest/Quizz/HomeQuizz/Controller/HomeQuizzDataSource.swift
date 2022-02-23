@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class HomeQuizzDataSource: NSObject, UICollectionViewDataSource, UICollectionViewDelegate {
+final class HomeQuizzDataSource: NSObject, UICollectionViewDataSource, UICollectionViewDelegate {
     // Categories and theme to display
     var categories = [QuizzCategoryInfo]()
     var theme: [[String]]?
@@ -40,7 +40,6 @@ class HomeQuizzDataSource: NSObject, UICollectionViewDataSource, UICollectionVie
             if section == 0 {
                 return categories.count
             } else {
-                print("SECTION: \(section)")
                 if selectedCategoryIndex == nil {
                     return theme?[0].count ?? 0
                 } else {

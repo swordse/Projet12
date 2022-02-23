@@ -6,11 +6,10 @@
 //
 
 import Foundation
-
+/// protocol to handle coreData
 protocol BackupSession {
     
     var favorites: [Favorite] { get }
-//    func getFavorites() -> [Favorite]
     
     func createFavorite(anecdote: Anecdote)
     

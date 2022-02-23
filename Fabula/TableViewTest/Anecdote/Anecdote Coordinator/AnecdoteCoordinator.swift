@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class AnecdoteCoordinator: Coordinator {
+final class AnecdoteCoordinator: Coordinator {
     
     var childCoordinators = [Coordinator]()
     weak var parentCoordinator: HomeCoordinator?
@@ -16,16 +16,11 @@ class AnecdoteCoordinator: Coordinator {
     
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
-        
         self.navigationController.navigationBar.prefersLargeTitles = true
-        
-        self.navigationController.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.label]
-        
-        self.navigationController.navigationBar.largeTitleTextAttributes = [.foregroundColor: UIColor.label]
-        
+        self.navigationController.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
+        self.navigationController.navigationBar.largeTitleTextAttributes = [.foregroundColor: UIColor.white]
         self.navigationController.navigationBar.barTintColor = .deepBlue
         self.navigationController.navigationBar.tintColor = .white
-        
     }
     
     func start() {
@@ -51,6 +46,8 @@ class AnecdoteCoordinator: Coordinator {
         let vc = FavoriteViewController.instantiate()
         vc.coordinator = self
         vc.favoriteViewModel = FavoriteViewModel(anecdoteDetailDelegate: self)
+//        vc.favoriteViewModel?.getFavorite()
+        
         navigationController.pushViewController(vc, animated: true)
     }
     

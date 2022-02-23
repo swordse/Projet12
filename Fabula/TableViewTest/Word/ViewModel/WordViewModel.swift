@@ -7,7 +7,7 @@
 
 import Foundation
 
-class WordViewModel {
+final class WordViewModel {
     
     var wordService = WordService()
     var words = [Word]()

@@ -11,27 +11,26 @@ import FirebaseAuth
 
 
 protocol FireAuthSession {
-    
-    func createAccount(userEmail: String, password: String, userName: String, completion: @escaping (Bool, NetworkError?) -> Void)
-    
-    func signIn(email: String, password: String, completion: @escaping (Bool, NetworkError?) -> Void)
-    
-    func getCurrentUser(callBack: (FabulaUser?) -> Void)
-    
-    func saveUser(user: FabulaUser)
-    
-    func logOut()
-}
-
-
-final class AuthSession: FireAuthSession {
-    
     /// FirebaseAuth create account. Use to create account, save user in userdefaults, save user in firebase
     /// - Parameters:
     ///   - userEmail: email
     ///   - password: password
     ///   - userName: userName
     ///   - completion: Result, Error
+    func createAccount(userEmail: String, password: String, userName: String, completion: @escaping (Bool, NetworkError?) -> Void)
+    /// call sign in method of FireAuth, return success or networkerror
+    func signIn(email: String, password: String, completion: @escaping (Bool, NetworkError?) -> Void)
+    /// retrieve the currentUser from FireAuthentification and return a FabulaUser
+    func getCurrentUser(callBack: (FabulaUser?) -> Void)
+    /// save user in FireStore, call during the account creation
+    func saveUser(user: FabulaUser)
+    /// call logt our method of FireAuth, save deconnexion in userdDefaults
+    func logOut()
+}
+
+
+final class AuthSession: FireAuthSession {
+    
     func createAccount(userEmail: String, password: String, userName: String, completion: @escaping(Bool, NetworkError?) -> Void) {
         // create user in Authentification
         Auth.auth().createUser(withEmail: userEmail, password: password) { result, error in
@@ -59,25 +58,15 @@ final class AuthSession: FireAuthSession {
                 changeRequest?.displayName = userName
                 changeRequest?.commitChanges { error in
                     if error != nil {
-                        print("Error when change displayName")
+                        completion(false, NetworkError.errorOccured)
                     }
                 }
-                
-                //                let changeRequest = result?.user.createProfileChangeRequest()
-                //                changeRequest?.displayName = userName
-                //                changeRequest?.commitChanges(completion: { error in
-                //                    if error != nil {
-                //                        print("Error when change displayName")
-                //                    }
-                //                })
                 completion(true, nil)
             }
         }
     }
     
-    
     func signIn(email: String, password: String, completion: @escaping (Bool, NetworkError?) -> Void) {
-        
         Auth.auth().signIn(withEmail: email, password: password) { result, error in
             if error != nil, let error = error as NSError? {
                 if let errorCode = AuthErrorCode(rawValue: error.code) {
@@ -100,10 +89,8 @@ final class AuthSession: FireAuthSession {
         }
     }
     
-    // retrieve the currentUser from FireAuthentification
     func getCurrentUser(callBack: (FabulaUser?) -> Void) {
         var user: FabulaUser?
-        
         guard let currentUser = Auth.auth().currentUser else {
             callBack(nil)
             return
@@ -114,19 +101,16 @@ final class AuthSession: FireAuthSession {
         }
         let displayName = currentUser.displayName ?? ""
         user = FabulaUser(userName: displayName, userId: currentUser.uid, userEmail: email)
-        
         callBack(user)
     }
     
     func saveUser(user: FabulaUser) {
-        
         let dataBase = Firestore.firestore()
         let docData: [String: Any] = [
             "userId": user.userId,
             "userName": user.userName,
             "userEmail": user.userEmail
         ]
-        
         dataBase.collection("users").document().setData(docData) { err in
             if let err = err {
                 print("Error writing document: \(err)")

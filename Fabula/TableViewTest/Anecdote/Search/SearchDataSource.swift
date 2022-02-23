@@ -17,7 +17,6 @@ final class SearchDataSource: NSObject {
     }
     
     var selectedRow: ((Int) -> Void)?
- 
 }
 
 extension SearchDataSource: UITableViewDataSource {
@@ -45,6 +44,5 @@ extension SearchDataSource: UITableViewDelegate {
         tableView.deselectRow(at: indexPath, animated: true)
         selectedRow?(indexPath.row)
     }
-    
     
 }

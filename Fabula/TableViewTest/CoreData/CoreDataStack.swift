@@ -11,11 +11,6 @@ import CoreData
 open class CoreDataStack {
     
     // MARK: - Properties
-//    private let modelName: String
-//
-//    public init(modelName: String) {
-//        self.modelName = modelName
-//    }
     
     private let modelName: String
     

@@ -25,19 +25,12 @@ class CommonAnecdoteTableViewCell: UITableViewCell {
     var anecdote: Anecdote?
 
     @IBOutlet weak var titleLabel: UILabel!
-    
     @IBOutlet weak var dateLabel: UILabel!
-    
     @IBOutlet weak var categoryLabel: UILabel!
-    
     @IBOutlet weak var anecdoteTextview: UITextView!
-    
     @IBOutlet weak var commentButton: UIButton!
-    
     @IBOutlet weak var shareButton: UIButton!
-    
     @IBOutlet weak var heartButton: UIButton!
-    
     @IBOutlet weak var chevronImage: UIImageView!
     
     var shareDelegate: ShareDelegate?
@@ -76,6 +69,18 @@ class CommonAnecdoteTableViewCell: UITableViewCell {
         } else {
             anecdoteTextview.heightAnchor.constraint(equalToConstant: 130).isActive = true
         }
+    }
+    
+    func showNoFavMessage() {
+        titleLabel.isHidden = true
+        dateLabel.isHidden = true
+        categoryLabel.isHidden = true
+        commentButton.isHidden = true
+        shareButton.isHidden = true
+        heartButton.isHidden = true
+        chevronImage.isHidden = true
+        
+        anecdoteTextview.textAlignment = .center
     }
     
     override func awakeFromNib() {

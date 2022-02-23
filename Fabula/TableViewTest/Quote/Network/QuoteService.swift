@@ -8,7 +8,7 @@
 import Foundation
 
 
-class QuoteService {
+final class QuoteService {
     
     let session: FireStoreSession
     
@@ -22,10 +22,10 @@ class QuoteService {
         session.getDocuments(dataRequest: DataRequest.citations.rawValue) { result, error in
             if result != nil {
                 for dictionnary in result! {
-                                    let quote = Quote(authorName: dictionnary["author"] as! String, text: dictionnary["text"] as! String, category: dictionnary["category"] as! String)
-                                    quotes.append(quote)
-                                }
-                                callback(.success(quotes))
+                    let quote = Quote(authorName: dictionnary["author"] as! String, text: dictionnary["text"] as! String, category: dictionnary["category"] as! String)
+                    quotes.append(quote)
+                }
+                callback(.success(quotes))
             } else {
                 callback(.failure(NetworkError.errorOccured))
             }
@@ -38,32 +38,13 @@ class QuoteService {
         session.getNewDocuments(dataRequest: DataRequest.citations.rawValue) { result, error in
             if result != nil {
                 for dictionnary in result! {
-                                    let quote = Quote(authorName: dictionnary["author"] as! String, text: dictionnary["text"] as! String, category: dictionnary["category"] as! String)
-                                    quotes.append(quote)
-                                }
-                                callback(.success(quotes))
+                    let quote = Quote(authorName: dictionnary["author"] as! String, text: dictionnary["text"] as! String, category: dictionnary["category"] as! String)
+                    quotes.append(quote)
+                }
+                callback(.success(quotes))
             } else {
                 callback(.failure(NetworkError.errorOccured))
             }
         }
     }
-            
-//            guard let data = snapshot?.documents, error == nil else {
-//                callback(.failure(NetworkError.errorOccured))
-//                return
-//            }
-//
-//
-//            for i in 0 ..< data.count {
-//                let dictionnary = data[i].data()
-//                let quote = Quote(authorName: dictionnary["author"] as! String, text: dictionnary["text"] as! String, category: dictionnary["category"] as! String)
-//                quotes.append(quote)
-//            }
-//            callback(.success(quotes))
-//        }
-//    }
-    
-    
-    
-    
 }

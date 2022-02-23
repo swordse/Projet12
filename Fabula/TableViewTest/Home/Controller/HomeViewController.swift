@@ -57,10 +57,10 @@ final class HomeViewController: UIViewController, StoryBoarded {
     func getSelectedIndex() {
         dataSource.selectedSection = {
             [weak self] indexPath in
-            if indexPath.section == 0 {
-                return
-            }
-            if indexPath.section == 1 {
+            
+            switch indexPath.section {
+            case 0: return
+            case 1:
                 switch indexPath.row {
                 case 0:
                     self?.coordinator?.showAnecdotes()
@@ -73,19 +73,22 @@ final class HomeViewController: UIViewController, StoryBoarded {
                 default:
                     self?.coordinator?.showAnecdotes()
                 }
-            }
-            if indexPath.section == 2 {
+            
+            case 2:
                 switch indexPath.row {
                 case 0:
                     self?.coordinator?.showMap()
                 default:
                     return
                 }
+            default:
+                return
             }
         }
     }
     
-    @objc func connexionTapped() {
+    @objc
+    func connexionTapped() {
         guard let navigationController = navigationController else {
             return
         }

@@ -23,7 +23,6 @@ final class HomeCoordinator: Coordinator {
         self.navigationController.navigationBar.largeTitleTextAttributes = [.foregroundColor: UIColor.label]
         self.navigationController.navigationBar.barTintColor = UIColor.deepBlue
         self.navigationController.navigationBar.tintColor = .label
-
     }
     
     func start() {
@@ -70,8 +69,6 @@ final class HomeCoordinator: Coordinator {
     }
     
     func navigationController(_ navigationController: UINavigationController, didShow viewController: UIViewController, animated: Bool) {
-        print("navigationcontroller didshow est utilisé")
-        print("total child au début de didshow \(childCoordinators.count)")
         // Read the view controller we’re moving from.
             guard let fromViewController = navigationController.transitionCoordinator?.viewController(forKey: .from) else {
                 return
@@ -82,12 +79,11 @@ final class HomeCoordinator: Coordinator {
                 return
             }
 
-            // We’re still here – it means we’re popping the view controller, so we can check whether it’s a buy view controller
+            // We’re still here – it means we’re popping the view controller, so we can check whether it’s a anecdote view controller
             if let anecdoteViewController = fromViewController as? AnecdoteViewController {
                 // We're popping a buy view controller; end its coordinator
                 childDidFinish(anecdoteViewController.coordinator)
             }
-        print("total child à la FIN de didshow \(childCoordinators.count)")
     }
     
     func childDidFinish(_ child: Coordinator?) {

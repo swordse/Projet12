@@ -40,7 +40,13 @@ final class FakeResponseData {
     
     static let fakeQuizzCategoryInfo = QuizzCategoryInfo(name: "bob", image: UIImage(named: "Histoire")!, color: .green)
     
-    static let fakeCategory = [["Art": ["BILBO", "SAQUET"]]]
+    static let fakeArtCategory = [["Art": ["BILBO", "SAQUET"]]]
+    static let fakeHistoryCategory = [["Histoire": ["BILBO", "SAQUET"]]]
+    static let fakeScienceCategory = [["Science": ["BILBO", "SAQUET"]]]
+    static let fakeLitteratureCategory = [["Littérature": ["BILBO", "SAQUET"]]]
+    
+    static let fakeCategories = [fakeArtCategory, fakeHistoryCategory, fakeScienceCategory, fakeLitteratureCategory]
+    
     
     static let fakeQuizzData = [["title": "La lune" as Any, "question": "Quel est le diamètre de la lune?" as Any, "propositions": ["3474", "6800", "12000"] as Any, "category": "Science"as Any, "response": "3474"as Any]]
     

@@ -9,7 +9,6 @@ import Foundation
 
 class UserDefaultsManager {
     // MARK: - FAVORITE
-    
     var userDefaults: UserDefaults
     
     init(userDefaults: UserDefaults = UserDefaults.standard) {
