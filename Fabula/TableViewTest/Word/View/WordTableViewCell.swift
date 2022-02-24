@@ -27,6 +27,11 @@ final class WordTableViewCell: UITableViewCell {
         }
     }
     
+    @IBAction func shareButtonTapped(_ sender: Any) {
+        let quoteToShare = Notification.Name("wordToShare")
+        NotificationCenter.default.post(name: quoteToShare, object: nil, userInfo: ["word": word?.word as Any, "definition": word?.definition as Any])
+    }
+    
     static func nib() -> UINib? {
         return UINib(nibName: "WordTableViewCell", bundle: nil)
     }

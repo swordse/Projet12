@@ -28,6 +28,9 @@ final class WordViewController: UIViewController, StoryBoarded {
         wordTableview.register(WordTableViewCell.nib(), forCellReuseIdentifier: WordTableViewCell.identifier)
         wordTableview.dataSource = datasource
         wordTableview.delegate = datasource
+        // add notification observer to observe word shared
+        NotificationCenter.default.addObserver(self, selector: #selector(wordQuote(notification:)), name: Notification.Name("wordToShare"), object: nil)
+        
         wordViewModel?.getWords()
         bind()
     }
@@ -51,6 +54,15 @@ final class WordViewController: UIViewController, StoryBoarded {
             [weak self] _ in
             self?.wordViewModel?.getNewWords()
         }
+    }
+    
+    @objc func wordQuote(notification: Notification) {
+        let userInfo = notification.userInfo
+        let wordToShare = userInfo?["word"]
+        let definitionToShare = userInfo?["definition"]
+        let items: [Any] = ["J'ai trouvé cette définition sur l'application Fabula", wordToShare as Any, definitionToShare as Any]
+        let activityController = UIActivityViewController(activityItems: items, applicationActivities: [])
+        present(activityController, animated: true, completion: nil)
     }
     
 }
