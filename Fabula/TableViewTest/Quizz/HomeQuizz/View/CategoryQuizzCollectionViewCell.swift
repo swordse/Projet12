@@ -34,7 +34,7 @@ final class CategoryQuizzCollectionViewCell: UICollectionViewCell {
         backView.layer.borderColor = (UIColor.label).cgColor
         isTrue ? (backView.layer.borderWidth = 2) : (backView.layer.borderWidth = 0)
     }
-    
+    // animation of the category image when selected
     func tiltImage() {
         categoryImage.tilt()
     }

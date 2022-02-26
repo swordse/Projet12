@@ -27,7 +27,7 @@ final class QuizzCoordinator: Coordinator {
         self.navigationController.navigationBar.barTintColor = UIColor.deepBlue
         self.navigationController.navigationBar.tintColor = .white
     }
-    
+    // show homequizzviewcontroller
     func start() {
         let vc = HomeQuizzViewController.instantiate()
         vc.coordinator = self
@@ -36,7 +36,7 @@ final class QuizzCoordinator: Coordinator {
         
         navigationController.pushViewController(vc, animated: true)
     }
-    
+    // show quizz
     func showQuizz(quizzs: [Quizz]) {
         let vc = TestQuizzViewController.instantiate()
         vc.coordinator = self

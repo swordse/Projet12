@@ -26,7 +26,7 @@ class FavoriteViewModelTests: XCTestCase {
 
     func testGetFavorite_WhenOK_ThenFavoriteAnecdoteClosureReturnAnecdote() {
 
-        let favoriteViewModel = FavoriteViewModel(coreDataSession: coreDataSession, anecdoteDetailDelegate: AnecdoteCoordinator(navigationController: UINavigationController()))
+        let favoriteViewModel = FavoriteViewModel(coreDataService: coreDataSession, anecdoteDetailDelegate: AnecdoteCoordinator(navigationController: UINavigationController()))
         
         coreDataSession.createFavorite(anecdote: FakeResponseData.fakeAnecdote)
         

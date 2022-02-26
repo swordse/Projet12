@@ -17,7 +17,7 @@ final class FavoriteDataSource: NSObject {
     }
     // pass anecdote, check if is favorite, check if is comment button tapped
     var selectedRow: ((Anecdote, Bool, Bool) -> Void)?
-    
+    // if sharebutton tapped, transmit anecdote text
     var textToShare: ((String) -> Void)?
 }
 
@@ -28,9 +28,7 @@ extension FavoriteDataSource: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        anecdotes.isEmpty ? 1 : anecdotes.count
         return anecdotes.count
-        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -48,62 +46,15 @@ extension FavoriteDataSource: UITableViewDataSource {
         cell.shareDelegate = self
         cell.commentDelegate = self
         return cell
-        
-        
     }
-    
-    
-//    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-//        return anecdotes.isEmpty ? 200 : 0
-//    }
-//    
-//    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-//        let label = UILabel()
-//        label.text = """
-//Vous n'avez pas de favoris.
-//Pour en ajouter, cliquez sur le coeur
-//dans le détail d'une anecdote.
-//"""
-//        label.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
-//        label.numberOfLines = 0
-//        label.textAlignment = .center
-//        label.textColor = .white
-//        return label
-//    }
+
 }
 
 extension FavoriteDataSource: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
         let anecdote = anecdotes[indexPath.row]
         selectedRow?(anecdote, false, true)
     }
-    
-//    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-//        if section == 1{
-//        let label = UILabel()
-//        label.text = """
-//Vous n'avez pas de favoris.
-//Pour en ajouter, cliquez sur le coeur
-//dans le détail d'une anecdote.
-//"""
-//        label.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
-//        label.numberOfLines = 0
-//        label.textAlignment = .center
-//        label.textColor = .white
-//        return label
-//        } else {
-//            return nil
-//        }
-//    }
-//
-//    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-//        if section == 1 {
-//        return anecdotes.isEmpty ? 200 : 0
-//        } else {
-//            return 0
-//        }
-//    }
     
 }
 

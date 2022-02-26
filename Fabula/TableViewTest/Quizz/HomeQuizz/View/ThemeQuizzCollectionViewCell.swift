@@ -7,6 +7,7 @@
 
 import UIKit
 
+// list of the theme of each category
 final class ThemeQuizzCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var backView: UIView!

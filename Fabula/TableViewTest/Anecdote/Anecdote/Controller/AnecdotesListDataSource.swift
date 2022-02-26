@@ -35,7 +35,7 @@ extension AnecdoteListDataSource: UITableViewDataSource {
         }
         // dataSource is delegate of the cell if share button is tapped
         cell.shareDelegate = self
-        // dataSource is delegate of the cell if share button is tapped
+        // dataSource is delegate of the cell if comment button is tapped
         cell.commentDelegate = self
         
         let anecdote = items[indexPath.row]

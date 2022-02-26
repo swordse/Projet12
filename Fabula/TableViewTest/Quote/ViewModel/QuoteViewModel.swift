@@ -17,9 +17,10 @@ final class QuoteViewModel {
         self.quotes = quotes
     }
     
-    // Output
+    //    MARK: - Output
     var quotesToDisplay: ((Result<[Quote], NetworkError>) -> Void)?
     
+    //    MARK: - Methods
     func getQuotes() {
         quoteService.getQuote { result in
             switch result {

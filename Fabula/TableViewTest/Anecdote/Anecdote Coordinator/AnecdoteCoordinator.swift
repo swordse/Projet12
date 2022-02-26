@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 
+// coordinator to show AnecdoteVC, DetailVC, SearchVC, FavoriteVC
 final class AnecdoteCoordinator: Coordinator {
     
     var childCoordinators = [Coordinator]()
@@ -46,15 +47,12 @@ final class AnecdoteCoordinator: Coordinator {
         let vc = FavoriteViewController.instantiate()
         vc.coordinator = self
         vc.favoriteViewModel = FavoriteViewModel(anecdoteDetailDelegate: self)
-//        vc.favoriteViewModel?.getFavorite()
-        
         navigationController.pushViewController(vc, animated: true)
     }
     
     func showSearch() {
         let vc = SearchViewController.instantiate()
         vc.coordinator = self
-        
         vc.searchViewModel = SearchViewModel(delegate: self)
         navigationController.pushViewController(vc, animated: true)
     }

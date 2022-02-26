@@ -10,15 +10,7 @@ import Foundation
 final class TestQuizzViewModel {
     
     var quizzs: [Quizz]
-    
-    // Output
-    var propositions: (([String]) -> Void)?
-    var question: ((String) -> Void)?
-    var isCorrect: ((Bool) -> Void)?
-    var displayedScore :((Int) -> Void)?
-    var isOngoing: ((Bool) -> Void)?
-    var progressBarProgress: ((Float) -> Void)?
-    
+    // variables to keep track of the game state
     var correctAnswer = ""
     var questionNumber = 0
     var score = 0
@@ -27,6 +19,16 @@ final class TestQuizzViewModel {
         self.quizzs = quizzs
     }
     
+    //    MARK: - Output
+    var propositions: (([String]) -> Void)?
+    var question: ((String) -> Void)?
+    var isCorrect: ((Bool) -> Void)?
+    var displayedScore :((Int) -> Void)?
+    var isOngoing: ((Bool) -> Void)?
+    var progressBarProgress: ((Float) -> Void)?
+    
+    //    MARK: - Methods
+    // call to start new game or if the game is ongoing
     func start() {
         let firstPropositions = quizzs[questionNumber].propositions
         propositions?(firstPropositions)
@@ -36,7 +38,7 @@ final class TestQuizzViewModel {
         progressBarProgress?(Float(Double(questionNumber)/10))
         displayedScore?(score)
     }
-    
+    // check if answer is correct
     func isCorrect(playerResponse: String) -> Void {
         if playerResponse == correctAnswer {
             isCorrect?(true)
@@ -55,6 +57,7 @@ final class TestQuizzViewModel {
             self.start()
             self.isOngoing?(true)
         } else {
+            self.progressBarProgress?(1)
             self.isOngoing?(false)
             self.endGame()
         }
@@ -62,7 +65,6 @@ final class TestQuizzViewModel {
     
     func endGame() {
         question?("Correct: \(score)\nIncorrect: \(quizzs.count - score)")
-        progressBarProgress?(1)
         questionNumber = 0
         score = 0
     }

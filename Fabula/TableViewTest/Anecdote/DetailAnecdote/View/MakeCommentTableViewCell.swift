@@ -10,7 +10,7 @@ import UIKit
 protocol WhichButtonTappedProtocol {
     func buttonTapped(isConnexion: Bool, isSubmit: Bool)
 }
-
+// cell for addcomment button. The connexion button is displayed if user is not connected, else the addComment button is displayed
 class MakeCommentTableViewCell: UITableViewCell {
 
     @IBOutlet weak var label: UILabel!
@@ -36,11 +36,6 @@ class MakeCommentTableViewCell: UITableViewCell {
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
-    
-//    @IBAction func commentTextReturnTapped(_ sender: UITextField) {
-//        print("tap")
-//        textFieldShouldReturn(sender)
-//    }
     
     @IBAction func submitCommentButtonTapped(_ sender: Any) {
         whichButtonTappedDelegate.buttonTapped(isConnexion: false, isSubmit: true)

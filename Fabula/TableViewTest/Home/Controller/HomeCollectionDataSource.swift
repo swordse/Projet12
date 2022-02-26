@@ -112,7 +112,6 @@ final class HomeCollectionDataSource: NSObject, UICollectionViewDataSource, UICo
             return
         } else {
             selectedSection?(indexPath)
-            print(indexPath)
         }
     }
 }

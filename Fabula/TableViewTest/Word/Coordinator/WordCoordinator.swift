@@ -25,7 +25,7 @@ final class WordCoordinator: Coordinator {
         self.navigationController.navigationBar.barTintColor = .deepBlue
         self.navigationController.navigationBar.tintColor = .white
     }
-    
+    // show wordViewController
     func start() {
         let vc = WordViewController.instantiate()
         vc.coordinator = self

@@ -24,23 +24,20 @@ final class FavoriteViewController: UIViewController, StoryBoarded {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        // set up view
         title = "Favoris"
-//        navigationItem.largeTitleDisplayMode = .always
         tableView.register(CommonAnecdoteTableViewCell.nib(), forCellReuseIdentifier: CommonAnecdoteTableViewCell.identifier)
-        
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "user"), style: .plain, target: self, action: #selector(connexionTapped))
-        
+        // set up data
         tableView.delegate = dataSource
         tableView.dataSource = dataSource
         bind()
         
-//        favoriteViewModel?.getFavorite()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         favoriteViewModel?.getFavorite()
-//        tableView.reloadData()
     }
     
     override func viewDidAppear(_ animated: Bool) {

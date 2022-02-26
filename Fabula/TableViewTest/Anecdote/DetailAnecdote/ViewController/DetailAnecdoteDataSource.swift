@@ -9,14 +9,13 @@ final class DetailAnecdoteDataSource: NSObject {
     private var isFavorite: Bool?
     private var isConnected = false
     
-    var commentToSave: ((String, String) -> Void)?
-    
+    // if commentConnexionTapped transmit tru
     var commentConnexionButtonTapped: ((Bool) -> Void)?
-    
+    // if shareButtonTapped transmit the anecdoteText
     var textToShare: ((String) -> Void)?
-    
+    // if commentSubmitButtonTapped transmit true
     var commentSubmitButtonTapped: ((Bool) -> Void)?
-    
+    // if commentButtonTapped transmit true
     var scrollToComment: ((Bool) -> Void)?
     
     func updateAnecdote(anecdote: Anecdote) {
@@ -112,7 +111,7 @@ extension DetailAnecdoteDataSource: UITableViewDataSource {
 }
 
 extension DetailAnecdoteDataSource: WhichButtonTappedProtocol {
-    // keep track of the button tapped comment or connexion
+    // keep track of the button tapped: comment or connexion
     func buttonTapped(isConnexion: Bool, isSubmit: Bool) {
         if isConnexion {
             commentConnexionButtonTapped?(true)

@@ -7,7 +7,7 @@
 
 import Foundation
 import UIKit
-
+// struct for the Quizzs with questions and propositions
 struct Quizz {
     var category: String
     var propositions: [String]
@@ -15,14 +15,14 @@ struct Quizz {
     var response: String
     var title: String
 }
-
+// enum to keep track of the available category
 enum QuizzCategory: String {
     case histoire = "Histoire"
     case science = "Science"
     case litterature = "Littérature"
     case art = "Art"
 }
-
+// struct to associate display info to category
 struct QuizzCategoryInfo {
     var name: String
     var image: UIImage

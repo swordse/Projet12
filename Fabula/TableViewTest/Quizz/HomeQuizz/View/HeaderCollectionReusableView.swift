@@ -6,7 +6,7 @@
 //
 
 import UIKit
-
+// header to display "Categories" and "Quizz" as header for the collectionView sections
 final class HeaderCollectionReusableView: UICollectionReusableView {
     
     static let identifier = "HeaderCollection"

@@ -10,21 +10,23 @@ import UIKit
 
 final class FavoriteViewModel {
     
-    var coreDataSession: BackupSession
+    var coreDataService: BackupSession
     var anecdoteDetailDelegate: AnecdoteDetailDelegate!
     var favorites = [Anecdote]()
     let favoriteNavButton = BadgedButtonItem.shared
     
-    init(coreDataSession: BackupSession = CoreDataService(coreDataStack: CoreDataStack()), anecdoteDetailDelegate: AnecdoteDetailDelegate) {
-        self.coreDataSession = coreDataSession
+    init(coreDataService: BackupSession = CoreDataService(coreDataStack: CoreDataStack()), anecdoteDetailDelegate: AnecdoteDetailDelegate) {
+        self.coreDataService = coreDataService
         self.anecdoteDetailDelegate = anecdoteDetailDelegate
     }
     
     //    MARK: - Output
     var favoriteAnecdote: (([Anecdote])-> Void)?
-    // retrieve favorit from CoreData
+    
+    //    MARK: - Methods
+    // retrieve favorite from CoreData
     func getFavorite() {
-        let favorites = coreDataSession.favorites
+        let favorites = coreDataService.favorites
         
         favoriteNavButton.setBadge(with: favorites.count)
         
@@ -39,9 +41,8 @@ final class FavoriteViewModel {
         }
         favoriteAnecdote?(anecdotes)
     }
-    
+    // show detailAnecdote when row is selected
     func selectedRow(anecdote: Anecdote, commentIsTapped: Bool, isFavoriteNavigation: Bool) {
-        
         let selectedFavorite = anecdote
         anecdoteDetailDelegate.getDetail(anecdote: selectedFavorite, commentIsTapped: commentIsTapped, isFavoriteNavigation: isFavoriteNavigation)
     }

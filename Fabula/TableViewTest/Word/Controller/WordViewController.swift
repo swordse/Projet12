@@ -24,8 +24,10 @@ final class WordViewController: UIViewController, StoryBoarded {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        // set up view
         title = "Mot du jour"
         wordTableview.register(WordTableViewCell.nib(), forCellReuseIdentifier: WordTableViewCell.identifier)
+        // set up data
         wordTableview.dataSource = datasource
         wordTableview.delegate = datasource
         // add notification observer to observe word shared
@@ -34,13 +36,12 @@ final class WordViewController: UIViewController, StoryBoarded {
         wordViewModel?.getWords()
         bind()
     }
-    
+    // bind with viewModel closures
     func bind() {
         wordViewModel?.wordsToDisplay = { [weak self] result in
             DispatchQueue.main.async {
                 switch result {
                 case.failure(let error):
-                    print(error)
                     self?.alert(networkError: error)
                 case.success(let success):
                     self?.words = success

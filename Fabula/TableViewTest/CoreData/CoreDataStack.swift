@@ -36,7 +36,6 @@ open class CoreDataStack {
         guard mainContext.hasChanges else { return }
         do {
             try mainContext.save()
-            print("saveContext of Coredatastack executed")
         } catch let error as NSError {
             print("Unresolved error \(error), \(error.userInfo)")
         }

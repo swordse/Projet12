@@ -7,7 +7,7 @@
 
 import Foundation
 import UIKit
-
+// struct for the coordinators
 protocol Coordinator: AnyObject {
     
     var childCoordinators: [Coordinator] { get set }

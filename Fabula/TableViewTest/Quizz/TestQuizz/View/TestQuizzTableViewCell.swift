@@ -6,7 +6,7 @@
 //
 
 import UIKit
-
+// cell for the propositions
 final class TestQuizzTableViewCell: UITableViewCell {
     
     static let identifier = "TestQuizzTableViewCell"

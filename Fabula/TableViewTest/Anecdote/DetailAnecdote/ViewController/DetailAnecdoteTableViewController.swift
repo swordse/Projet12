@@ -10,14 +10,14 @@ import UIKit
 
 class DetailAnecdoteTableViewController: UITableViewController, StoryBoarded {
     
-    // instance for the accountView
+    // instance for the accountView (to allow user to connect)
     let userAccount = UserAccountController()
-    // instance for the commentView
+    // instance for the commentView (to allow user to add comment)
     let commentForm = CommentForm()
     
     var coordinator: AnecdoteCoordinator?
     var anecdote: Anecdote?
-    var comments: [Comment]?
+//    var comments: [Comment]?
     var detailAnecdoteViewModel: DetailAnecdoteViewModel?
     
     var datasource = DetailAnecdoteDataSource()
@@ -34,13 +34,12 @@ class DetailAnecdoteTableViewController: UITableViewController, StoryBoarded {
         
         // add notificationCenter observer to save favorite
         NotificationCenter.default.addObserver(self, selector: #selector(saveFavorite(notification:)), name: Notification.Name("saveFavorite"), object: nil)
-        
+        // set up view
         tableview.register(CommonAnecdoteTableViewCell.nib(), forCellReuseIdentifier: CommonAnecdoteTableViewCell.identifier)
         title = "Detail"
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "user"), style: .plain, target: self, action: #selector(connexionTapped))
-        
+        // set up data
         tableview.dataSource = datasource
-//        tableview.delegate = datasource
         bind()
         
         guard let anecdote = anecdote else {
@@ -71,8 +70,9 @@ class DetailAnecdoteTableViewController: UITableViewController, StoryBoarded {
                 tableview.scrollToRow(at: IndexPath(item: 0, section: 2), at: .top, animated: true)
         }
     }
-    
+    // bind with the viewmodel closures
     func bind() {
+        // get comments
         detailAnecdoteViewModel?.comments = { [weak self] result in
             DispatchQueue.main.async {
                 switch result {
@@ -94,7 +94,7 @@ class DetailAnecdoteTableViewController: UITableViewController, StoryBoarded {
                 }
             }
         }
-        
+        // check is anecdote is a favorite
         detailAnecdoteViewModel?.isFavorite = { [weak self] bool in
             if bool == true {
                 self?.datasource.updateIsFavorite(isFavorite: true)
@@ -102,9 +102,8 @@ class DetailAnecdoteTableViewController: UITableViewController, StoryBoarded {
                 self?.datasource.updateIsFavorite(isFavorite: false)
             }
         }
-            
-        datasource.commentToSave = detailAnecdoteViewModel?.save(comment:anecdoteId:)
-        
+
+        // connexionButtonIsTapped show connexion form
         datasource.commentConnexionButtonTapped = { [weak self] bool in
             if bool {
                 guard let navigationController = self?.navigationController else {
@@ -114,7 +113,7 @@ class DetailAnecdoteTableViewController: UITableViewController, StoryBoarded {
                 self?.userAccount.authentificationDelegate = self
             }
         }
-        
+        // submitButtonIsTapped show comment form
         datasource.commentSubmitButtonTapped = { [weak self] bool in
             if bool {
             guard let navigationController = self?.navigationController else {
@@ -124,6 +123,7 @@ class DetailAnecdoteTableViewController: UITableViewController, StoryBoarded {
             self?.commentForm.submittedCommentDelegate = self
             }
         }
+        // shareButton tapped
         datasource.textToShare = { [weak self] text in
                     let items: [Any] = ["J'ai trouvé cette anecdote sur l'application Fabula:", text]
                     
@@ -131,6 +131,7 @@ class DetailAnecdoteTableViewController: UITableViewController, StoryBoarded {
                     
                     self?.present(shareController, animated: true, completion: nil)
                 }
+        // comment button tapped
         datasource.scrollToComment = { [weak self] bool in
             if bool {
                 self?.tableview.scrollToRow(at: IndexPath(item: 0, section: 2), at: .top, animated: true)

@@ -36,6 +36,7 @@
 		47274B8227B409AE00948A60 /* WordTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47274B8027B409AE00948A60 /* WordTableViewCell.swift */; };
 		47274B8327B409AE00948A60 /* WordTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47274B8127B409AE00948A60 /* WordTableViewCell.xib */; };
 		47274B8E27B425CF00948A60 /* WordService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47274B8D27B425CF00948A60 /* WordService.swift */; };
+		473650F827C97DF000538080 /* UITextView+DoneButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 473650F727C97DEF00538080 /* UITextView+DoneButton.swift */; };
 		474915C627A2A93600E35E52 /* CommentForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 474915C527A2A93600E35E52 /* CommentForm.swift */; };
 		474915CD27A2E2AA00E35E52 /* SectionHeaderCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 474915CB27A2E2AA00E35E52 /* SectionHeaderCollectionViewCell.swift */; };
 		474915CE27A2E2AA00E35E52 /* SectionHeaderCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 474915CC27A2E2AA00E35E52 /* SectionHeaderCollectionViewCell.xib */; };
@@ -133,7 +134,6 @@
 		47E96EB2278B547C003EEA57 /* CommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E96EB1278B547C003EEA57 /* CommentTableViewCell.swift */; };
 		47EF5B862789EED800222141 /* TableViewTest.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 47EF5B842789EED800222141 /* TableViewTest.xcdatamodeld */; };
 		47EF5B882789EF6B00222141 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47EF5B872789EF6A00222141 /* CoreDataStack.swift */; };
-		47EF5B8C2789FE2A00222141 /* DetailAnecdoteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47EF5B8B2789FE2A00222141 /* DetailAnecdoteTableViewCell.swift */; };
 		47F8363627C5583D0071329B /* FavoriteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47F8363527C5583D0071329B /* FavoriteTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
@@ -177,6 +177,8 @@
 		47274B8027B409AE00948A60 /* WordTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordTableViewCell.swift; sourceTree = "<group>"; };
 		47274B8127B409AE00948A60 /* WordTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WordTableViewCell.xib; sourceTree = "<group>"; };
 		47274B8D27B425CF00948A60 /* WordService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordService.swift; sourceTree = "<group>"; };
+		473650EF27C935DB00538080 /* gpxgenerator_path.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = gpxgenerator_path.gpx; sourceTree = "<group>"; };
+		473650F727C97DEF00538080 /* UITextView+DoneButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+DoneButton.swift"; sourceTree = "<group>"; };
 		474915C527A2A93600E35E52 /* CommentForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentForm.swift; sourceTree = "<group>"; };
 		474915CB27A2E2AA00E35E52 /* SectionHeaderCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionHeaderCollectionViewCell.swift; sourceTree = "<group>"; };
 		474915CC27A2E2AA00E35E52 /* SectionHeaderCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SectionHeaderCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -275,7 +277,6 @@
 		47E96EB1278B547C003EEA57 /* CommentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentTableViewCell.swift; sourceTree = "<group>"; };
 		47EF5B852789EED800222141 /* TableViewTest.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TableViewTest.xcdatamodel; sourceTree = "<group>"; };
 		47EF5B872789EF6A00222141 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
-		47EF5B8B2789FE2A00222141 /* DetailAnecdoteTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailAnecdoteTableViewCell.swift; sourceTree = "<group>"; };
 		47F8363527C5583D0071329B /* FavoriteTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -396,6 +397,65 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
+		473650F027C948C000538080 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				47A5C97C278F70C700F07594 /* FavoriteViewController.swift */,
+				47A5C982278F740400F07594 /* FavoriteDataSource.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		473650F127C948D200538080 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				47A5C980278F73AA00F07594 /* FavoriteViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		473650F227C948E900538080 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				47F8363527C5583D0071329B /* FavoriteTableViewCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		473650F327C9490100538080 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				4785CB5F2796BED8002FE564 /* SearchViewController.swift */,
+				4785CB642796CF45002FE564 /* SearchDataSource.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		473650F427C9490D00538080 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				4785CB622796CB08002FE564 /* SearchTableViewCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		473650F527C9491500538080 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				4785CB662796D5EA002FE564 /* SearchViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		473650F627C94A8F00538080 /* FakeFire */ = {
+			isa = PBXGroup;
+			children = (
+				47B37D4927B9521D002C05B7 /* FakeFireStoreSession.swift */,
+				47B37D4B27B952A1002C05B7 /* FakeResponseData.swift */,
+			);
+			path = FakeFire;
+			sourceTree = "<group>";
+		};
 		474915C427A2A91C00E35E52 /* CommentForm */ = {
 			isa = PBXGroup;
 			children = (
@@ -469,6 +529,7 @@
 				4784E8632784986200F502FE /* UIView+animation.swift */,
 				4784E8692787561200F502FE /* UIView+border.swift */,
 				47274B3E27B19B7500948A60 /* CustomColor.swift */,
+				473650F727C97DEF00538080 /* UITextView+DoneButton.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -476,10 +537,9 @@
 		4785CB612796CAB1002FE564 /* Search */ = {
 			isa = PBXGroup;
 			children = (
-				4785CB5F2796BED8002FE564 /* SearchViewController.swift */,
-				4785CB622796CB08002FE564 /* SearchTableViewCell.swift */,
-				4785CB642796CF45002FE564 /* SearchDataSource.swift */,
-				4785CB662796D5EA002FE564 /* SearchViewModel.swift */,
+				473650F427C9490D00538080 /* View */,
+				473650F327C9490100538080 /* Controller */,
+				473650F527C9491500538080 /* ViewModel */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -522,6 +582,7 @@
 				4780FA21279219F8002B2277 /* Helper */,
 				47908D462768FE0D00B2C760 /* Info.plist */,
 				47B79A2027B8278E00340DEA /* GoogleService-Info.plist */,
+				473650EF27C935DB00538080 /* gpxgenerator_path.gpx */,
 			);
 			path = TableViewTest;
 			sourceTree = "<group>";
@@ -551,10 +612,9 @@
 		47A5C97B278F709800F07594 /* Favorite */ = {
 			isa = PBXGroup;
 			children = (
-				47A5C97C278F70C700F07594 /* FavoriteViewController.swift */,
-				47A5C980278F73AA00F07594 /* FavoriteViewModel.swift */,
-				47A5C982278F740400F07594 /* FavoriteDataSource.swift */,
-				47F8363527C5583D0071329B /* FavoriteTableViewCell.swift */,
+				473650F227C948E900538080 /* View */,
+				473650F027C948C000538080 /* Controller */,
+				473650F127C948D200538080 /* ViewModel */,
 			);
 			path = Favorite;
 			sourceTree = "<group>";
@@ -743,10 +803,9 @@
 		47B37D4127B951C6002C05B7 /* FabulaTests */ = {
 			isa = PBXGroup;
 			children = (
+				473650F627C94A8F00538080 /* FakeFire */,
 				4716B86D27C2F7720031B607 /* Coordinator */,
 				47040CD027BFAB3B009AEB05 /* SubmittedComment */,
-				47B37D4927B9521D002C05B7 /* FakeFireStoreSession.swift */,
-				47B37D4B27B952A1002C05B7 /* FakeResponseData.swift */,
 				47AAE3F127BE99B600C895E1 /* FavoriteViewModelTests */,
 				47AAE3DB27BDA82000C895E1 /* TestQuizzTests */,
 				47AAE3D827BD09AE00C895E1 /* QuizzTests */,
@@ -882,7 +941,6 @@
 		47C36B2027BBD352008E671C /* View */ = {
 			isa = PBXGroup;
 			children = (
-				47EF5B8B2789FE2A00222141 /* DetailAnecdoteTableViewCell.swift */,
 				47E96EB1278B547C003EEA57 /* CommentTableViewCell.swift */,
 				47A5C976278C9CC600F07594 /* SourceTableViewCell.swift */,
 				47A95450279A0A540021EF90 /* MakeCommentTableViewCell.swift */,
@@ -984,9 +1042,9 @@
 		47E96EB0278B2C48003EEA57 /* DetailAnecdote */ = {
 			isa = PBXGroup;
 			children = (
+				47C36B2027BBD352008E671C /* View */,
 				47C36B2227BBD38C008E671C /* ViewController */,
 				47C36B2127BBD381008E671C /* ViewModel */,
-				47C36B2027BBD352008E671C /* View */,
 			);
 			path = DetailAnecdote;
 			sourceTree = "<group>";
@@ -1136,6 +1194,7 @@
 				47E661A1276CB3F400508FCF /* AnecdoteCoordinator.swift in Sources */,
 				47274B6E27B2B17B00948A60 /* QuoteService.swift in Sources */,
 				47EF5B862789EED800222141 /* TableViewTest.xcdatamodeld in Sources */,
+				473650F827C97DF000538080 /* UITextView+DoneButton.swift in Sources */,
 				4784E85F27848CF500F502FE /* TestQuizzViewModel.swift in Sources */,
 				47E89BD127B84789009C1372 /* FireStoreSession.swift in Sources */,
 				4785CB632796CB08002FE564 /* SearchTableViewCell.swift in Sources */,
@@ -1166,7 +1225,6 @@
 				474915DB27A6F2E100E35E52 /* DetailMapViewController.swift in Sources */,
 				47908D55276A483500B2C760 /* AnecdotesListDataSource.swift in Sources */,
 				47274B3F27B19B7500948A60 /* CustomColor.swift in Sources */,
-				47EF5B8C2789FE2A00222141 /* DetailAnecdoteTableViewCell.swift in Sources */,
 				4784E86A2787561200F502FE /* UIView+border.swift in Sources */,
 				4780FA252794BC56002B2277 /* UserDefaultsManager.swift in Sources */,
 				47DBCE8C27AEFFB50083D52C /* WelcomeViewController.swift in Sources */,
@@ -1324,7 +1382,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -1379,7 +1437,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -1406,7 +1464,7 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1437,7 +1495,7 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

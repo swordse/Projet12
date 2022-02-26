@@ -26,6 +26,7 @@ final class SearchViewModel {
     
     var resultAnecdotes: (([Anecdote]) -> Void)?
     
+    // -MARK: Methods
     func getAllAnecdotes() {
         searchService.getAllAnecdotes(dataRequest: DataRequest.anecdotes.rawValue) { result in
             switch result {

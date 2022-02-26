@@ -7,7 +7,7 @@
 
 import Foundation
 
-
+// class to get Quotes, first 5 and 5 more when user scroll down
 final class QuoteService {
     
     let session: FireStoreSession

@@ -32,7 +32,10 @@ final class DetailMapViewController: UIViewController, StoryBoarded {
     
     func setView(annotation: ParisAnnotation) {
         titleLabel?.text = annotation.title
-        annotationTextview?.text = annotation.text
+        
+        let cleanText = annotation.text?.replacingOccurrences(of: "?", with: "")
+        
+        annotationTextview?.text = cleanText
     }
 
     @IBAction func itineraryButtonTapped(_ sender: Any) {

@@ -19,7 +19,7 @@ protocol CommentDelegate {
     func commentWasTapped(for anecdote : Anecdote)
 }
                                     
-
+/// class for the cell used by AnecdoteViewController, DetailAnecdoteViewController, FavoriteViewController
 class CommonAnecdoteTableViewCell: UITableViewCell {
     
     var anecdote: Anecdote?
@@ -58,6 +58,7 @@ class CommonAnecdoteTableViewCell: UITableViewCell {
         titleLabel.text = anecdote.title
         anecdoteTextview.text = getReturnString(text: anecdote.text)
         
+        heartButton.setPreferredSymbolConfiguration(UIImage.SymbolConfiguration(scale: .large), forImageIn: .normal)
         if isFavorite {
             heartButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
         } else {
@@ -69,18 +70,6 @@ class CommonAnecdoteTableViewCell: UITableViewCell {
         } else {
             anecdoteTextview.heightAnchor.constraint(equalToConstant: 130).isActive = true
         }
-    }
-    
-    func showNoFavMessage() {
-        titleLabel.isHidden = true
-        dateLabel.isHidden = true
-        categoryLabel.isHidden = true
-        commentButton.isHidden = true
-        shareButton.isHidden = true
-        heartButton.isHidden = true
-        chevronImage.isHidden = true
-        
-        anecdoteTextview.textAlignment = .center
     }
     
     override func awakeFromNib() {
@@ -109,7 +98,6 @@ class CommonAnecdoteTableViewCell: UITableViewCell {
     
     
     @IBAction func commentButtonTapped(_ sender: UIButton) {
-        print("COMMENT BUTTON TAPPED")
         guard let anecdote = anecdote else {
             return
         }
@@ -120,7 +108,6 @@ class CommonAnecdoteTableViewCell: UITableViewCell {
         guard let text = anecdote?.text else {
             return
         }
-        print(text)
         shareDelegate?.shareTapped(with: text)
     }
     
@@ -137,13 +124,10 @@ class CommonAnecdoteTableViewCell: UITableViewCell {
         // check if it's already a favorite (image is heart.fill)
         if sender.imageView?.image == UIImage(systemName: "heart.fill") {
             sender.setImage(UIImage(systemName: "heart"), for: .normal)
-            sender.setPreferredSymbolConfiguration(UIImage.SymbolConfiguration(scale: .large), forImageIn: .normal)
-            
             NotificationCenter.default.post(name: deleteFavorite, object: nil, userInfo: ["anecdote" : anecdote])
         } else {
             sender.setImage(UIImage(systemName: "heart.fill"), for: .normal)
             sender.setPreferredSymbolConfiguration(UIImage.SymbolConfiguration(scale: .large), forImageIn: .normal)
-            
             NotificationCenter.default.post(name: saveFavorite, object: nil, userInfo: ["anecdote" : anecdote])
         }
     }

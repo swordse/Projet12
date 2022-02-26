@@ -12,7 +12,8 @@ final class HomeQuizzViewModel {
     
     var quizzService = QuizzService()
     var delegate: QuizzGetTest!
-    
+    var quizzs = [Quizz]()
+
     init(quizzService: QuizzService = QuizzService(), delegate: QuizzGetTest) {
         self.quizzService = quizzService
         self.delegate = delegate
@@ -24,8 +25,7 @@ final class HomeQuizzViewModel {
     // theme contains name of each quizz by category
     var theme: ((Result<[[String]], NetworkError>) -> Void)?
     
-    var quizzs = [Quizz]()
-    
+    //    MARK: - Methods
     // retrieve category for HomeQuizz
     func retrieveCategory() {
         var categoriesName = [String]()
@@ -72,7 +72,7 @@ final class HomeQuizzViewModel {
         categories?(quizzCategoryInfos)
     }
     
-    // retrieve theme for TestQuizz
+    // retrieve quizz for TestQuizz
     func retrieveQuizz(theme: String) {
         
         quizzService.getQuizzs(title: theme) { [weak self] result in

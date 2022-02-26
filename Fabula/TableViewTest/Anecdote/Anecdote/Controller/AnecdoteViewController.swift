@@ -18,7 +18,6 @@ class AnecdoteViewController: UIViewController, StoryBoarded {
     
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var tableView: UITableView!
-    // variable to add a badge to the favoriteButton
     private var hub: BadgeHub?
     
     var favoriteButton: UIButton = {
@@ -29,7 +28,6 @@ class AnecdoteViewController: UIViewController, StoryBoarded {
         button.tintColor = .white
         button.layer.cornerRadius = 15
         button.setTitleColor(.white, for: .normal)
-        button.titleEdgeInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0)
         button.setShadow()
         button.addTarget(self, action: #selector(favoriteButtonTapped), for: .touchUpInside)
         return button
@@ -37,9 +35,7 @@ class AnecdoteViewController: UIViewController, StoryBoarded {
     
     var searchButton: UIButton = {
         let button = UIButton(type: .custom)
-        
         button.setImage(UIImage(systemName: "magnifyingglass"), for: .normal)
-        
         button.setTitle("Recherche", for: .normal)
         button.backgroundColor = UIColor.systemPink
         button.tintColor = .white
@@ -47,7 +43,6 @@ class AnecdoteViewController: UIViewController, StoryBoarded {
         button.setShadow()
         
         button.setTitleColor(.white, for: .normal)
-        button.titleEdgeInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0)
         button.addTarget(self, action: #selector(searchButtonTapped), for: .touchUpInside)
         return button
     }()

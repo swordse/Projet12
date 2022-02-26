@@ -22,7 +22,7 @@ final class QuoteCoordinator: Coordinator {
         self.navigationController.navigationBar.barTintColor = .deepBlue
         self.navigationController.navigationBar.tintColor = .white
     }
-    
+    // show quoteViewController
     func start() {
         let vc = QuoteViewController.instantiate()
         vc.quoteViewModel = QuoteViewModel()

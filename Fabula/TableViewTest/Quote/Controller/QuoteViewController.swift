@@ -18,9 +18,11 @@ final class QuoteViewController: UIViewController, StoryBoarded {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        // set up view
         title = "Citations"
         quoteTableView.register(QuoteTableViewCell.nib(), forCellReuseIdentifier: QuoteTableViewCell.identifier)
         quoteTableView.separatorColor = .purple
+        // set up data
         quoteTableView.dataSource = datasource
         quoteTableView.delegate = datasource
         bind()
@@ -28,7 +30,7 @@ final class QuoteViewController: UIViewController, StoryBoarded {
         // add notificationCenter to observe the quoteShare
         NotificationCenter.default.addObserver(self, selector: #selector(shareQuote(notification:)), name: Notification.Name("quoteToShare"), object: nil)
     }
-    
+    // bind with viewmodel closures
     func bind() {
         quoteViewModel?.quotesToDisplay = { [weak self] result in
             DispatchQueue.main.async {
@@ -57,7 +59,7 @@ final class QuoteViewController: UIViewController, StoryBoarded {
             }
         }
     }
-    
+    // display activityController when shareButton is tapped
     @objc func shareQuote(notification: Notification) {
         let userInfo = notification.userInfo
         let textToShare = userInfo?["quote"]

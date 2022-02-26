@@ -11,14 +11,13 @@ class FavoriteTableViewCell: UITableViewCell {
 
     @IBOutlet weak var label: UILabel!
     
-    
-    func setCell() {
-        label.text =
-        """
-        Vous n'avez pas de favoris.
-        Pour en ajouter, cliquez sur le coeur dans le détail d'une anecdote.
-"""
-    }
+//    func setCell() {
+//        label.text =
+//        """
+//        Vous n'avez pas de favoris.
+//        Pour en ajouter, cliquez sur le coeur dans le détail d'une anecdote.
+//"""
+//    }
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

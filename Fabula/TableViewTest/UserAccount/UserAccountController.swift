@@ -292,10 +292,8 @@ final class UserAccountController: NSObject {
         userNameTextField.isHidden = true
         
         if UserDefaultsManager().retrieveUserConnexion() {
-            print("un utilisateur connecté")
             hideConnexion()
         } else {
-            print("pas d'utilisateur")
             showConnexion()
         }
         
@@ -354,7 +352,8 @@ final class UserAccountController: NSObject {
                 }
             case.success(_):
                 self?.authentificationDelegate?.statusChange(isConnected: true)
-                
+                self?.messageLabel.isHidden = false
+                self?.messageLabel.text = "Votre compte a été crée"
                 self?.titleLabel.text = "Deconnexion"
                 self?.hideConnexion()
                 self?.logOutButton.isHidden = false
@@ -363,6 +362,7 @@ final class UserAccountController: NSObject {
                 self?.confirmationPWTextField.text?.removeAll()
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                     self?.dismissView()
+                    self?.messageLabel.text = ""
                 }
                 
             }

@@ -25,7 +25,7 @@ final class HomeQuizzViewController: UIViewController, StoryBoarded {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        // set up view
         title = "Quizz"
         view.addSubview(collectionview)
         collectionview.backgroundColor = .deepBlue
@@ -42,14 +42,14 @@ final class HomeQuizzViewController: UIViewController, StoryBoarded {
         activityIndicator.frame = CGRect(x: view.center.x, y: view.center.x, width: 30, height: 30)
         activityIndicator.startAnimating()
         activityIndicator.isHidden = false
-        
+        // set up data
         guard let viewModel = viewModel else {
             return
         }
         bind()
         viewModel.retrieveCategory()
     }
-    
+    // bind with view model
     func bind() {
         guard let viewModel = viewModel else {
             return

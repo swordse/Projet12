@@ -6,7 +6,7 @@
 //
 
 import Foundation
-
+// struct for the word display
 struct Word {
     var word: String
     var definition: String

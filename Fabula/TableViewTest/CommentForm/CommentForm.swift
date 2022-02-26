@@ -12,12 +12,12 @@ final class CommentForm: NSObject {
     var submittedCommentDelegate: SubmittedCommentDelegate?
     
     struct Constants {
-        static let backgroundAlphaTo: CGFloat = 0.6
+        static let backgroundAlphaTo: CGFloat = 1
     }
     
     private let backgroundView: UIView = {
         let backgroundView = UIView()
-        backgroundView.backgroundColor = .black
+        backgroundView.backgroundColor = .deepBlue
         backgroundView.alpha = 0
         return backgroundView
     }()
@@ -40,9 +40,9 @@ final class CommentForm: NSObject {
         return titleLabel
     }()
     
-    private var commentTextField: UITextField = {
-        let commentTextField = UITextField()
-        return commentTextField
+    private var commentTextView: UITextView = {
+        let commentTextView = UITextView()
+        return commentTextView
     }()
     
     private var submitButton: UIButton = {
@@ -93,19 +93,13 @@ final class CommentForm: NSObject {
         alertView.addSubview(stackView)
         stackView.translatesAutoresizingMaskIntoConstraints = false
         
-        commentTextField.delegate = self
-        commentTextField.textColor = .black
-        commentTextField.attributedPlaceholder = NSAttributedString(
-            string: "Votre commentaire",
-            attributes: [NSAttributedString.Key.foregroundColor: UIColor.black]
-        )
-
-        commentTextField.leftViewMode = .always
-        commentTextField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 0))
-        commentTextField.backgroundColor = .white
-        commentTextField.layer.cornerRadius = 10
-        commentTextField.layer.borderWidth = 1
-        commentTextField.layer.borderColor = UIColor.black.cgColor
+        commentTextView.textColor = .black
+        commentTextView.backgroundColor = .white
+        commentTextView.layer.cornerRadius = 10
+        commentTextView.layer.borderWidth = 1
+        commentTextView.layer.borderColor = UIColor.black.cgColor
+        commentTextView.font = UIFont.systemFont(ofSize: 15)
+        commentTextView.addDoneButton(title: "Terminé", target: self, selector: #selector(tapDone(sender:)))
         
         submitButton.layer.cornerRadius = 10
         submitButton.layer.borderWidth = 1
@@ -116,14 +110,14 @@ final class CommentForm: NSObject {
         submitButton.backgroundColor = UIColor(named: "lightDark")
         submitButton.addTarget(self, action: #selector(submitTapped), for: .touchUpInside)
         
-        stackView.addArrangedSubview(commentTextField)
+        stackView.addArrangedSubview(commentTextView)
         stackView.addArrangedSubview(submitButton)
         
         NSLayoutConstraint.activate([
             stackView.leadingAnchor.constraint(equalTo: alertView.leadingAnchor, constant: +10),
             stackView.trailingAnchor.constraint(equalTo: alertView.trailingAnchor, constant: -10),
             stackView.centerYAnchor.constraint(equalTo: alertView.centerYAnchor),
-            commentTextField.heightAnchor.constraint(equalToConstant: 100),
+            commentTextView.heightAnchor.constraint(equalToConstant: 100),
             submitButton.heightAnchor.constraint(equalToConstant: 40)
         ])
         
@@ -139,7 +133,7 @@ final class CommentForm: NSObject {
     }
     // when submit button is tapped then comment text is transmitted to the delegate and the view is dismissed
     @objc func submitTapped() {
-        guard let commentText = commentTextField.text, !commentText.isEmpty else { return }
+        guard let commentText = commentTextView.text, commentText != "" else { return }
         submittedCommentDelegate?.commentSubmitted(comment: commentText)
         dismissView()
     }
@@ -165,12 +159,8 @@ final class CommentForm: NSObject {
             }
         })
     }
-}
-
-extension CommentForm: UITextFieldDelegate {
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        commentTextField.resignFirstResponder()
-        return true
+    
+    @objc func tapDone(sender: Any) {
+        commentTextView.endEditing(true)
     }
 }
-

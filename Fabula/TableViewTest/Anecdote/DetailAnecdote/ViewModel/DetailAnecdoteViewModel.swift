@@ -31,6 +31,7 @@ class DetailAnecdoteViewModel {
     var isFavorite: ((Bool) -> Void)?
     var favCount: ((Int) -> Void)?
     
+    //    MARK: - Methods
 // save comment add by user in firestore
     func save(comment: String, anecdoteId: String) {
         guard let user = UserDefaultsManager().retrieveUser() else { return }

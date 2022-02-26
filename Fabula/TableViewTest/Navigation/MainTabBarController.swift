@@ -7,7 +7,7 @@
 
 import Foundation
 import UIKit
-
+// tabBar to display the unique item to go home
 class MainTabBarController: UITabBarController {
     
     let homeCoordinator = HomeCoordinator(navigationController: UINavigationController())

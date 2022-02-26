@@ -16,6 +16,10 @@ final class QuoteTableViewCell: UITableViewCell {
     @IBOutlet weak var authorLabel: UILabel!
     @IBOutlet weak var shareButton: UIButton!
     
+    static func nib() -> UINib? {
+        return UINib(nibName: "QuoteTableViewCell", bundle: nil)
+    }
+    
     var quote: Quote? {
         didSet {
             guard let quote = quote else {
@@ -31,14 +35,11 @@ final class QuoteTableViewCell: UITableViewCell {
         super.awakeFromNib()
         shareButton.setTitle("", for: .normal)
     }
-    
+    // when shareButtonIsTapped notificationCenter post is send to view controller to inform it to present a ActivityController
     @IBAction func shareButton(_ sender: Any) {
         let quoteToShare = Notification.Name("quoteToShare")
         NotificationCenter.default.post(name: quoteToShare, object: nil, userInfo: ["quote": quote?.text as Any])
     }
-    
-    static func nib() -> UINib? {
-        return UINib(nibName: "QuoteTableViewCell", bundle: nil)
-    }
+
     
 }

@@ -23,17 +23,15 @@ final class SearchViewController: UIViewController, StoryBoarded, UISearchBarDel
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        // set view
         resultTableView.register(CommonAnecdoteTableViewCell.nib(), forCellReuseIdentifier: CommonAnecdoteTableViewCell.identifier)
-        
         navigationItem.searchController = searchController
         searchController.searchBar.delegate = self
         title = "Recherche"
         view.backgroundColor = .deepBlue
-        
+        // set data
         resultTableView.dataSource = datasource
         resultTableView.delegate = datasource
-        
         bind()
         searchViewModel?.getAllAnecdotes()
     }
@@ -57,6 +55,7 @@ final class SearchViewController: UIViewController, StoryBoarded, UISearchBarDel
     }
     
     func bind() {
+        // retrieve all anecdotes
         searchViewModel?.allAnecdotes = {
             [weak self] result in
             DispatchQueue.main.async {
@@ -69,7 +68,7 @@ final class SearchViewController: UIViewController, StoryBoarded, UISearchBarDel
                 }
             }
         }
-        
+        // obtain anecdotes results 
         searchViewModel?.resultAnecdotes =  {
             [weak self] result in
             self?.datasource.updateItems(items: result)

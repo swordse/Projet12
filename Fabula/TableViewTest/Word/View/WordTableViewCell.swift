@@ -15,6 +15,10 @@ final class WordTableViewCell: UITableViewCell {
     @IBOutlet weak var definitionLabel: UILabel!
     @IBOutlet weak var exampleLabel: UILabel!
     
+    static func nib() -> UINib? {
+        return UINib(nibName: "WordTableViewCell", bundle: nil)
+    }
+    
     var word: Word? {
         didSet {
             guard let word = word else {
@@ -27,13 +31,10 @@ final class WordTableViewCell: UITableViewCell {
         }
     }
     
+    // when shareButtonIsTapped notificationCenter post is send to view controller to inform it to present a ActivityController
     @IBAction func shareButtonTapped(_ sender: Any) {
         let quoteToShare = Notification.Name("wordToShare")
         NotificationCenter.default.post(name: quoteToShare, object: nil, userInfo: ["word": word?.word as Any, "definition": word?.definition as Any])
-    }
-    
-    static func nib() -> UINib? {
-        return UINib(nibName: "WordTableViewCell", bundle: nil)
     }
     
 }

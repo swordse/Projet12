@@ -17,9 +17,10 @@ final class WordViewModel {
         self.words = words
     }
     
-    // Output
+    //    MARK: - Output
     var wordsToDisplay: ((Result<[Word], NetworkError>) -> Void)?
-    
+    //    MARK: - Methods
+    // func to update wordsToDisplay
     func getWords() {
         wordService.getWords(dataRequest: DataRequest.words.rawValue) { result in
             switch result {

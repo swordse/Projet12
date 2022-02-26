@@ -23,13 +23,13 @@ final class TestQuizzViewController: UIViewController, StoryBoarded {
     var viewmodel: TestQuizzViewModel?
     var coordinator: QuizzCoordinator?
     var dataSource = TestQuizzDataSource()
-    
+    // register tableview with the proposed answers
     let answersTableView: UITableView = {
         let tableView = UITableView()
         tableView.register(TestQuizzTableViewCell.self, forCellReuseIdentifier: TestQuizzTableViewCell.identifier)
         return tableView
     }()
-    
+    // bottom bar to show game progress
     let progressView: UIProgressView = {
         let view = UIProgressView(progressViewStyle: .default)
         view.trackTintColor = .lightBlue
@@ -39,7 +39,7 @@ final class TestQuizzViewController: UIViewController, StoryBoarded {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        // setup view
         tabBarController?.tabBar.isHidden = true
         backQuestionView.layer.cornerRadius = 15
         tryAgainButton.layer.cornerRadius = 15
@@ -51,10 +51,11 @@ final class TestQuizzViewController: UIViewController, StoryBoarded {
         answersTableView.rowHeight = 70
         answersTableView.dataSource = dataSource
         answersTableView.delegate = dataSource
+        answersTableView.separatorStyle = .none
         view.addSubview(answersTableView)
         view.addSubview(progressView)
         progressView.setProgress(0, animated: true)
-        
+        // set up data
         guard let viewmodel = viewmodel else {
             return
         }
@@ -88,7 +89,7 @@ final class TestQuizzViewController: UIViewController, StoryBoarded {
     override func viewWillDisappear(_ animated: Bool) {
         tabBarController?.tabBar.isHidden = false
     }
-    
+    // bind with viewmodel closures
     func bind() {
         // pass answer of the datasource to the viewmodel
         dataSource.playerResponse = viewmodel?.isCorrect(playerResponse:)
@@ -134,6 +135,7 @@ final class TestQuizzViewController: UIViewController, StoryBoarded {
                 self?.gameIsOver()
             }
         }
+        
         self.viewmodel?.progressBarProgress = {
             [weak self] float in
             self?.progressBarProgress = float
@@ -154,7 +156,7 @@ final class TestQuizzViewController: UIViewController, StoryBoarded {
         guard let score = score else {
             return
         }
-        // hide label and progressView
+        // hide label
         questionLabel.isHidden = true
         questionLabel.text = "Correct: \(score)/10\nIncorrect: \(10-score)"
         
@@ -162,11 +164,13 @@ final class TestQuizzViewController: UIViewController, StoryBoarded {
         tryAgainButton.scaleMaxAnim(completion: nil)
         tryAgainButton.isEnabled = true
         changeQuizzButton.scaleMaxAnim { _ in
+            self.progressView.isHidden = true
+            self.progressView.setProgress(0, animated: true)
             self.animateActivityRing(to: 1)
             UIView.animate(withDuration: 0.8, animations: {
                 self.scoreLabel.transform = CGAffineTransform.init(translationX: (self.view.center.x - self.scoreLabel.center.x), y: 0)
             }) { _ in
-                self.progressView.isHidden = true
+                
                 UIView.animate(withDuration: 0.2, animations: { [self] in
                     self.backQuestionView.transform = CGAffineTransform.init(translationX: 0, y: (self.view.center.y - self.backQuestionView.center.y))
                     self.questionLabel.isHidden = false
@@ -209,6 +213,5 @@ final class TestQuizzViewController: UIViewController, StoryBoarded {
         tryAgainButton.isEnabled = false
         self.answersTableView.reloadData()
         self.answersTableView.alpha = 1
-        progressView.setProgress(0, animated: true)
     }
 }

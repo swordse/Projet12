@@ -15,7 +15,7 @@ final class SearchDataSource: NSObject {
     func updateItems(items: [Anecdote]) {
         self.items = items
     }
-    
+    // closure to transmit the cell tapped
     var selectedRow: ((Int) -> Void)?
 }
 

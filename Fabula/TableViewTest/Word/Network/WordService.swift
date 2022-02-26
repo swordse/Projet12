@@ -6,7 +6,7 @@
 //
 
 import Foundation
-
+// class to get Words
 final class WordService {
     
     let session: FireStoreSession

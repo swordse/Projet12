@@ -20,7 +20,6 @@ final class QuizzService {
         session.getCategoryQuizz(dataRequest: DataRequest.categoryQuizz.rawValue) { result, error in
             if error != nil {
                 callback(.failure(NetworkError.errorOccured))
-                print("ERROR IN QUIZZSERVICE TO GET CATEGORY")
             } else if result != nil {
                 callback(.success(result!))
             }
@@ -33,7 +32,6 @@ final class QuizzService {
                 callback(.failure(NetworkError.errorOccured))
             } else {
                 callback(.success(result!))
-                print("RESULT IN QUIZZSERVICE: \(String(describing: result))")
             }
         }
     }

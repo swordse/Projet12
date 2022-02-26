@@ -6,7 +6,7 @@
 //
 
 import UIKit
-
+// cell for the comments
 class CommentTableViewCell: UITableViewCell {
 
     @IBOutlet weak var authorNameLabel: UILabel!

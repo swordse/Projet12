@@ -6,7 +6,7 @@
 //
 
 import UIKit
-
+// cell for the source of the anecdote
 class SourceTableViewCell: UITableViewCell {
 
     @IBOutlet weak var backView: UIView!
