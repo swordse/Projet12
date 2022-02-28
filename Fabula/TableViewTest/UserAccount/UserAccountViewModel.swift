@@ -22,6 +22,7 @@ class UserAccountViewModel {
     
     var signInResult: ((Result<Bool, NetworkError>) -> Void)?
     
+    // -MARK: Methods
     func accountCreation(userEmail: String, password: String, userName: String) {
         
         // logout if a user is connected

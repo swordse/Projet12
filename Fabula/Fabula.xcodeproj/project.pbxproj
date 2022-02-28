@@ -117,7 +117,6 @@
 		47DB79052774F21C002D1703 /* SectionCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47DB79032774F21C002D1703 /* SectionCollectionViewCell.xib */; };
 		47DBCE8527A93B7D0083D52C /* CommonAnecdoteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47DBCE8327A93B7D0083D52C /* CommonAnecdoteTableViewCell.swift */; };
 		47DBCE8627A93B7D0083D52C /* CommonAnecdoteTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47DBCE8427A93B7D0083D52C /* CommonAnecdoteTableViewCell.xib */; };
-		47DBCE8A27AD4F180083D52C /* ActivityRing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47DBCE8927AD4F180083D52C /* ActivityRing.swift */; };
 		47DBCE8C27AEFFB50083D52C /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47DBCE8B27AEFFB50083D52C /* WelcomeViewController.swift */; };
 		47E6619F276CB36100508FCF /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E6619E276CB36100508FCF /* Coordinator.swift */; };
 		47E661A1276CB3F400508FCF /* AnecdoteCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E661A0276CB3F400508FCF /* AnecdoteCoordinator.swift */; };
@@ -262,7 +261,6 @@
 		47DB79032774F21C002D1703 /* SectionCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SectionCollectionViewCell.xib; sourceTree = "<group>"; };
 		47DBCE8327A93B7D0083D52C /* CommonAnecdoteTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonAnecdoteTableViewCell.swift; sourceTree = "<group>"; };
 		47DBCE8427A93B7D0083D52C /* CommonAnecdoteTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CommonAnecdoteTableViewCell.xib; sourceTree = "<group>"; };
-		47DBCE8927AD4F180083D52C /* ActivityRing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityRing.swift; sourceTree = "<group>"; };
 		47DBCE8B27AEFFB50083D52C /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		47E6619E276CB36100508FCF /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		47E661A0276CB3F400508FCF /* AnecdoteCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnecdoteCoordinator.swift; sourceTree = "<group>"; };
@@ -491,7 +489,6 @@
 				4780FA1F2792010F002B2277 /* BadgItem.swift */,
 				4780FA262795A589002B2277 /* BadgeHub.swift */,
 				4780FA242794BC56002B2277 /* UserDefaultsManager.swift */,
-				47274B3C27B18AE400948A60 /* UIViewController+Alert.swift */,
 				47908D382768FE0B00B2C760 /* AppDelegate.swift */,
 				47908D3A2768FE0B00B2C760 /* SceneDelegate.swift */,
 				47908D412768FE0D00B2C760 /* Assets.xcassets */,
@@ -525,11 +522,11 @@
 		4784E8622784984A00F502FE /* Extension */ = {
 			isa = PBXGroup;
 			children = (
-				47DBCE8927AD4F180083D52C /* ActivityRing.swift */,
 				4784E8632784986200F502FE /* UIView+animation.swift */,
 				4784E8692787561200F502FE /* UIView+border.swift */,
 				47274B3E27B19B7500948A60 /* CustomColor.swift */,
 				473650F727C97DEF00538080 /* UITextView+DoneButton.swift */,
+				47274B3C27B18AE400948A60 /* UIViewController+Alert.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -1251,7 +1248,6 @@
 				47908D392768FE0B00B2C760 /* AppDelegate.swift in Sources */,
 				47274B7F27B4095900948A60 /* Word.swift in Sources */,
 				47DB79012774EC24002D1703 /* Section.swift in Sources */,
-				47DBCE8A27AD4F180083D52C /* ActivityRing.swift in Sources */,
 				47274B3B27B1656700948A60 /* NetworkError.swift in Sources */,
 				4785CB672796D5EA002FE564 /* SearchViewModel.swift in Sources */,
 				47908D3B2768FE0B00B2C760 /* SceneDelegate.swift in Sources */,

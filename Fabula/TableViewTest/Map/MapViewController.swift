@@ -11,8 +11,6 @@ import MapKit
 
 final class MapViewController: UIViewController, StoryBoarded, CLLocationManagerDelegate {
     
-    let userAccount = UserAccountController()
-    
     var coordinator: MapCoordinator?
     
     let locationManager = CLLocationManager()
@@ -24,9 +22,7 @@ final class MapViewController: UIViewController, StoryBoarded, CLLocationManager
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Autour de vous"
-        
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "user"), style: .plain, target: self, action: #selector(connexionTapped))
-        
+   // set up data and delegate
         loadInitialData()
         mapView.addAnnotations(parisAnnotations)
         mapView.delegate = self
@@ -49,7 +45,7 @@ final class MapViewController: UIViewController, StoryBoarded, CLLocationManager
             print("error when creating parisannotation \(error)")
         }
     }
-    
+    // get the user authorization, set delegate and accuracy, get user location
     func initializeLocation() {
         guard CLLocationManager.locationServicesEnabled() else {
             return
@@ -59,9 +55,8 @@ final class MapViewController: UIViewController, StoryBoarded, CLLocationManager
         locationManager.requestWhenInUseAuthorization()
         locationManager.startUpdatingLocation()
     }
-    
+    // get user authorization status
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
-        
             let status = manager.authorizationStatus
             switch status {
             case.authorized:
@@ -80,14 +75,14 @@ final class MapViewController: UIViewController, StoryBoarded, CLLocationManager
                 fatalError()
         }
     }
-    
+    // get the first location
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let location = locations.first {
             locationManager.stopUpdatingLocation()
             render(location)
         }
     }
-    
+    // set the map on the user location
     func render(_ location: CLLocation) {
         let coordinate = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
         
@@ -96,14 +91,7 @@ final class MapViewController: UIViewController, StoryBoarded, CLLocationManager
         let region = MKCoordinateRegion(center: coordinate, span: span)
         mapView.setRegion(region, animated: true)
     }
-    
-    @objc func connexionTapped() {
-        guard let navigationController = navigationController else {
-            return
-        }
-        userAccount.showUserConnexion(on: navigationController)
-    }
-    
+    // if authorization is denied show alert
     func showAlert() {
         let alert = UIAlertController(title: "Pour utiliser cette fonctionnalité, vous devez autoriser votre localisation dans les paramètres.", message: "Merci d'accepter la localisation.", preferredStyle: .alert)
         let rejectAction = UIAlertAction(title: "Refuser", style: .cancel, handler: nil)
@@ -121,7 +109,7 @@ final class MapViewController: UIViewController, StoryBoarded, CLLocationManager
 }
 
 extension MapViewController: MKMapViewDelegate {
-    
+    // create annotation
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         guard let annotation = annotation as? ParisAnnotation else {
             return nil
@@ -142,7 +130,7 @@ extension MapViewController: MKMapViewDelegate {
         view.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
         return view
     }
-    
+    // set up accessoryControl
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
         
         guard let parisAnnotation = view.annotation as? ParisAnnotation else {

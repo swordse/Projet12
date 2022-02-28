@@ -62,7 +62,7 @@
          </BuildableReference>
       </BuildableProductRunnable>
       <LocationScenarioReference
-         identifier = "../../gpxgenerator_path.gpx"
+         identifier = "../../TableViewTest/gpxgenerator_path.gpx"
          referenceType = "0">
       </LocationScenarioReference>
    </LaunchAction>

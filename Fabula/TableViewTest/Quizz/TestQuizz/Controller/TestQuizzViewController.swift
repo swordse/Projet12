@@ -166,7 +166,8 @@ final class TestQuizzViewController: UIViewController, StoryBoarded {
         changeQuizzButton.scaleMaxAnim { _ in
             self.progressView.isHidden = true
             self.progressView.setProgress(0, animated: true)
-            self.animateActivityRing(to: 1)
+            let floatScore = Float(score)
+            self.animateActivityRing(to: CGFloat(floatScore/10))
             UIView.animate(withDuration: 0.8, animations: {
                 self.scoreLabel.transform = CGAffineTransform.init(translationX: (self.view.center.x - self.scoreLabel.center.x), y: 0)
             }) { _ in

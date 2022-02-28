@@ -114,7 +114,7 @@ final class UserAccountController: NSObject {
         targetView.addSubview(backgroundView)
         
         
-        alertView.frame = CGRect(x: 10, y: targetView.frame.size.height, width: targetView.frame.size.width - 20, height: backgroundView.frame.size.height - 200)
+        alertView.frame = CGRect(x: 10, y: targetView.frame.size.height, width: targetView.frame.size.width - 20, height: backgroundView.frame.size.height - 180)
         alertView.backgroundColor = UIColor(named: "darkBlue")
         
         targetView.addSubview(alertView)
